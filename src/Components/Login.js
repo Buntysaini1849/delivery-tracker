@@ -39,7 +39,7 @@ export default function Login() {
     
     else{
       console.log("login done");
-      navigate("/dashboard");
+      navigate("");
     }
 
   };
@@ -53,7 +53,7 @@ export default function Login() {
     <div className="row d-flex login-row p-0 ml-0">
       <div className="col-md-6 p-0">
         
-          <img src={loginimg} className="img-fluid loginimage" />
+          <img src={loginimg} className="img-fluid loginimage" alt="image" />
         
       </div>
       <div className="col-md-6">
