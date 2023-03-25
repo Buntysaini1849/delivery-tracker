@@ -16,7 +16,7 @@ body{
 
 .login-row{
   background-color: #e2dfdf;
-  height: 450px !important;
+  height: auto !important;
 }
 
 .logincont{
@@ -27,7 +27,7 @@ body{
 
 .login-form{
   background: #fff;
-  height: 80%;
+  height: auto;
 }
 
 
@@ -220,7 +220,7 @@ nav ul,nav li {
 
   .menu-item{
     text-decoration: none;
-    font-size: 0.890rem;
+    font-size: 0.890npmrem;
     font-weight: 600;
     color: rgb(0, 7, 61);
     background: white;
@@ -233,7 +233,6 @@ nav ul,nav li {
   }
 
   .menu-item:hover{
-
     background-color: #00264D !important;
     color: #fff;
   }

@@ -57,8 +57,8 @@ export default function Login() {
         
       </div>
       <div className="col-md-6">
-        <div className="login-form shadow-sm">
-      <form className="p-4 mt-5 ">
+        <div className="container p-4">
+      <form className="login-form shadow-sm p-4 mt-2">
         <h2 className="logintop-head mb-5">Login To Your Account</h2>
         <div className="form-group mt-3">
           <label className="label">Email address</label>
