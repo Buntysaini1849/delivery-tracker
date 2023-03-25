@@ -39,7 +39,7 @@ export default function Dashboard() {
                 backgroundColor: "#2F84FF",
               }}
             >
-              <h5 className="card-titlename mt-4">Total vendors</h5>
+              <h5 className="card-titlename mt-4">Total Products</h5>
               <p className="counts">100</p>
             </div>
           </div>
@@ -56,7 +56,7 @@ export default function Dashboard() {
                 backgroundColor: "#BC5BFF",
               }}
             >
-              <h5 className="card-titlename mt-4">Total Items</h5>
+              <h5 className="card-titlename mt-4">Total Users</h5>
               <p className="counts">500</p>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default function Dashboard() {
                 backgroundColor: "#FF3E4A",
               }}
             >
-              <h5 className="card-titlename mt-4">Total Firms</h5>
+              <h5 className="card-titlename mt-4">Total Orders</h5>
               <p className="counts">15</p>
             </div>
           </div>

@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 body{
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans', sans-serif;
   box-sizing: border-box;
+  background-color: #f5f5f5;
 }
-
 .loginheader{
   flex-direction: column;
   justify-content: center;
@@ -82,3 +85,170 @@ table th,table td{
   color:#003bc5;
   font-weight: 500;
 }
+
+.signout-head{
+  display: flex;
+  justify-content: end;
+}
+
+.Signout-icon{
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.alert{
+  font-size: 15px;
+  text-align: center;
+  padding: 3px;
+}
+
+.card-titlename{
+  font-size: .890rem;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight:400;
+  font-variant: normal;
+}
+
+
+
+.bars-cont{
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+}
+
+.bars{
+  font-size: 1.1rem;
+  cursor:pointer;
+  margin-top: 10px;
+}
+
+
+.main-container{
+  background: rgb(0, 7, 61);
+  color: #fff;
+  height: 100vh;
+  width: 200px;
+  position: relative;
+}
+
+.list-top{
+  margin-top: 60px;
+}
+
+nav ul,nav li {
+  outline:0;
+  margin:0;
+  padding:0;
+  }
+
+  nav a{
+    margin-left: 40px;
+  }
+
+ nav li, nav a:hover{
+    background-color: #00264D !important;
+
+  }
+
+
+  .list-items{
+    list-style-type: none;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px;
+    margin-left: -25px;
+  }
+  
+  svg{
+    margin-top: -7px;
+  }
+  
+  .list-items:hover{
+  
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .icons{
+    font-size: 20px;
+  }
+  
+   .list-link{
+    text-decoration: none;
+    color: #fff;
+    margin-top: 5px;
+    font-size: 16px;
+    list-style-type: none; 
+  }
+
+  .list-link:hover{
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .counts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff;
+    font-size: 1.4rem;
+  }
+
+  
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+    background: rgb(0, 7, 61);
+    width: 87%;
+    border-radius: 6px;
+    text-align: start;
+    align-items: flex-start;
+    padding: 12px;
+    position: absolute;
+    top: 251px;
+    left: 174px;
+    transition:1s ease;
+    
+}
+
+  .menu-item{
+    text-decoration: none;
+    font-size: 0.890rem;
+    font-weight: 600;
+    color: rgb(0, 7, 61);
+    background: white;
+    width: 100%;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+    margin-left: 0px;
+    margin-top: 7px;
+  }
+
+  .menu-item:hover{
+
+    background-color: #00264D !important;
+    color: #fff;
+  }
+
+  .arrow-icon{
+    font-size: 1.5rem;
+    margin-left: 10px;
+  }
+
+  .arrow-svg{
+    margin-top: 2px !important;
+    margin-left: -8px !important;
+  }
+
+  .svg-masters{
+    margin-left: 11px;
+    font-size: 1.4rem;
+  }

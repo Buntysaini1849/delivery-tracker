@@ -39,7 +39,7 @@ export default function Login() {
     
     else{
       console.log("login done");
-      navigate("");
+      navigate("/dashboard");
     }
 
   };
