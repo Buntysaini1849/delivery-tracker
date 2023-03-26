@@ -264,7 +264,7 @@ nav ul,nav li {
   
   
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 800px){
   .login-form{
    padding:13px !important;
   }
