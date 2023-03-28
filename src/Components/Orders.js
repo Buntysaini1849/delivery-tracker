@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Sidebar from "./Sidebar";
+import { useNavigate } from "react-router-dom";
 
-export default function Products() {
+
+export default function Orders() {
   const [form, setForm] = useState(false);
  
 
-  const handlebtn = () => setForm(true);
+ 
+  const navigate = useNavigate();
+
+  const navigateform = (event) => {
+    navigate("/OrderForm");
+  };
+
+
+
+  
 
 
   return (
@@ -43,7 +54,7 @@ export default function Products() {
                 >
                   <button
                     className="btn btn-sm btn-primary"
-                    onClick={handlebtn}
+                    onClick={navigateform}
                     style={{ height: "36px", marginTop: "9px" }}
                   >
                     Add Order
@@ -68,13 +79,12 @@ export default function Products() {
                 <thead>
                   <tr>
                     <th scope="col">SN</th>
+                    <th scope="col">Order Id</th>
                     <th scope="col">Customer Name</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Model</th>
-                    <th scope="col">HSN</th>
-                    <th scope="col">GST</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Qty</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Stock</th>
+                    <th scope="col">GST</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -84,12 +94,12 @@ export default function Products() {
                   <tbody>
                     <tr>
                       <th scope="row">1</th>
+                      <td>DN12345</td>
                       <td>Dinesh</td>
                       <td>Basket</td>
-                      <td>1215</td>
-                      <td>5%</td>
-                      <td>500</td>
-                      <td>800</td>
+                      <td>2</td>
+                      <td>1000</td>
+                      <td>2%</td>
                       <td><button
                     className="btn btn-sm btn-primary"
                     style={{ height: "30px"}}
@@ -109,115 +119,7 @@ export default function Products() {
             </div>
           </div>
 
-          <div className="col-md-4 col-sm-4 mt-2">
-            <div className="container-fluid">
-              <form
-                className="mt-5 p-4"
-                style={{
-                  background: "#fff",
-                  borderRadius: "20px",
-                  display: form ? "block" : "none",
-                }}
-              >
-                <p
-                  className="d-flex"
-                  style={{
-                    justifyContent: "center",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Add Product
-                </p>
-
-                <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                    Product Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="product_name"
-                    placeholder="Enter product name...."
-                    style={{ fontSize: "13px" }}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                    Product Code
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="product_code"
-                    placeholder="Enter product code...."
-                    style={{ fontSize: "13px" }}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                    Product HSN
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="product_hsn"
-                    placeholder="Enter product HSN...."
-                    style={{ fontSize: "13px" }}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                    GST %
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="product_gst"
-                    placeholder="Enter GST (in %)...."
-                    style={{ fontSize: "13px" }}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                    Total Quantity
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="product_qty"
-                    placeholder="Enter total quantity...."
-                    style={{ fontSize: "13px" }}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                    Pending Qty
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="pending_qty"
-                    placeholder="Enter pending quantity...."
-                    style={{ fontSize: "13px" }}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn btn-primary mt-4"
-                  style={{ width: "100%" }}
-                >
-                  Add
-                </button>
-              </form>
-            </div>
-          </div>
+        
         </div>
       </div>
     </div>

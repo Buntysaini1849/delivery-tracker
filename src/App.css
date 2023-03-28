@@ -251,22 +251,16 @@ nav ul,nav li {
     font-size: 1.4rem;
   }
 
-
-
-
-
   .login-form{
     background: #fff;
     height: auto;
   }
 
-  
-  
+
 
 @media only screen and (max-width: 800px){
   .login-form{
    padding:13px !important;
   }
 
-  
 }

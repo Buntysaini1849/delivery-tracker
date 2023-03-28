@@ -1,6 +1,6 @@
 import React, {useState}from 'react';
-import {FaBars,FaHome,FaRegFolder, FaAddressBook,FaFileInvoice} from 'react-icons/fa';
-import { MdOutlineArrowDropDown } from "react-icons/md";
+import {FaBars,FaHome,FaRegFolder,FaFileInvoice} from 'react-icons/fa';
+import { MdOutlineArrowDropDown,MdOutlineBorderStyle,MdOutlineDashboard} from "react-icons/md";
 import { BiDockTop} from "react-icons/bi";
 import {Link,Outlet} from 'react-router-dom';
 
@@ -30,13 +30,14 @@ export default function Sidebar() {
                <section className="routes">
                     <nav className='navigation-bar'>
                         <ul className='list-top'>
-                           <li className='list-items mt-5'><Link to="/dashboard" className='list-link'><span  className='icons' style={{marginLeft: !bars ? "1px":"-11px",title:"Home"}}><FaHome/></span><span style={{display: !bars ? "none":"block",marginTop:"-25px",marginLeft:"19px",fontSize:"0.910rem"}}>Home</span></Link></li> 
+                           <li className='list-items mt-5'><Link to="/dashboard" className='list-link'><span  className='icons' style={{marginLeft: !bars ? "1px":"-11px",title:"Home"}}><MdOutlineDashboard/></span><span style={{display: !bars ? "none":"block",marginTop:"-25px",marginLeft:"19px",fontSize:"0.910rem"}}>Home</span></Link></li> 
                            <li className='list-items mt-5'><Link to="/products" className='list-link'><span  className='icons' style={{marginLeft: !bars ? "1px":"13px"}}><FaRegFolder/></span><span style={{display: !bars ? "none":"block",marginTop:"-25px",marginLeft:"46px",fontSize:"0.910rem"}}>Products</span></Link></li>
+                           <li className='list-items mt-5'><Link to="/orders" className='list-link'><span  className='icons' style={{marginLeft: !bars ? "1px":"13px"}}><MdOutlineBorderStyle /></span><span style={{display: !bars ? "none":"block",marginTop:"-25px",marginLeft:"46px",fontSize:"0.910rem"}}>Orders</span></Link></li>
                            <li className='list-items mt-5' onClick={handleClick}><Link to="" className='list-link'><span  className='icons'><BiDockTop className='svg-masters' style={{marginLeft: !bars ? "3px":"32px"}}/></span><span style={{display: !bars ? "none":"block",marginTop:"-38px",marginLeft:"61px",fontSize:"0.910rem"}}>Masters<span className='arrow-icon'><MdOutlineArrowDropDown className='arrow-svg'/></span></span></Link>
                            </li>
                            
                            {isShown && (
-                           <div className="menu mt-3" style={{width:menu ? "100%" :"fit-content",top: menu? "251px" :"259px",left: menu? "174px" :"70px"}}>
+                           <div className="menu mt-3" style={{width:menu ? "100%" :"fit-content",top: menu? "340px" :"352px",left: menu? "174px" :"70px"}}>
           		              <a className="menu-item" href="#" style={{fontSize:menu ? "1rem" :"0.800rem",padding:menu ? "3px" :"5px"}}>Product</a>
           		              <a className="menu-item" href="#"style={{fontSize:menu ? "1rem" :"0.800rem",padding:menu ? "3px" :"5px"}}>User</a>
                             <a className="menu-item" href="#"style={{fontSize:menu ? "1rem" :"0.800rem",padding:menu ? "3px" :"5px"}}>Location</a>
