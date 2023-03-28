@@ -124,6 +124,20 @@ export default function Form(props) {
                       />
                 </div>
 
+                <div className="form-group mt-2">
+                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    disabled
+                    className="form-control"
+                    id="location"
+                    placeholder="Location..."
+                    style={{ fontSize: "13px" }}
+                  />
+                </div>
+
                 
 
               
