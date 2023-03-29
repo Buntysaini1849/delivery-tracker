@@ -5,12 +5,14 @@ body{
   padding: 0;
   font-family: 'Open Sans', sans-serif;
   box-sizing: border-box;
-  background-color: #f5f5f5;
+  background-image: linear-gradient(to right top, #157aec, #3573f6, #5469fc, #735bff, #9248ff, #ac3bf8, #c229ef, #d600e5, #e500d6, #f000c7, #f900b9, #ff09ac);
 }
 .loginheader{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #f5f5f5;
+  height: 100vh;
 
 }
 

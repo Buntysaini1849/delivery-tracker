@@ -15,8 +15,20 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [messageerror, setMessageError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [showinput, SetShowinput]=useState(false);
 
-  
+
+  const showhidediv = (e) =>{
+
+    e.preventDefault(); 
+     SetShowinput(true);
+
+  }
+
+
+  const setdefaultbox = () => {
+    window.location.reload(false);
+  }
 
   const navigate = useNavigate();
 
@@ -43,6 +55,10 @@ export default function Login() {
     }
 
   };
+
+
+
+
 
 
   return (
@@ -94,7 +110,8 @@ export default function Login() {
       </div>
 
       <div className="col-md-6 text-center">
-      <a href="" className="fgt-pswd ml-3 ">forgot password?</a>
+      <a href="" className="fgt-pswd ml-3" data-bs-toggle="modal" data-bs-target="#exampleModal">forgot password?</a>
+      
       </div>
 
      </div>
@@ -104,6 +121,66 @@ export default function Login() {
       </div>
     </div>
    </div>
+
+   <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title">Forget Password</h5>
+       
+      </div>
+      <div className="modal-body">
+        <form>
+         <div className="row d-flex">
+          <div className="col">
+          <div className="form-group mt-2">
+          <label className="label">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            name="email"
+          />
+          </div>
+
+          </div>
+
+          <div className="col">
+            <div className="otp-div mt-2">
+            <button className="btn btn-sm btn-success mt-4" onClick={showhidediv}>Send OTP</button>
+            </div>
+        
+          </div>
+         </div>
+         {showinput ?
+          <div className="form-group mt-2">
+          <label className="label"> Enter Otp</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            name="email"
+          />
+          </div>:null}
+
+          <div className="form-group mt-2">
+          <label className="label">New Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="passwprd"
+            name="password"
+          />
+          </div>
+        </form>
+      </div>
+      <div className="modal-footer">
+        <button type="submit" className="btn btn-primary">Save changes</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={setdefaultbox}>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   );
 }

@@ -150,7 +150,7 @@ export default function Products() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Product Code
                   </label>
@@ -163,7 +163,7 @@ export default function Products() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Product HSN
                   </label>
@@ -176,7 +176,7 @@ export default function Products() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     GST %
                   </label>
@@ -189,7 +189,7 @@ export default function Products() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Total Quantity
                   </label>
@@ -202,7 +202,7 @@ export default function Products() {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Pending Qty
                   </label>

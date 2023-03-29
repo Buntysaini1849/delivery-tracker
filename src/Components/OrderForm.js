@@ -6,10 +6,10 @@ export default function Form(props) {
   const [form, setForm] = useState(false);
   const [qty, setQty] = useState(0);
   const [price, setPrice] = useState(0);
-  
-
+ 
   const gst_rate = 0.02
   const final_gst = qty*price*gst_rate
+  const totalprice = qty*price+final_gst
 
  
   const handlesubmit = (e) => {
@@ -27,7 +27,7 @@ export default function Form(props) {
     
       
 
-      <div className="container mt-5">
+      <div className="container" style={{height:"100vh",marginTop:"90px"}}>
       <form
                 className="mt-5 p-4"
                 style={{
@@ -47,7 +47,10 @@ export default function Form(props) {
                   Add Order
                 </p>
 
-                <div className="form-group mt-1">
+
+          <div className="row">
+          <div className="col">
+          <div className="form-group mt-1">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Order Id
                   </label>
@@ -60,6 +63,10 @@ export default function Form(props) {
                   />
                 </div>
 
+          </div>
+                
+
+                <div className="col">
                 <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Customer Name
@@ -70,7 +77,12 @@ export default function Form(props) {
                       </select>
                 </div>
 
-                <div className="form-group mt-2">
+                </div>
+                </div>
+                
+              <div className="row">
+               <div className="col">
+               <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Item
                   </label>
@@ -79,7 +91,11 @@ export default function Form(props) {
                         <option value="" style={{ fontSize: "13px" }}>AB Wheel Roller</option>
                       </select>
                 </div>
+               </div>
+               
 
+
+                <div className="col">
                 <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Quantity
@@ -93,7 +109,14 @@ export default function Form(props) {
                     style={{ fontSize: "13px" }}
                   />
                 </div>
- 
+                </div>
+
+                </div>
+                
+
+                <div className="row">
+                  
+                <div className="col">
                 <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Price
@@ -102,13 +125,15 @@ export default function Form(props) {
                     type="number"
                     className="form-control"
                     id="price"
-                  
                     onChange={(ev) => setPrice(Number(ev.target.value))}
                     placeholder="Enter price...."
                     style={{ fontSize: "13px" }}
                   />
                 </div>
-
+                </div>
+ 
+                
+                <div className="col">
                 <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     GST %
@@ -119,12 +144,33 @@ export default function Form(props) {
                         value={final_gst}
                         id="gst"
                         name="gst"
-                       
                         style={{ fontSize: "13px" }}
                       />
                 </div>
+                </div>
+                
+                </div>
+                
+                 <div className="row">
 
-                <div className="form-group mt-2">
+                  <div className="col">
+                  <div className="form-group mt-2">
+                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                    Total Price
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="total_price"
+                    value={totalprice}
+                    placeholder="Enter total price...."
+                    style={{ fontSize: "13px" }}
+                  />
+                </div>
+
+                  </div>
+                 <div className="col">
+                 <div className="form-group mt-2">
                   <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                     Location
                   </label>
@@ -138,18 +184,19 @@ export default function Form(props) {
                   />
                 </div>
 
+                 </div>
+                 </div>
                 
-
-              
-
+               <div className="text-center">
                 <button
                   type="submit"
-                  className="btn btn-primary mt-4"
-                  style={{ width: "100%" }}
+                  className="btn btn-primary btn-md mt-4"
+                  style={{ width: "30%"}}
                   onClick={handlesubmit}
                 >
                   Add
                 </button>
+                </div>
               </form>
      </div>
     </div>

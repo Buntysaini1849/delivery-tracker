@@ -20,8 +20,8 @@ export default function Dashboard() {
      <Sidebar/>
     <div className="container-fluid">
       <div className="container-fluid signout-head mt-3">
-        <p style={{color:"rebeccapurple",fontWeight:"bold"}}>Welcome : <span>Dinesh</span> !</p>
-       <FaSignOutAlt className="Signout-icon ml-3" style={{marginTop:"1px"}} alt="signout" onClick={logout}/>
+        <p style={{color:"#fff",fontWeight:"bold"}}>Welcome : <span>Dinesh</span> !</p>
+       <FaSignOutAlt className="Signout-icon" style={{marginTop:"1px",marginLeft:"10px"}} alt="signout" onClick={logout}/>
        
       </div>
       <div className="container mb-5">
@@ -70,7 +70,7 @@ export default function Dashboard() {
               style={{
                 height: "100px",
                 borderRadius: "25px",
-                backgroundColor: "#FF3E4A",
+                backgroundColor: "#FF09AC",
               }}
             >
               <h5 className="card-titlename mt-4">Total Orders</h5>
