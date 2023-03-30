@@ -3,6 +3,7 @@ import {FaSignOutAlt} from 'react-icons/fa';
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
+import  dashimg from "../images/dashimg.png";
 
 
 export default function Dashboard() {
@@ -20,7 +21,7 @@ export default function Dashboard() {
      <Sidebar/>
     <div className="container-fluid">
       <div className="container-fluid signout-head mt-3">
-        <p style={{color:"#fff",fontWeight:"bold"}}>Welcome : <span>Dinesh</span> !</p>
+        <p style={{color:"#00264D",fontWeight:"bold"}}>Welcome : <span>Dinesh</span> !</p>
        <FaSignOutAlt className="Signout-icon" style={{marginTop:"1px",marginLeft:"10px"}} alt="signout" onClick={logout}/>
        
       </div>
@@ -37,8 +38,10 @@ export default function Dashboard() {
                 height: "100px",
                 borderRadius: "25px",
                 backgroundColor: "#2F84FF",
+                position:"relative"
               }}
             >
+              <img src={dashimg} className="img-fluid dashimage" alt="image" />
               <h5 className="card-titlename mt-4">Total Products</h5>
               <p className="counts">100</p>
             </div>
@@ -54,8 +57,10 @@ export default function Dashboard() {
                 height: "100px",
                 borderRadius: "25px",
                 backgroundColor: "#BC5BFF",
+                position:"relative"
               }}
             >
+              <img src={dashimg} className="img-fluid dashimage" alt="image" />
               <h5 className="card-titlename mt-4">Total Users</h5>
               <p className="counts">500</p>
             </div>
@@ -71,8 +76,10 @@ export default function Dashboard() {
                 height: "100px",
                 borderRadius: "25px",
                 backgroundColor: "#FF09AC",
+                position:"relative"
               }}
             >
+              <img src={dashimg} className="img-fluid dashimage" alt="image" />
               <h5 className="card-titlename mt-4">Total Orders</h5>
               <p className="counts">15</p>
             </div>
@@ -81,7 +88,7 @@ export default function Dashboard() {
       </div>
 
       <div className="container" style={{marginTop:"50px",backgroundColor:"#fff",padding:"15px",borderRadius:"15px" }}>
-        <table className="table table-hover mt-1">
+        <table className="table table-hover mt-1 table-responsive">
         
           <thead>
             <tr>

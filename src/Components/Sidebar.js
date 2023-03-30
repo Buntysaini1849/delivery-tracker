@@ -23,9 +23,12 @@ export default function Sidebar() {
   return (
     <div>
         <div className='main-container' style={{width: bars ? "200px" :"70px",transition:"1s ease",marginTop:"-10px"}}>
-          <div className='container bars-cont' style={{justifyContent: !bars ? "center" : "end"}}>
+           
+            <div className='container bars-cont' style={{justifyContent: !bars ? "center" : "end"}}>
             <FaBars className='bars' onClick={handleTrigger}/>
+         
           </div>
+          
             <div>
                <section className="routes">
                     <nav className='navigation-bar'>

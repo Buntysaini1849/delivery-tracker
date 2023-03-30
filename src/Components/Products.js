@@ -70,7 +70,7 @@ export default function Products() {
               }}
             >
               <table
-                className="table table-hover mt-1"
+                className="table table-hover mt-1 table-responsive"
                 style={{ width: "100%" }}
               >
                 <thead>
