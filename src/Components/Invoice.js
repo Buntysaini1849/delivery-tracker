@@ -61,7 +61,7 @@ export default function Invoice(props) {
             </div>
 
             <div
-              className="container mt-5 table-cls"
+              className="container mt-5 table-cls table-responsive"
               style={{
                 justifyContent: "start",
                 padding: "15px",

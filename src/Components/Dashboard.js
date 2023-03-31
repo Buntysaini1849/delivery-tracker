@@ -87,7 +87,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="container" style={{marginTop:"50px",backgroundColor:"#fff",padding:"15px",borderRadius:"15px" }}>
+      <div className="container table-responsive" style={{marginTop:"50px",backgroundColor:"#fff",padding:"15px",borderRadius:"15px" }}>
         <table className="table table-hover mt-1 table-responsive">
         
           <thead>

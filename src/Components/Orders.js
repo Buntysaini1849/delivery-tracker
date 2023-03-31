@@ -64,7 +64,7 @@ export default function Orders() {
             </div>
 
             <div
-              className="container mt-5 d-flex"
+              className="container mt-5 d-flex table-responsive"
               style={{
                 justifyContent: "start",
                 padding: "15px",
