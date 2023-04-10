@@ -444,17 +444,17 @@ export default function Products() {
                 }}
               >
            <div
-                  className="card align-items-center text-white  mt-2 shadow-sm"
+                  className="card align-items-center text-white  mt-2 shadow-sm keyword-card"
                   role="alert"
                   aria-live="assertive"
                   aria-atomic="true"
                   style={{display: cards ? "none":"block"}}
                 >
                   <div className="d-flex">
-                    <div className="card-body">item</div>
+                    <div className="card-body keyword-card-body">item</div>
                     <button
                       type="button"
-                      className="btn-close card-btn"
+                      className="btn-close keyword-card-btn"
                       onClick={hidecard}
                       aria-label="Close"
                     ></button>

@@ -306,7 +306,7 @@ nav ul,nav li {
   border: 1px solid rgb(0, 7, 61);
 }
 
-.card {
+.keyword-card {
   width: 54px;
   height: 32px;
   position: relative;
@@ -317,14 +317,14 @@ nav ul,nav li {
   overflow: revert;
 }
 
-.card-btn{
+.keyword-card-btn{
   position: absolute;
   right: -5px;
   top: -5px;
   font-size: 9px;
 }
 
-.card-body{
+.keyword-card-body{
   height: 31px !important;
   display: flex;
   justify-content: center;

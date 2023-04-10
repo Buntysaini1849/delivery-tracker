@@ -6,12 +6,12 @@ import  loginimg from "../images/loginimg.jpg";
 export default function Login() {
 
   const userDetails = {
-    username:"Dinesh",
-    email:"dineshsaini123@admin.com",
-    password:"dinesh123"
+    username:"admin",
+    email:"admin",
+    password:"admin"
    };
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [messageerror, setMessageError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -55,9 +55,9 @@ export default function Login() {
   const navigate = useNavigate();
 
   const login = (e) => {
-    if (email !== userDetails.email) {
-      setMessageError("email did not match");
-      console.log("email did not match");
+    if (username !== userDetails.username) {
+      setMessageError("username did not match");
+      console.log("username did not match");
       setIsAuthenticated(false);
       navigate("/");
     } 
@@ -100,13 +100,13 @@ export default function Login() {
       <form className="login-form shadow-sm p-4 mt-2">
         <h2 className="logintop-head mb-4">Login To Your Account</h2>
         <div className="form-group mt-1">
-          <label className="label">Email address</label>
+          <label className="label">Username</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="email"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
+            id="username"
+            name="username"
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="form-group mt-3">
