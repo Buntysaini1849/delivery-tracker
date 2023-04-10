@@ -293,8 +293,18 @@ nav ul,nav li {
 }
   
 
+.keyword-btn{
+  background:rgb(0, 7, 61);
+  color: #fff;
+  font-size: 15px;
+}
 
-
+.keyword-btn:hover{
+  background: #fff;
+  color: rgb(0, 7, 61);
+  font-weight: 600;
+  border: 1px solid rgb(0, 7, 61);
+}
 
 
 @media only screen and (max-width: 800px){
