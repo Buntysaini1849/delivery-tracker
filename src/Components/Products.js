@@ -1,13 +1,48 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 
+const gstdata = {
+  option1: {
+    gstrate: 0.05,
+  },
+  option2: {
+    gstrate: 0.2,
+  },
+  option3: {
+    gstrate: 0.03,
+  },
+};
+
 export default function Products() {
   const [form, setForm] = useState(false);
   const [data, setData] = useState([]);
+  const [cards, setCards] = useState(false);
+  const [keyword_data, setKeyword_data] = useState('');
   const [box, setBox] = useState(false);
+  const [qty, setQty] = useState(0);
+  const [prices, setPrices] = useState(0);
+  const [gstrate, setGstrate] = useState(0);
+
+  const final_gst = qty * prices * gstrate;
+  const totalprice = qty * prices + final_gst;
 
   const handlebtn = () => setForm(true);
   const handlebox = () => setBox(true);
+
+  const handlegstrate = (value) => {
+    setGstrate(gstdata[value].gstrate);
+  };
+
+  const hidecard = () => {
+    setCards(true);
+  }
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+
+  };
+
+
 
   useEffect(() => {
     fetch("http://ecommerce.techiecy.com/inventory/products/", {
@@ -148,17 +183,18 @@ export default function Products() {
                   id="pro-cat"
                   placeholder="Select unit..."
                   className="form-control"
+                  onChange={(e) => handlegstrate(e.currentTarget.value)}
                 >
                   <option value="" style={{ fontSize: "13px" }}>
                     Select product category...
                   </option>
-                  <option value="" style={{ fontSize: "13px" }}>
+                  <option value="option1" style={{ fontSize: "13px" }}>
                     Electronics
                   </option>
-                  <option value="" style={{ fontSize: "13px" }}>
+                  <option value="option2" style={{ fontSize: "13px" }}>
                     Grocery
                   </option>
-                  <option value="" style={{ fontSize: "13px" }}>
+                  <option value="option3" style={{ fontSize: "13px" }}>
                     Home Items
                   </option>
                 </select>
@@ -223,6 +259,7 @@ export default function Products() {
                   className="form-control"
                   id="qty"
                   placeholder="Enter quantity...."
+                  onChange={(ev) => setQty(Number(ev.target.value))}
                   style={{ fontSize: "13px" }}
                 />
               </div>
@@ -234,7 +271,7 @@ export default function Products() {
                   Unit
                 </label>
 
-                <select id="Unit_type">
+                <select id="Unit_type" title="Unit Type">
                   <option value="" style={{ fontSize: "13px" }}>
                     Pcs
                   </option>
@@ -276,7 +313,9 @@ export default function Products() {
                   className="form-control"
                   id="price-unit"
                   placeholder="Price per unit...."
+                  onChange={(ev) => setPrices(Number(ev.target.value))}
                   style={{ fontSize: "13px" }}
+                  title="Price per unit"
                 />
               </div>
             </div>
@@ -286,14 +325,33 @@ export default function Products() {
             <div className="col">
               <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
-                  GST %
+                  GST Rate
                 </label>
                 <input
-                  type="number"
+                  disabled
                   className="form-control"
                   id="product_gst"
+                  value={gstrate}
                   placeholder="Enter GST (in %)...."
                   style={{ fontSize: "13px" }}
+                  title="GST Rate"
+                />
+              </div>
+            </div>
+
+            <div className="col">
+              <div className="form-group">
+                <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
+                  FGST
+                </label>
+                <input
+                  disabled
+                  className="form-control"
+                  id="product_gst"
+                  value={final_gst}
+                  placeholder="Enter GST (in %)...."
+                  style={{ fontSize: "13px" }}
+                  title="GST"
                 />
               </div>
             </div>
@@ -304,11 +362,14 @@ export default function Products() {
                   Price
                 </label>
                 <input
+                  disabled
                   type="number"
                   className="form-control"
                   id="price"
+                  value={totalprice}
                   placeholder="Price...."
                   style={{ fontSize: "13px" }}
+                  title="price"
                 />
               </div>
             </div>
@@ -326,6 +387,7 @@ export default function Products() {
                   id="Pro_desc"
                   placeholder="Enter description...."
                   style={{ fontSize: "13px" }}
+                  title="Description"
                 />
               </div>
             </div>
@@ -342,6 +404,7 @@ export default function Products() {
                   placeholder="Enter keyword...."
                   style={{ fontSize: "13px" }}
                   onClick={handlebox}
+                  title="Keywords"
                 />
               </div>
             </div>
@@ -359,9 +422,9 @@ export default function Products() {
 
           <div className="row mt-3">
             <div className="col-md-6 col-sm-6">
-            <div className="form-group">
+              <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                Product Image
+                  Product Image
                 </label>
                 <input
                   type="file"
@@ -372,10 +435,32 @@ export default function Products() {
             </div>
 
             <div className="col-md-6 col-sm-6">
-              <div className="container" style={{border:"1px solid grey", height:"100px",display: box ? "block" : "none"}}>
-
+              <div
+                className="container"
+                style={{
+                  border: "1px solid grey",
+                  height: "100px",
+                  display: box ? "block" : "none",
+                }}
+              >
+           <div
+                  className="card align-items-center text-white  mt-2 shadow-sm"
+                  role="alert"
+                  aria-live="assertive"
+                  aria-atomic="true"
+                  style={{display: cards ? "none":"block"}}
+                >
+                  <div className="d-flex">
+                    <div className="card-body">item</div>
+                    <button
+                      type="button"
+                      className="btn-close card-btn"
+                      onClick={hidecard}
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                </div>     
               </div>
-           
             </div>
           </div>
 
@@ -383,6 +468,7 @@ export default function Products() {
             type="submit"
             className="btn btn-primary mt-4"
             style={{ width: "100%" }}
+            onClick={handlesubmit}
           >
             Add
           </button>
