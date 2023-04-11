@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 
-const gstdata = {
+{
+  /*const gstdata = {
   option1: {
     gstrate: 0.05,
   },
@@ -11,17 +12,23 @@ const gstdata = {
   option3: {
     gstrate: 0.03,
   },
-};
+}; */
+}
 
 export default function Products() {
   const [form, setForm] = useState(false);
   const [data, setData] = useState([]);
   const [cards, setCards] = useState(false);
-  const [keyword_data, setKeyword_data] = useState('');
+  const [itembox, setItembox] = useState(false);
+  const [keyword_data, setKeyword_data] = useState("");
   const [box, setBox] = useState(false);
   const [qty, setQty] = useState(0);
   const [prices, setPrices] = useState(0);
   const [gstrate, setGstrate] = useState(0);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [relatedOptions, setRelatedOptions] = useState([]);
+  const [text, setText] = useState("");
+  const [list, setList] = useState([]);
 
   const final_gst = qty * prices * gstrate;
   const totalprice = qty * prices + final_gst;
@@ -29,20 +36,54 @@ export default function Products() {
   const handlebtn = () => setForm(true);
   const handlebox = () => setBox(true);
 
-  const handlegstrate = (value) => {
-    setGstrate(gstdata[value].gstrate);
+  const handleInputChange = (event) => {
+    setText(event.target.value);
   };
+
+  const handleAddClick = (e) => {
+    e.preventDefault();
+    setList([...list, text]);
+    setText("");
+  };
+
+  const handledata = (e) => {
+    setSelectedOption(e.target.value);
+    if (e.target.value === "option1") {
+      setRelatedOptions([
+        "Mobiles",
+        "LED",
+        "Refridgerator",
+        "Washing Machine",
+        "LED Bulb",
+      ]);
+    } else if (e.target.value === "option2") {
+      setRelatedOptions(["Wheat Flour", "Oil", "Spices"]);
+    } else if (e.target.value === "option3") {
+      setRelatedOptions(["Spoon", "Sofa", "Chair", "Tables"]);
+    }
+  };
+
+  const handleitembox = (event) => {
+    if (event.target.value === "showInput") {
+      setItembox(true);
+    } else {
+      setItembox(false);
+    }
+  };
+
+  {
+    /*const handlegstrate = (value) => {
+    setGstrate(gstdata[value].gstrate);
+  }; */
+  }
 
   const hidecard = () => {
     setCards(true);
-  }
+  };
 
   const handlesubmit = (e) => {
     e.preventDefault();
-
   };
-
-
 
   useEffect(() => {
     fetch("http://ecommerce.techiecy.com/inventory/products/", {
@@ -181,21 +222,63 @@ export default function Products() {
                 </label>
                 <select
                   id="pro-cat"
-                  placeholder="Select unit..."
                   className="form-control"
-                  onChange={(e) => handlegstrate(e.currentTarget.value)}
+                  value={selectedOption}
+                  onChange={handledata}
                 >
-                  <option value="" style={{ fontSize: "13px" }}>
-                    Select product category...
+                  <option value="" style={{ fontSize: "12px" }}>
+                    ---Select product category---
                   </option>
-                  <option value="option1" style={{ fontSize: "13px" }}>
+                  <option
+                    value="option1"
+                    id="option1"
+                    style={{ fontSize: "12px" }}
+                  >
                     Electronics
                   </option>
-                  <option value="option2" style={{ fontSize: "13px" }}>
+                  <option
+                    value="option2"
+                    id="option2"
+                    style={{ fontSize: "12px" }}
+                  >
                     Grocery
                   </option>
-                  <option value="option3" style={{ fontSize: "13px" }}>
+                  <option
+                    value="option3"
+                    id="option3"
+                    style={{ fontSize: "12px" }}
+                  >
                     Home Items
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div className="col">
+              <div className="form-group">
+                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  Product Item
+                </label>
+
+                <select
+                  id="pro-item"
+                  className="form-control"
+                  onChange={handleitembox}
+                >
+                  <option value="" style={{ fontSize: "12px" }}>
+                    ---Select product item---
+                  </option>
+                  {relatedOptions.map((option) => (
+                    <option
+                      key={option}
+                      value={option}
+                      style={{ fontSize: "12px" }}
+                    >
+                      {option}
+                    </option>
+                  ))}
+                  <option value="showInput" style={{ fontSize: "15px" }}>
+                    Other
                   </option>
                 </select>
               </div>
@@ -215,6 +298,22 @@ export default function Products() {
                 />
               </div>
             </div>
+          </div>
+
+          <div
+            className="form-group mt-3"
+            style={{ display: itembox ? "block" : "none" }}
+          >
+            <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+              Other Item
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="other_item"
+              placeholder="Enter product item...."
+              style={{ fontSize: "13px" }}
+            />
           </div>
 
           <div class="row mt-3">
@@ -325,14 +424,13 @@ export default function Products() {
             <div className="col">
               <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
-                  GST Rate
+                  GST Rate <span style={{ fontSize: "12px" }}>in %</span>
                 </label>
                 <input
-                  disabled
                   className="form-control"
                   id="product_gst"
-                  value={gstrate}
-                  placeholder="Enter GST (in %)...."
+                  onChange={(ev) => setGstrate(Number(ev.target.value))}
+                  placeholder="Example 0.02 = (2% gst)...."
                   style={{ fontSize: "13px" }}
                   title="GST Rate"
                 />
@@ -405,6 +503,8 @@ export default function Products() {
                   style={{ fontSize: "13px" }}
                   onClick={handlebox}
                   title="Keywords"
+                  value={text}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -414,6 +514,7 @@ export default function Products() {
                 type="submit"
                 className="btn btn-sm mt-4 keyword-btn"
                 style={{ width: "100%" }}
+                onClick={handleAddClick}
               >
                 Add
               </button>
@@ -439,27 +540,35 @@ export default function Products() {
                 className="container"
                 style={{
                   border: "1px solid grey",
-                  height: "100px",
+                  height: "110px",
+                  overflowY:"scroll",
                   display: box ? "block" : "none",
                 }}
               >
-           <div
-                  className="card align-items-center text-white  mt-2 shadow-sm keyword-card"
-                  role="alert"
-                  aria-live="assertive"
-                  aria-atomic="true"
-                  style={{display: cards ? "none":"block"}}
-                >
-                  <div className="d-flex">
-                    <div className="card-body keyword-card-body">item</div>
-                    <button
-                      type="button"
-                      className="btn-close keyword-card-btn"
-                      onClick={hidecard}
-                      aria-label="Close"
-                    ></button>
+                <div className="container my-2 card-container" style={{display:"flex"}}>
+                {list.map((item, index) => (
+                  <div
+                    className="card align-items-center text-white  mt-2 shadow-sm keyword-card mx-2"
+                    role="alert"
+                    aria-live="assertive"
+                    aria-atomic="true"
+                    style={{ display: cards ? "none" : "block", marginLeft:"10px!important" }}
+                  >
+                    <div className="d-inherit">
+                      <div key={index} className="card-body keyword-card-body pt-1 pb-1">
+                        {item}
+                      </div>
+
+                  {/*}    <button
+                        type="button"
+                        className="btn-close keyword-card-btn"
+                        onClick={hidecard}
+                        aria-label="Close"
+                ></button> */}
+                    </div>
                   </div>
-                </div>     
+                ))}
+              </div>
               </div>
             </div>
           </div>
