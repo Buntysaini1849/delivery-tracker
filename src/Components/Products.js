@@ -17,27 +17,50 @@ import Sidebar from "./Sidebar";
 
 export default function Products() {
   const [form, setForm] = useState(false);
+  const [formData, setFormData] = useState([]);
   const [data, setData] = useState([]);
   const [cards, setCards] = useState(false);
   const [itembox, setItembox] = useState(false);
   const [keyword_data, setKeyword_data] = useState("");
+  const [contwidth,setContwidth] = useState(false);
   const [box, setBox] = useState(false);
   const [qty, setQty] = useState(0);
-  const [prices, setPrices] = useState(0);
+  const [prices, setPrices] = useState("");
   const [gstrate, setGstrate] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
   const [relatedOptions, setRelatedOptions] = useState([]);
   const [text, setText] = useState("");
   const [list, setList] = useState([]);
+  const [productCategory, setProductCategory] = useState("");
+  const [productitem, setProductItem] = useState("");
+  const [otheritem,setOtherItem] = useState("");
+  const [productname,setProductname] = useState("");
+  const [producthsn,setProducthsn] = useState("");
+  const [productcode,setProductcode] =useState("");
+  const [unit, setUnit] = useState("");
+  const [priceperunit, setPricePerUnit] = useState("");
+  const [fgst,setFgst] = useState(0);
+  const [productdescription, setProductDescription] = useState("");
+  const [keywords, setKeywords] = useState("");
 
-  const final_gst = qty * prices * gstrate;
-  const totalprice = qty * prices + final_gst;
+  const final_gst = qty * priceperunit * gstrate;
+  const totalprice = qty * priceperunit + final_gst;
 
-  const handlebtn = () => setForm(true);
+
+
+
+  const handlebtn = () => {
+    setForm(true)
+    setContwidth(true);
+  };
+  
   const handlebox = () => setBox(true);
 
-  const handleInputChange = (event) => {
-    setText(event.target.value);
+  const handleInputChange = (e) => {
+
+
+    setText(e.target.value);
+ 
   };
 
   const handleAddClick = (e) => {
@@ -46,44 +69,89 @@ export default function Products() {
     setText("");
   };
 
+  const options = [
+    { value: "", label: "---Select product category---" },
+    { value: "Electronics", label: "Electronics", name: "Electronics" },
+    { value: "Grocery", label: "Grocery", name: "Grocery" },
+    { value: "HomeItems", label: "Home Items", name: "HomeItems" }
+  ];
+
+  const optionRelatedMap = {
+    Electronics: ["Mobiles", "LED", "Refridgerator", "Washing Machine", "LED Bulb"],
+    Grocery: ["Wheat Flour", "Oil", "Spices"],
+    HomeItems: ["Spoon", "Sofa", "Chair", "Tables"],
+  };
+  
+
   const handledata = (e) => {
-    setSelectedOption(e.target.value);
-    if (e.target.value === "option1") {
-      setRelatedOptions([
-        "Mobiles",
-        "LED",
-        "Refridgerator",
-        "Washing Machine",
-        "LED Bulb",
-      ]);
-    } else if (e.target.value === "option2") {
-      setRelatedOptions(["Wheat Flour", "Oil", "Spices"]);
-    } else if (e.target.value === "option3") {
-      setRelatedOptions(["Spoon", "Sofa", "Chair", "Tables"]);
-    }
+    const selectedOption = e.target.value;
+    setSelectedOption(selectedOption);
+    setProductCategory(selectedOption);
+    setRelatedOptions(optionRelatedMap[selectedOption]);
+    console.log(selectedOption);
   };
 
+
   const handleitembox = (event) => {
+    setProductname(event.target.value);
     if (event.target.value === "showInput") {
       setItembox(true);
     } else {
       setItembox(false);
     }
+
+    
   };
 
-  {
+ 
     /*const handlegstrate = (value) => {
     setGstrate(gstdata[value].gstrate);
   }; */
+
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    const data = formData;
+    data.push({productCategory,productitem,productname,producthsn,productcode,qty,unit,priceperunit,prices,gstrate,fgst,productdescription,keywords});
+    setFormData(data);
+    localStorage.setItem("formData", JSON.stringify(data));
+    console.log(data);
+    setProductCategory("");
+    setProductItem("");
+    setProductname("");
+    setProducthsn("");
+    setProductItem("");
+    setQty("");
+    setUnit("");
+    setPricePerUnit("");
+    setKeywords("");
+    setProductDescription("");
+
+  };
+
+
+  const handledelete = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    alert('Local Storage cleared successfully!');
+
   }
+
+  useEffect(() => {
+    const data = localStorage.getItem("formData");
+    if (data) {
+      setFormData(JSON.parse(data));
+    }
+  }, []);
+
+
+
 
   const hidecard = () => {
     setCards(true);
   };
 
-  const handlesubmit = (e) => {
-    e.preventDefault();
-  };
+  
 
   useEffect(() => {
     fetch("http://ecommerce.techiecy.com/inventory/products/", {
@@ -97,7 +165,7 @@ export default function Products() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <div className="container-fluid">
+      <div className="container-fluid" style={{width:contwidth? "55%" :"100%", transition:"2s ease"}}>
         <div className="container-fluid mt-5">
           <div
             className="row d-flex"
@@ -142,32 +210,48 @@ export default function Products() {
             padding: "15px",
             background: "#fff",
             borderRadius: "15px",
+            height:"400px",
+            overflowY:"scroll"
           }}
         >
+          
           <table className="table table-hover mt-1 " style={{ width: "100%" }}>
             <thead>
               <tr>
                 <th scope="col">SN</th>
+                <th scope="col">Product Category</th>
+                <th scope="col">Product Item</th>
                 <th scope="col">Product Name</th>
-                <th scope="col">Model</th>
-                <th scope="col">HSN</th>
-                <th scope="col">GST</th>
+                <th scope="col">Product HSN</th>
+                <th scope="col">Product Code</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Price Per Unit</th>
+                <th scope="col">Gst Rate</th>
+                <th scope="col">FGST</th>
                 <th scope="col">Price</th>
-                <th scope="col">Stock</th>
+                <th scope="col">Product Description</th>
+                <th scope="col">Keywords</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
 
-            {data?.map((items) => (
+            {formData.length > 0 && (
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>{items.name}</td>
-                  <td>{items.model}</td>
-                  <td>{items.hsn}</td>
-                  <td>{items.gst}</td>
-                  <td>{items.price}</td>
-                  <td>{items.stock}</td>
+              {formData?.map((items,index) => (
+                <tr key={index}>
+                  <td>{index+1}</td>
+                  <td>{items.productCategory}</td>
+                  <td>{items.productitem}</td>
+                  <td>{items.productname}</td>
+                  <td>{items.producthsn}</td>
+                  <td>{items.productcode}</td>
+                  <td>{items.qty}</td>
+                  <td>{items.priceperunit}</td>
+                  <td>{items.gstrate}</td>
+                  <td>{items.fgst}</td>
+                  <td>{items.prices}</td>
+                  <td>{items.productdescription}</td>
+                  <td>{items.keywords}</td>
                   <td>
                     <button
                       className="btn btn-sm btn-primary"
@@ -180,14 +264,19 @@ export default function Products() {
                     <button
                       className="btn btn-sm btn-danger"
                       style={{ height: "30px" }}
+                      onClick={handledelete}
+                    
                     >
                       Delete
                     </button>
                   </td>
                 </tr>
+                 ))}
               </tbody>
-            ))}
+                 )}
+           
           </table>
+       
         </div>
       </div>
 
@@ -220,9 +309,11 @@ export default function Products() {
                 <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                   Product Category
                 </label>
-                <select
-                  id="pro-cat"
+           {/*     <select
+                  id="productcategory"
+                  name="productcategory"
                   className="form-control"
+                  key={selectedOption}
                   value={selectedOption}
                   onChange={handledata}
                 >
@@ -231,6 +322,7 @@ export default function Products() {
                   </option>
                   <option
                     value="option1"
+                    name="Electronics"
                     id="option1"
                     style={{ fontSize: "12px" }}
                   >
@@ -238,6 +330,7 @@ export default function Products() {
                   </option>
                   <option
                     value="option2"
+                    name="Grocrey"
                     id="option2"
                     style={{ fontSize: "12px" }}
                   >
@@ -246,11 +339,32 @@ export default function Products() {
                   <option
                     value="option3"
                     id="option3"
+                    name="HomeItems"
                     style={{ fontSize: "12px" }}
                   >
                     Home Items
                   </option>
-                </select>
+          </select> */}
+
+<select
+      id="productcategory"
+      name="productcategory"
+      className="form-control"
+      key={selectedOption}
+      value={selectedOption}
+      onChange={handledata}
+    >
+      {options.map((option) => (
+        <option
+          key={option.value}
+          value={option.value}
+          name={option.name}
+          style={{ fontSize: "12px" }}
+        >
+          {option.label}
+        </option>
+      ))}
+    </select>
               </div>
             </div>
 
@@ -261,9 +375,10 @@ export default function Products() {
                 </label>
 
                 <select
-                  id="pro-item"
+                  id="productitem"
+                  name="productitem"
                   className="form-control"
-                  onChange={handleitembox}
+                  onChange={(e) => setProductItem(e.target.value)}
                 >
                   <option value="" style={{ fontSize: "12px" }}>
                     ---Select product item---
@@ -292,9 +407,11 @@ export default function Products() {
                 <input
                   type="text"
                   className="form-control"
-                  id="product_name"
+                  id="productname"
+                  name="productname"
                   placeholder="Enter product name...."
                   style={{ fontSize: "13px" }}
+                  onChange={(ev) => setProductname(ev.target.value)}
                 />
               </div>
             </div>
@@ -310,9 +427,11 @@ export default function Products() {
             <input
               type="text"
               className="form-control"
-              id="other_item"
+              id="productitem"
+              name="productitem"
               placeholder="Enter product item...."
               style={{ fontSize: "13px" }}
+              onChange={handleitembox}
             />
           </div>
 
@@ -325,9 +444,11 @@ export default function Products() {
                 <input
                   type="text"
                   className="form-control"
-                  id="product_hsn"
+                  id="producthsn"
+                  name="producthsn"
                   placeholder="Enter product HSN...."
                   style={{ fontSize: "13px" }}
+                  onChange={(e) => setProducthsn(e.target.value)}
                 />
               </div>
             </div>
@@ -339,9 +460,11 @@ export default function Products() {
                 <input
                   type="text"
                   className="form-control"
-                  id="product_code"
+                  id="productcode"
+                  name="productcode"
                   placeholder="Enter product code...."
                   style={{ fontSize: "13px" }}
+                  onChange={(e) => setProductcode(e.target.value)}
                 />
               </div>
             </div>
@@ -357,6 +480,7 @@ export default function Products() {
                   type="number"
                   className="form-control"
                   id="qty"
+                  name="qty"
                   placeholder="Enter quantity...."
                   onChange={(ev) => setQty(Number(ev.target.value))}
                   style={{ fontSize: "13px" }}
@@ -370,7 +494,7 @@ export default function Products() {
                   Unit
                 </label>
 
-                <select id="Unit_type" title="Unit Type">
+                <select id="unit" name="unit" title="Unit Type" onChange={(e) => setUnit(e.target.value)}>
                   <option value="" style={{ fontSize: "13px" }}>
                     Pcs
                   </option>
@@ -410,9 +534,10 @@ export default function Products() {
                 <input
                   type="number"
                   className="form-control"
-                  id="price-unit"
+                  id="priceperunit"
+                  name="priceperunit"
                   placeholder="Price per unit...."
-                  onChange={(ev) => setPrices(Number(ev.target.value))}
+                  onChange={(ev) => setPricePerUnit(Number(ev.target.value))}
                   style={{ fontSize: "13px" }}
                   title="Price per unit"
                 />
@@ -428,7 +553,8 @@ export default function Products() {
                 </label>
                 <input
                   className="form-control"
-                  id="product_gst"
+                  id="gstrate"
+                  name="gstrate"
                   onChange={(ev) => setGstrate(Number(ev.target.value))}
                   placeholder="Example 0.02 = (2% gst)...."
                   style={{ fontSize: "13px" }}
@@ -443,9 +569,11 @@ export default function Products() {
                   FGST
                 </label>
                 <input
-                  disabled
+                 type="number"
                   className="form-control"
-                  id="product_gst"
+                  id="fgst"
+                  name="fgst"
+                  onChange={(e) => setFgst(e.target.value)}
                   value={final_gst}
                   placeholder="Enter GST (in %)...."
                   style={{ fontSize: "13px" }}
@@ -460,10 +588,11 @@ export default function Products() {
                   Price
                 </label>
                 <input
-                  disabled
                   type="number"
                   className="form-control"
-                  id="price"
+                  id="prices"
+                  name="prices"
+                  onChange={(e) => setPrices(e.target.value)}
                   value={totalprice}
                   placeholder="Price...."
                   style={{ fontSize: "13px" }}
@@ -482,10 +611,12 @@ export default function Products() {
                 <input
                   type="text"
                   className="form-control"
-                  id="Pro_desc"
+                  id="Productdescription"
+                  name="productDescription"
                   placeholder="Enter description...."
                   style={{ fontSize: "13px" }}
                   title="Description"
+                  onChange={(e) => setProductDescription(e.target.value)}
                 />
               </div>
             </div>
@@ -498,13 +629,15 @@ export default function Products() {
                 <input
                   type="text"
                   className="form-control"
-                  id="keywords"
                   placeholder="Enter keyword...."
                   style={{ fontSize: "13px" }}
                   onClick={handlebox}
-                  title="Keywords"
-                  value={text}
+                  id="keyword"
+                  name="keyword"
+                  title="Keyword"
                   onChange={handleInputChange}
+                  value={text}
+                  
                 />
               </div>
             </div>
@@ -530,7 +663,8 @@ export default function Products() {
                 <input
                   type="file"
                   className="form-control"
-                  id="product-image"
+                  id="productimage"
+                  name="productimage"
                 />
               </div>
             </div>
@@ -555,7 +689,9 @@ export default function Products() {
                     style={{ display: cards ? "none" : "block", marginLeft:"10px!important" }}
                   >
                     <div className="d-inherit">
-                      <div key={index} className="card-body keyword-card-body pt-1 pb-1">
+                      <div key={index} className="card-body keyword-card-body pt-1 pb-1"  id="keywords"
+                    name="keywords"
+                    onChange={(e) => setKeywords(e.target.value)}>
                         {item}
                       </div>
 
