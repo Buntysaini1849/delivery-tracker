@@ -129,11 +129,6 @@ table th,table td{
   font-weight: 600;
 }
 
-.logn-head{
-  font-size: 17px;
-  margin-left: 20px;
-  font-weight: 700;
-}
 
 .fgt-pswd {
   color: #003bc5;
@@ -385,9 +380,10 @@ nav ul,nav li {
 
 
 
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 650px){
   .login-form{
-   padding:13px !important;
+   padding:20px !important;
+   width: 80% !important;
   }
 
   .main-container{
