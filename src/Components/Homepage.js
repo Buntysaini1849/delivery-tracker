@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter , Routes, Route} from "react-router-dom";
 import Dashboard from './Dashboard'
 import Login from './Login';
 import Products from './Products';
 import Invoice from './Invoice';
 import Orders from './Orders';
-import OrderForm from './OrderForm';
+
 
 export default function Homepage() {
+  
+  const [productdata, setProductData] = useState([]);
+  
+  const handleproducts = (productitem) => {
+    setProductData([...productdata, {productitem}]);
+  }
+  
   return (
     <div>
 
@@ -20,9 +27,8 @@ export default function Homepage() {
             
             <Route path='/' element={<Login/>}/>
             <Route path="dashboard" element={<Dashboard/>} />
-            <Route path="products" element={<Products/>} />
-            <Route path="orders" element={<Orders/>} />
-            <Route path="orderform" element={<OrderForm/>} />
+            <Route path="products" element={<Products/>}/>
+            <Route path="orders" element={<Orders/>} products={productdata}/>
             <Route path="invoice" element={<Invoice/>} />
             
         

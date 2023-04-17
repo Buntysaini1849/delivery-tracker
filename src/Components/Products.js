@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 
+
 {
   /*const gstdata = {
   option1: {
@@ -25,7 +26,7 @@ export default function Products() {
   const [contwidth,setContwidth] = useState(false);
   const [box, setBox] = useState(false);
   const [qty, setQty] = useState(0);
-  const [prices, setPrices] = useState("");
+  const [prices, setPrices] = useState(0);
   const [gstrate, setGstrate] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
   const [relatedOptions, setRelatedOptions] = useState([]);
@@ -127,6 +128,7 @@ export default function Products() {
     setKeywords("");
     setProductDescription("");
 
+
   };
 
 
@@ -165,7 +167,7 @@ export default function Products() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <div className="container-fluid" style={{width:contwidth? "55%" :"100%", transition:"2s ease"}}>
+      <div className="container-fluid" style={{width:contwidth? "55%" :"100%", transition:"3s ease"}}>
         <div className="container-fluid mt-5">
           <div
             className="row d-flex"
@@ -210,7 +212,7 @@ export default function Products() {
             padding: "15px",
             background: "#fff",
             borderRadius: "15px",
-            height:"400px",
+            height:"auto",
             overflowY:"scroll"
           }}
         >
@@ -282,7 +284,7 @@ export default function Products() {
 
       <div
         className="container-fluid"
-        style={{ width: form ? "100%" : "0px", transition: "2s ease" }}
+        style={{ width: form ? "100%" : "0px", transition: "3s ease" }}
       >
         <form
           className="mt-5 p-4"
@@ -566,7 +568,7 @@ export default function Products() {
             <div className="col">
               <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
-                  FGST
+                  GST
                 </label>
                 <input
                  type="number"

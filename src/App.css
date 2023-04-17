@@ -343,6 +343,12 @@ nav ul,nav li {
   align-items: flex-start;
 }
 
+.plus-icon{
+  font-size: 19px;
+  position: absolute;
+  top: 8px;
+  left: 69px;
+}
 
 
 
