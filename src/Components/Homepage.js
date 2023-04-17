@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,createContext } from 'react'
 import { BrowserRouter , Routes, Route} from "react-router-dom";
 import Dashboard from './Dashboard'
 import Login from './Login';
@@ -9,11 +9,6 @@ import Orders from './Orders';
 
 export default function Homepage() {
   
-  const [productdata, setProductData] = useState([]);
-  
-  const handleproducts = (productitem) => {
-    setProductData([...productdata, {productitem}]);
-  }
   
   return (
     <div>
@@ -23,15 +18,13 @@ export default function Homepage() {
       
       <BrowserRouter>
         <Routes>
-          
-            
+
             <Route path='/' element={<Login/>}/>
             <Route path="dashboard" element={<Dashboard/>} />
             <Route path="products" element={<Products/>}/>
-            <Route path="orders" element={<Orders/>} products={productdata}/>
+            <Route path="orders" element={<Orders/>}/>
             <Route path="invoice" element={<Invoice/>} />
-            
-        
+
         </Routes>
       </BrowserRouter>
   

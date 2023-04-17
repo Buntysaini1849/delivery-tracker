@@ -35,8 +35,9 @@ body{
 .loginheader{
   flex-direction: column;
   justify-content: center;
+  height: 100vh;
   align-items: center;
-  background-color: #e5e0e0;
+  background-color: #fff;
 }
 
 .login-row{
@@ -94,22 +95,54 @@ table th,table td{
   font-weight:500;
 }
 
+.usericon{
+  position: absolute;
+  top: 109px;
+  left: 34px;
+  color: #003bc5;
+  font-size: 13px;
+}
+
+.keyicon {
+  position: absolute;
+  top: 185px;
+  left: 34px;
+  color: #003bc5;
+  font-size: 20px;
+}
+
 .login-btn{
-  width: 40%;
+  width: 100%;
   font-size: 1rem;
   color: #fff;
-  background-color: #F23E4A !important;
+  background-color: #003bc5 !important;
 }
 
 .login-btn:hover{
   color: #fff !important;
-  background-color: #E41725 !important;
+  background-color: #032679 !important;
 }
 
+.login-titles{
+  margin-left: 15px;
+  font-size: 17px;
+  font-weight: 600;
+}
 
-.fgt-pswd{
-  color:#003bc5;
+.logn-head{
+  font-size: 17px;
+  margin-left: 20px;
+  font-weight: 700;
+}
+
+.fgt-pswd {
+  color: #003bc5;
   font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.login-input {
+  padding-left: 35px;
 }
 
 .signout-head{

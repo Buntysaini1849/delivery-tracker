@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import  loginimg from "../images/loginimg.jpg";
-
+import {FaUserAlt} from 'react-icons/fa';
+import { BiKey } from "react-icons/bi";
 
 export default function Login() {
 
@@ -10,6 +10,8 @@ export default function Login() {
     email:"admin",
     password:"admin"
    };
+
+
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -45,12 +47,6 @@ export default function Login() {
     SetShownewinput(true);
   }
    
-
-
-
-
-
- 
 
   const setdefaultbox = () => {
     window.location.reload(false);
@@ -89,39 +85,35 @@ export default function Login() {
 
   return (
     <div className="loginheader">
-   <br/>
-   <br/>
-   <br/>
-   <div className="container logincont mt-5 p-0">
-    <div className="row d-flex login-row p-0 ml-0">
-      <div className="col-md-6 p-0">
-        
-          <img src={loginimg} className="img-fluid loginimage" alt="image" />
-        
-      </div>
-      <div className="col-md-6">
-        <div className="container p-4">
-      <form className="login-form shadow-sm p-4 mt-2">
+      <h3 className="login-titles pt-3">Delivery Management System <span style={{color:"#003bc5",fontWeight:"bold"}}>.</span></h3>
+      <br />
+      <br />
+      <br />
+      <br />
+     <div className="container-fluid p-4" style={{display:"flex",justifyContent:"center"}}>
+      <form className="login-form shadow-lg p-4 mt-2" style={{width:"30%",position:"relative"}}>
         <h2 className="logintop-head mb-4">Login To Your Account</h2>
         <div className="form-group mt-1">
           <label className="label">Username</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control login-input"
             id="username"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
           />
+          <FaUserAlt className="usericon"/>
         </div>
         <div className="form-group mt-3">
           <label className="label">Password</label>
           <input
             type="password"
-            className="form-control"
+            className="form-control login-input"
             id="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <BiKey className="keyicon"/>
         </div>
 
      <div className="row d-flex mt-4">
@@ -145,9 +137,6 @@ export default function Login() {
         
       </form>
       </div>
-      </div>
-    </div>
-   </div>
 
    <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
