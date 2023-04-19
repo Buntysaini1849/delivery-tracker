@@ -85,7 +85,7 @@ export default function Login() {
 
   return (
     <div className="loginheader">
-      <h3 className="login-titles pt-3">Delivery Management System <span style={{color:"#003bc5",fontWeight:"bold"}}>.</span></h3>
+      <h3 className="login-titles pt-3">Delivery Management System</h3>
       <br />
       <br />
       <br />
@@ -96,7 +96,7 @@ export default function Login() {
         <div className="form-group mt-1">
           <label className="label">Username</label>
           <input
-            type="text"
+            type="username"
             className="form-control login-input"
             id="username"
             name="username"

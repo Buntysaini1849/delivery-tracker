@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import Sidebar from "./Sidebar";
+import Orders from "./Orders";
 
 
-{
+
+
   /*const gstdata = {
   option1: {
     gstrate: 0.05,
@@ -14,9 +16,11 @@ import Sidebar from "./Sidebar";
     gstrate: 0.03,
   },
 }; */
-}
+
+
 
 export default function Products() {
+
   const [form, setForm] = useState(false);
   const [formData, setFormData] = useState([]);
   const [data, setData] = useState([]);
@@ -47,7 +51,7 @@ export default function Products() {
   const final_gst = qty * priceperunit * gstrate;
   const totalprice = qty * priceperunit + final_gst;
 
-
+  const DropDownContext = createContext();
 
 
   const handlebtn = () => {
@@ -165,8 +169,14 @@ export default function Products() {
   }, []);
 
   return (
+
+    
     <div style={{ display: "flex" }}>
       <Sidebar />
+
+      <DropDownContext.Provider value={{selectedOption, setSelectedOption, options}}>
+      <Orders />
+    </DropDownContext.Provider>
       <div className="container-fluid" style={{width:contwidth? "55%" :"100%", transition:"3s ease"}}>
         <div className="container-fluid mt-5">
           <div

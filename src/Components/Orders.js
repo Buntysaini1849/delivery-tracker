@@ -16,7 +16,6 @@ export default function Orders(props) {
   const [gst, setGst] = useState(0);
   const [inputs, setInputs] = useState([{ index: 1, value: '' }]);
   const [showinput, setshowinput] = useState(false);
-
   const gst_rate = 0.02;
   const final_gst = qty * price * gst_rate;
   const totalprice = qty * price + final_gst;
