@@ -51,7 +51,6 @@ export default function Products() {
   const final_gst = qty * priceperunit * gstrate;
   const totalprice = qty * priceperunit + final_gst;
 
-  const DropDownContext = createContext();
 
 
   const handlebtn = () => {
