@@ -172,10 +172,6 @@ export default function Products() {
     
     <div style={{ display: "flex" }}>
       <Sidebar />
-
-      <DropDownContext.Provider value={{selectedOption, setSelectedOption, options}}>
-      <Orders />
-    </DropDownContext.Provider>
       <div className="container-fluid" style={{width:contwidth? "55%" :"100%", transition:"3s ease"}}>
         <div className="container-fluid mt-5">
           <div
