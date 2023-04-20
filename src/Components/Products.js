@@ -2,10 +2,7 @@ import React, { useState, createContext, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Orders from "./Orders";
 
-
-
-
-  /*const gstdata = {
+/*const gstdata = {
   option1: {
     gstrate: 0.05,
   },
@@ -17,54 +14,55 @@ import Orders from "./Orders";
   },
 }; */
 
-
-
 export default function Products() {
-
   const [form, setForm] = useState(false);
+  const [itemform, setItemForm] = useState(false);
   const [formData, setFormData] = useState([]);
   const [data, setData] = useState([]);
   const [cards, setCards] = useState(false);
   const [itembox, setItembox] = useState(false);
   const [keyword_data, setKeyword_data] = useState("");
-  const [contwidth,setContwidth] = useState(false);
+  const [contwidth, setContwidth] = useState(false);
   const [box, setBox] = useState(false);
   const [qty, setQty] = useState(0);
   const [prices, setPrices] = useState(0);
-  const [gstrate, setGstrate] = useState(0);
+  const [gstrate, setGstrate] = useState('');
   const [selectedOption, setSelectedOption] = useState("");
   const [relatedOptions, setRelatedOptions] = useState([]);
   const [text, setText] = useState("");
   const [list, setList] = useState([]);
   const [productCategory, setProductCategory] = useState("");
   const [productitem, setProductItem] = useState("");
-  const [otheritem,setOtherItem] = useState("");
-  const [productname,setProductname] = useState("");
-  const [producthsn,setProducthsn] = useState("");
-  const [productcode,setProductcode] =useState("");
+  const [otheritem, setOtherItem] = useState("");
+  const [productname, setProductname] = useState("");
+  const [producthsn, setProducthsn] = useState("");
+  const [productcode, setProductcode] = useState("");
   const [unit, setUnit] = useState("");
   const [priceperunit, setPricePerUnit] = useState("");
-  const [fgst,setFgst] = useState(0);
+  const [fgst, setFgst] = useState('');
   const [productdescription, setProductDescription] = useState("");
   const [keywords, setKeywords] = useState("");
 
   const final_gst = qty * priceperunit * gstrate;
   const totalprice = qty * priceperunit + final_gst;
 
-
-
   const handlebtn = () => {
-    setForm(true)
+    setItemForm(false);
+    setForm(true);
     setContwidth(true);
   };
-  
+
+  const handleitembtn = () => {
+    setForm(false);
+    setItemForm(true);
+    setContwidth(true);
+  };
+
+
   const handlebox = () => setBox(true);
 
   const handleInputChange = (e) => {
-
-
     setText(e.target.value);
- 
   };
 
   const handleAddClick = (e) => {
@@ -77,15 +75,20 @@ export default function Products() {
     { value: "", label: "---Select product category---" },
     { value: "Electronics", label: "Electronics", name: "Electronics" },
     { value: "Grocery", label: "Grocery", name: "Grocery" },
-    { value: "HomeItems", label: "Home Items", name: "HomeItems" }
+    { value: "HomeItems", label: "Home Items", name: "HomeItems" },
   ];
 
   const optionRelatedMap = {
-    Electronics: ["Mobiles", "LED", "Refridgerator", "Washing Machine", "LED Bulb"],
+    Electronics: [
+      "Mobiles",
+      "LED",
+      "Refridgerator",
+      "Washing Machine",
+      "LED Bulb",
+    ],
     Grocery: ["Wheat Flour", "Oil", "Spices"],
     HomeItems: ["Spoon", "Sofa", "Chair", "Tables"],
   };
-  
 
   const handledata = (e) => {
     const selectedOption = e.target.value;
@@ -95,7 +98,6 @@ export default function Products() {
     console.log(selectedOption);
   };
 
-
   const handleitembox = (event) => {
     setProductname(event.target.value);
     if (event.target.value === "showInput") {
@@ -103,20 +105,30 @@ export default function Products() {
     } else {
       setItembox(false);
     }
-
-    
   };
 
- 
-    /*const handlegstrate = (value) => {
+  /*const handlegstrate = (value) => {
     setGstrate(gstdata[value].gstrate);
   }; */
-
 
   const handlesubmit = (e) => {
     e.preventDefault();
     const data = formData;
-    data.push({productCategory,productitem,productname,producthsn,productcode,qty,unit,priceperunit,prices,gstrate,fgst,productdescription,keywords});
+    data.push({
+      productCategory,
+      productitem,
+      productname,
+      producthsn,
+      productcode,
+      qty,
+      unit,
+      priceperunit,
+      prices,
+      gstrate,
+      fgst,
+      productdescription,
+      keywords,
+    });
     setFormData(data);
     localStorage.setItem("formData", JSON.stringify(data));
     console.log(data);
@@ -130,17 +142,13 @@ export default function Products() {
     setPricePerUnit("");
     setKeywords("");
     setProductDescription("");
-
-
   };
-
 
   const handledelete = (e) => {
     e.preventDefault();
     localStorage.clear();
-    alert('Local Storage cleared successfully!');
-
-  }
+    alert("Local Storage cleared successfully!");
+  };
 
   useEffect(() => {
     const data = localStorage.getItem("formData");
@@ -149,14 +157,9 @@ export default function Products() {
     }
   }, []);
 
-
-
-
   const hidecard = () => {
     setCards(true);
   };
-
-  
 
   useEffect(() => {
     fetch("http://ecommerce.techiecy.com/inventory/products/", {
@@ -168,11 +171,12 @@ export default function Products() {
   }, []);
 
   return (
-
-    
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <div className="container-fluid" style={{width:contwidth? "55%" :"100%", transition:"3s ease"}}>
+      <div
+        className="container-fluid"
+        style={{ width: contwidth ? "55%" : "100%", transition: "3s ease" }}
+      >
         <div className="container-fluid mt-5">
           <div
             className="row d-flex"
@@ -183,7 +187,7 @@ export default function Products() {
               width: "100%",
             }}
           >
-            <div className="col-md-6 col-sm-6">
+            <div className="col-md-9 col-sm-9">
               <p
                 className="mt-3"
                 style={{
@@ -195,17 +199,34 @@ export default function Products() {
                 Total Products : <span style={{ fontWeight: "bold" }}> 5</span>
               </p>
             </div>
-            <div
-              className="col-md-6 col-sm-6"
-              style={{ display: "flex", justifyContent: "end" }}
-            >
-              <button
-                className="btn btn-sm btn-primary"
-                onClick={handlebtn}
-                style={{ height: "36px", marginTop: "9px" }}
-              >
-                Add Product
-              </button>
+            <div className=" col-md-3 col-sm-3">
+              <div className="row d-flex">
+                <div
+                  className="col-md-6 col-sm-6"
+                  style={{ display: "flex", justifyContent: "end" }}
+                >
+                  <button
+                    className="btn btn-sm btn-primary"
+                    onClick={handlebtn}
+                    style={{marginTop: "9px" }}
+                  >
+                    Add Product
+                  </button>
+                </div>
+
+                <div
+                  className="col-md-6 col-sm-6"
+                  style={{ display: "flex", justifyContent: "end" }}
+                >
+                  <button
+                    className="btn btn-sm btn-primary"
+                    onClick={handleitembtn}
+                    style={{marginTop: "9px" }}
+                  >
+                    Add Item
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -217,11 +238,10 @@ export default function Products() {
             padding: "15px",
             background: "#fff",
             borderRadius: "15px",
-            height:"auto",
-            overflowY:"scroll"
+            height: "auto",
+            overflowY: "scroll",
           }}
         >
-          
           <table className="table table-hover mt-1 " style={{ width: "100%" }}>
             <thead>
               <tr>
@@ -244,52 +264,49 @@ export default function Products() {
 
             {formData.length > 0 && (
               <tbody>
-              {formData?.map((items,index) => (
-                <tr key={index}>
-                  <td>{index+1}</td>
-                  <td>{items.productCategory}</td>
-                  <td>{items.productitem}</td>
-                  <td>{items.productname}</td>
-                  <td>{items.producthsn}</td>
-                  <td>{items.productcode}</td>
-                  <td>{items.qty}</td>
-                  <td>{items.priceperunit}</td>
-                  <td>{items.gstrate}</td>
-                  <td>{items.fgst}</td>
-                  <td>{items.prices}</td>
-                  <td>{items.productdescription}</td>
-                  <td>{items.keywords}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm btn-primary"
-                      style={{ height: "30px" }}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-sm btn-danger"
-                      style={{ height: "30px" }}
-                      onClick={handledelete}
-                    
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                 ))}
+                {formData?.map((items, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{items.productCategory}</td>
+                    <td>{items.productitem}</td>
+                    <td>{items.productname}</td>
+                    <td>{items.producthsn}</td>
+                    <td>{items.productcode}</td>
+                    <td>{items.qty}</td>
+                    <td>{items.priceperunit}</td>
+                    <td>{items.gstrate}</td>
+                    <td>{items.fgst}</td>
+                    <td>{items.prices}</td>
+                    <td>{items.productdescription}</td>
+                    <td>{items.keywords}</td>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-primary"
+                        style={{ height: "30px" }}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        style={{ height: "30px" }}
+                        onClick={handledelete}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
-                 )}
-           
+            )}
           </table>
-       
         </div>
       </div>
 
       <div
         className="container-fluid"
-        style={{ width: form ? "100%" : "0px", transition: "3s ease" }}
+        style={{ width: form || itemform ? "100%" : "0px", transition: "3s ease" }}
       >
         <form
           className="mt-5 p-4"
@@ -316,7 +333,7 @@ export default function Products() {
                 <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                   Product Category
                 </label>
-           {/*     <select
+                <select
                   id="productcategory"
                   name="productcategory"
                   className="form-control"
@@ -324,87 +341,20 @@ export default function Products() {
                   value={selectedOption}
                   onChange={handledata}
                 >
-                  <option value="" style={{ fontSize: "12px" }}>
-                    ---Select product category---
-                  </option>
-                  <option
-                    value="option1"
-                    name="Electronics"
-                    id="option1"
-                    style={{ fontSize: "12px" }}
-                  >
-                    Electronics
-                  </option>
-                  <option
-                    value="option2"
-                    name="Grocrey"
-                    id="option2"
-                    style={{ fontSize: "12px" }}
-                  >
-                    Grocery
-                  </option>
-                  <option
-                    value="option3"
-                    id="option3"
-                    name="HomeItems"
-                    style={{ fontSize: "12px" }}
-                  >
-                    Home Items
-                  </option>
-          </select> */}
-
-<select
-      id="productcategory"
-      name="productcategory"
-      className="form-control"
-      key={selectedOption}
-      value={selectedOption}
-      onChange={handledata}
-    >
-      {options.map((option) => (
-        <option
-          key={option.value}
-          value={option.value}
-          name={option.name}
-          style={{ fontSize: "12px" }}
-        >
-          {option.label}
-        </option>
-      ))}
-    </select>
-              </div>
-            </div>
-
-            <div className="col">
-              <div className="form-group">
-                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                  Product Item
-                </label>
-
-                <select
-                  id="productitem"
-                  name="productitem"
-                  className="form-control"
-                  onChange={(e) => setProductItem(e.target.value)}
-                >
-                  <option value="" style={{ fontSize: "12px" }}>
-                    ---Select product item---
-                  </option>
-                  {relatedOptions.map((option) => (
+                  {options.map((option) => (
                     <option
-                      key={option}
-                      value={option}
+                      key={option.value}
+                      value={option.value}
+                      name={option.name}
                       style={{ fontSize: "12px" }}
                     >
-                      {option}
+                      {option.label}
                     </option>
                   ))}
-                  <option value="showInput" style={{ fontSize: "15px" }}>
-                    Other
-                  </option>
                 </select>
               </div>
             </div>
+
 
             <div className="col">
               <div className="form-group">
@@ -424,23 +374,6 @@ export default function Products() {
             </div>
           </div>
 
-          <div
-            className="form-group mt-3"
-            style={{ display: itembox ? "block" : "none" }}
-          >
-            <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-              Other Item
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="productitem"
-              name="productitem"
-              placeholder="Enter product item...."
-              style={{ fontSize: "13px" }}
-              onChange={handleitembox}
-            />
-          </div>
 
           <div class="row mt-3">
             <div className="col">
@@ -477,31 +410,223 @@ export default function Products() {
             </div>
           </div>
 
+
           <div className="row mt-3">
-            <div className="col-md-4 col-sm-4">
+            <div className="col">
               <div className="form-group">
-                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                  Qty
+                <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
+                  GST %
                 </label>
                 <input
                   type="number"
                   className="form-control"
-                  id="qty"
-                  name="qty"
-                  placeholder="Enter quantity...."
-                  onChange={(ev) => setQty(Number(ev.target.value))}
+                  id="fgst"
+                  name="fgst"
+                  onChange={(e) => setFgst(e.target.value)}
+                  value={final_gst}
+                  placeholder="Enter GST (in %)...."
                   style={{ fontSize: "13px" }}
+                  title="GST"
                 />
               </div>
             </div>
 
-            <div className="col-md-2 col-sm-2">
+            <div className="col">
               <div className="form-group">
+                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  Product Description
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="Productdescription"
+                  name="productDescription"
+                  placeholder="Enter description...."
+                  style={{ fontSize: "13px" }}
+                  title="Description"
+                  onChange={(e) => setProductDescription(e.target.value)}
+                />
+              </div>
+            </div>
+
+          </div>
+
+          <div className="row mt-3">
+          
+
+            <div className="col-md-4 col-sm-4">
+              <div className="form-group">
+                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  Keywords
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter keyword...."
+                  style={{ fontSize: "13px" }}
+                  onClick={handlebox}
+                  id="keyword"
+                  name="keyword"
+                  title="Keyword"
+                  onChange={handleInputChange}
+                  value={text}
+                />
+              </div>
+            </div>
+
+            <div className="col-md-4 col-sm-4">
+              <button
+                type="submit"
+                className="btn btn-sm mt-4 keyword-btn"
+                style={{ width: "100%" }}
+                onClick={handleAddClick}
+              >
+                Add
+              </button>
+            </div>
+
+            <div className="col-md-4 col-sm-4">
+              <div
+                className="container"
+                style={{
+                  border: "1px solid grey",
+                  height: "110px",
+                  overflowY: "scroll",
+                  display: box ? "block" : "none",
+                }}
+              >
+                <div
+                  className="container my-2 card-container"
+                  style={{ display: "flex" }}
+                >
+                  {list.map((item, index) => (
+                    <div
+                      className="card align-items-center text-white  mt-2 shadow-sm keyword-card mx-2"
+                      role="alert"
+                      aria-live="assertive"
+                      aria-atomic="true"
+                      style={{
+                        display: cards ? "none" : "block",
+                        marginLeft: "10px!important",
+                      }}
+                    >
+                      <div className="d-inherit">
+                        <div
+                          key={index}
+                          className="card-body keyword-card-body pt-1 pb-1"
+                          id="keywords"
+                          name="keywords"
+                          onChange={(e) => setKeywords(e.target.value)}
+                        >
+                          {item}
+                        </div>
+
+                        {/*}    <button
+                        type="button"
+                        className="btn-close keyword-card-btn"
+                        onClick={hidecard}
+                        aria-label="Close"
+                ></button> */}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row mt-3">
+            <div className="col-md-6 col-sm-6">
+              <div className="form-group">
+                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  Product Image
+                </label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="productimage"
+                  name="productimage"
+                />
+              </div>
+            </div>
+
+          
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary mt-4"
+            style={{ width: "100%" }}
+            onClick={handlesubmit}
+          >
+            Add
+          </button>
+        </form>
+
+
+
+        <form
+          className="mt-5 p-4"
+          style={{
+            background: "#fff",
+            borderRadius: "20px",
+            display: itemform ? "block" : "none",
+          }}
+        >
+          <p
+            className="d-flex"
+            style={{
+              justifyContent: "center",
+              fontSize: "20px",
+              fontWeight: "bold",
+            }}
+          >
+            Add Item
+          </p>
+
+          <div className="row mt-2">
+            <div className="col-md-6 col-sm-6">
+              <div className="form-group">
+                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  Select Product
+                </label>
+                <select
+                  id="productcategory"
+                  name="productcategory"
+                  className="form-control"
+                  key={selectedOption}
+                  value={selectedOption}
+                  onChange={handledata}
+                >
+                  {options.map((option) => (
+                    <option
+                      key={option.value}
+                      value={option.value}
+                      name={option.name}
+                      style={{ fontSize: "12px" }}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="col-md-6 col-sm-6">
+              <div className="form-group d-grid">
                 <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
                   Unit
                 </label>
 
-                <select id="unit" name="unit" title="Unit Type" onChange={(e) => setUnit(e.target.value)}>
+                <select
+                  id="unit"
+                  name="unit"
+                  title="Unit Type"
+                  className="form-control"
+                  onChange={(e) => setUnit(e.target.value)}
+                >
+                   <option value="" style={{ fontSize: "13px" }} disabled>
+                    ---Select Unit---
+                  </option>
                   <option value="" style={{ fontSize: "13px" }}>
                     Pcs
                   </option>
@@ -533,20 +658,56 @@ export default function Products() {
               </div>
             </div>
 
-            <div className="col-md-6 col-sm-6">
+          </div>
+
+          <div className="row mt-3">
+          <div className="col-md-4 col-sm-4">
               <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                  Price per unit
+                 Sale Price
                 </label>
                 <input
                   type="number"
                   className="form-control"
-                  id="priceperunit"
-                  name="priceperunit"
-                  placeholder="Price per unit...."
-                  onChange={(ev) => setPricePerUnit(Number(ev.target.value))}
+                  id="sale_price"
+                  name="sale_price"
+                  placeholder="Enter Sale Price...."
+                  onChange={(ev) => setQty(Number(ev.target.value))}
                   style={{ fontSize: "13px" }}
-                  title="Price per unit"
+                />
+              </div>
+            </div>
+
+            <div className="col-md-4 col-sm-4">
+              <div className="form-group">
+                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                 MRP Price
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="mrp_price"
+                  name="mrp_price"
+                  placeholder="Enter MRP Price...."
+                  onChange={(ev) => setQty(Number(ev.target.value))}
+                  style={{ fontSize: "13px" }}
+                />
+              </div>
+            </div>
+
+            <div className="col-md-4 col-sm-4">
+              <div className="form-group">
+                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                 Total Qty
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="total_qty"
+                  name="total_qty"
+                  placeholder="Total Qty...."
+                  onChange={(ev) => setQty(Number(ev.target.value))}
+                  style={{ fontSize: "13px" }}
                 />
               </div>
             </div>
@@ -556,16 +717,16 @@ export default function Products() {
             <div className="col">
               <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
-                  GST Rate <span style={{ fontSize: "12px" }}>in %</span>
+                  Available Qty
                 </label>
                 <input
                   className="form-control"
-                  id="gstrate"
-                  name="gstrate"
+                  id="availableQty"
+                  name="availableQty"
                   onChange={(ev) => setGstrate(Number(ev.target.value))}
-                  placeholder="Example 0.02 = (2% gst)...."
+                  placeholder="Enter Qty"
                   style={{ fontSize: "13px" }}
-                  title="GST Rate"
+                  title="Available Qty"
                 />
               </div>
             </div>
@@ -573,148 +734,36 @@ export default function Products() {
             <div className="col">
               <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
-                  GST
-                </label>
-                <input
-                 type="number"
-                  className="form-control"
-                  id="fgst"
-                  name="fgst"
-                  onChange={(e) => setFgst(e.target.value)}
-                  value={final_gst}
-                  placeholder="Enter GST (in %)...."
-                  style={{ fontSize: "13px" }}
-                  title="GST"
-                />
-              </div>
-            </div>
-
-            <div className="col">
-              <div className="form-group">
-                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                  Price
+                  Discount %
                 </label>
                 <input
                   type="number"
                   className="form-control"
-                  id="prices"
-                  name="prices"
-                  onChange={(e) => setPrices(e.target.value)}
-                  value={totalprice}
-                  placeholder="Price...."
+                  id="discount"
+                  name="discount"
+                  onChange={(e) => setFgst(e.target.value)}
+                  placeholder="Enter Discount (in %)"
                   style={{ fontSize: "13px" }}
-                  title="price"
                 />
               </div>
             </div>
-          </div>
-
-          <div className="row mt-3">
-            <div className="col">
-              <div className="form-group">
-                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                  Product Description
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="Productdescription"
-                  name="productDescription"
-                  placeholder="Enter description...."
-                  style={{ fontSize: "13px" }}
-                  title="Description"
-                  onChange={(e) => setProductDescription(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="col">
-              <div className="form-group">
-                <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                  Keywords
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter keyword...."
-                  style={{ fontSize: "13px" }}
-                  onClick={handlebox}
-                  id="keyword"
-                  name="keyword"
-                  title="Keyword"
-                  onChange={handleInputChange}
-                  value={text}
-                  
-                />
-              </div>
-            </div>
-
-            <div className="col-md-2">
-              <button
-                type="submit"
-                className="btn btn-sm mt-4 keyword-btn"
-                style={{ width: "100%" }}
-                onClick={handleAddClick}
-              >
-                Add
-              </button>
-            </div>
-          </div>
-
-          <div className="row mt-3">
             <div className="col-md-6 col-sm-6">
               <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
-                  Product Image
+                  Product Images
                 </label>
                 <input
+                  multiple
                   type="file"
                   className="form-control"
-                  id="productimage"
-                  name="productimage"
+                  id="productimages"
+                  name="productimages"
                 />
               </div>
             </div>
-
-            <div className="col-md-6 col-sm-6">
-              <div
-                className="container"
-                style={{
-                  border: "1px solid grey",
-                  height: "110px",
-                  overflowY:"scroll",
-                  display: box ? "block" : "none",
-                }}
-              >
-                <div className="container my-2 card-container" style={{display:"flex"}}>
-                {list.map((item, index) => (
-                  <div
-                    className="card align-items-center text-white  mt-2 shadow-sm keyword-card mx-2"
-                    role="alert"
-                    aria-live="assertive"
-                    aria-atomic="true"
-                    style={{ display: cards ? "none" : "block", marginLeft:"10px!important" }}
-                  >
-                    <div className="d-inherit">
-                      <div key={index} className="card-body keyword-card-body pt-1 pb-1"  id="keywords"
-                    name="keywords"
-                    onChange={(e) => setKeywords(e.target.value)}>
-                        {item}
-                      </div>
-
-                  {/*}    <button
-                        type="button"
-                        className="btn-close keyword-card-btn"
-                        onClick={hidecard}
-                        aria-label="Close"
-                ></button> */}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              </div>
-            </div>
           </div>
+
+
 
           <button
             type="submit"
