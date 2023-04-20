@@ -17,43 +17,50 @@ import Orders from "./Orders";
 export default function Products() {
   const [form, setForm] = useState(false);
   const [itemform, setItemForm] = useState(false);
-  const [formData, setFormData] = useState([]);
+  const [producttable,setProductTable] = useState(true);
+  const [itemtable,setItemTable] = useState(false);
+  const [productformData, setProductFormData] = useState([]);
+  const [itemformData, setItemFormData] = useState([]);
   const [data, setData] = useState([]);
   const [cards, setCards] = useState(false);
   const [itembox, setItembox] = useState(false);
-  const [keyword_data, setKeyword_data] = useState("");
   const [contwidth, setContwidth] = useState(false);
   const [box, setBox] = useState(false);
-  const [qty, setQty] = useState(0);
-  const [prices, setPrices] = useState(0);
   const [gstrate, setGstrate] = useState('');
   const [selectedOption, setSelectedOption] = useState("");
   const [relatedOptions, setRelatedOptions] = useState([]);
   const [text, setText] = useState("");
   const [list, setList] = useState([]);
   const [productCategory, setProductCategory] = useState("");
-  const [productitem, setProductItem] = useState("");
-  const [otheritem, setOtherItem] = useState("");
   const [productname, setProductname] = useState("");
+  const [product, setProduct] = useState("");
   const [producthsn, setProducthsn] = useState("");
   const [productcode, setProductcode] = useState("");
   const [unit, setUnit] = useState("");
-  const [priceperunit, setPricePerUnit] = useState("");
-  const [fgst, setFgst] = useState('');
+  const [saleprice, setSalePrice] = useState("");
+  const [mrpprice, setMrpPrice] = useState("");
+  const [totalqty, setTotalQty] = useState(0);
+  const [availableqty, setAvailableQty] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [images, setImages]= useState([]);
+  const [gst, setGst] = useState('');
   const [productdescription, setProductDescription] = useState("");
   const [keywords, setKeywords] = useState("");
+  const [productimage, setProductImage] = useState([]);
 
-  const final_gst = qty * priceperunit * gstrate;
-  const totalprice = qty * priceperunit + final_gst;
 
   const handlebtn = () => {
     setItemForm(false);
+    setItemTable(false);
+    setProductTable(true);
     setForm(true);
     setContwidth(true);
   };
 
   const handleitembtn = () => {
     setForm(false);
+    setProductTable(false);
+    setItemTable(true);
     setItemForm(true);
     setContwidth(true);
   };
@@ -111,37 +118,65 @@ export default function Products() {
     setGstrate(gstdata[value].gstrate);
   }; */
 
-  const handlesubmit = (e) => {
+  const handleproductsubmit = (e,file) => {
     e.preventDefault();
-    const data = formData;
+    const data = productformData;
     data.push({
       productCategory,
-      productitem,
       productname,
       producthsn,
       productcode,
-      qty,
-      unit,
-      priceperunit,
-      prices,
-      gstrate,
-      fgst,
+      gst,
       productdescription,
       keywords,
+      productimage,
     });
-    setFormData(data);
-    localStorage.setItem("formData", JSON.stringify(data));
+    setProductFormData(data);
+    localStorage.setItem("productformData", JSON.stringify(data));
     console.log(data);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImages([...productimage, reader.result]);
+      };
+    }
     setProductCategory("");
-    setProductItem("");
     setProductname("");
     setProducthsn("");
-    setProductItem("");
-    setQty("");
-    setUnit("");
-    setPricePerUnit("");
-    setKeywords("");
+    setProductcode("");
+    setGst("");
     setProductDescription("");
+    setKeywords("");
+    setProductImage("");
+  };
+
+
+  const handleitemsubmit = (e) => {
+    e.preventDefault();
+    const data = itemformData;
+    data.push({
+      product,
+      unit,
+      saleprice,
+      mrpprice,
+      totalqty,
+      availableqty,
+      discount,
+      images
+    });
+    setItemFormData(data);
+    localStorage.setItem("itemformData", JSON.stringify(data));
+    console.log(data);
+    setProduct("");
+    setUnit("");
+    setSalePrice("");
+    setMrpPrice("");
+    setTotalQty("");
+    setAvailableQty("");
+    setDiscount("");
+    setImages("");
   };
 
   const handledelete = (e) => {
@@ -150,10 +185,10 @@ export default function Products() {
     alert("Local Storage cleared successfully!");
   };
 
-  useEffect(() => {
-    const data = localStorage.getItem("formData");
+  useEffect((id) => {
+    const data = localStorage.getItem("productformData",id);
     if (data) {
-      setFormData(JSON.parse(data));
+      setProductFormData(JSON.parse(data));
     }
   }, []);
 
@@ -175,7 +210,7 @@ export default function Products() {
       <Sidebar />
       <div
         className="container-fluid"
-        style={{ width: contwidth ? "55%" : "100%", transition: "3s ease" }}
+        style={{ width: contwidth ? "60%" : "100%", transition: "2s ease" }}
       >
         <div className="container-fluid mt-5">
           <div
@@ -188,7 +223,9 @@ export default function Products() {
             }}
           >
             <div className="col-md-9 col-sm-9">
-              <p
+              <div className="row d-flex">
+                <div className="col-md-2 col-sm-2">
+                <p
                 className="mt-3"
                 style={{
                   fontStyle: "normal",
@@ -198,6 +235,23 @@ export default function Products() {
               >
                 Total Products : <span style={{ fontWeight: "bold" }}> 5</span>
               </p>
+                </div>
+
+                <div className="col-md-2 col-sm-2">
+                <p
+                className="mt-3"
+                style={{
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  fontSize: "15px",
+                }}
+              >
+                Total Items : <span style={{ fontWeight: "bold" }}> 5</span>
+              </p>
+
+                </div>
+              </div>
+              
             </div>
             <div className=" col-md-3 col-sm-3">
               <div className="row d-flex">
@@ -236,47 +290,89 @@ export default function Products() {
           style={{
             justifyContent: "start",
             padding: "15px",
-            background: "#fff",
+            background:"#fff",
             borderRadius: "15px",
             height: "auto",
             overflowY: "scroll",
           }}
         >
-          <table className="table table-hover mt-1 " style={{ width: "100%" }}>
+          <table className="table table-hover mt-1 " style={{ width: "100%",display: producttable ? "block" : "none"}}>
             <thead>
               <tr>
                 <th scope="col">SN</th>
+                <th scope="col">Image</th>
                 <th scope="col">Product Category</th>
-                <th scope="col">Product Item</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Product HSN</th>
                 <th scope="col">Product Code</th>
-                <th scope="col">Qty</th>
-                <th scope="col">Price Per Unit</th>
-                <th scope="col">Gst Rate</th>
-                <th scope="col">FGST</th>
-                <th scope="col">Price</th>
-                <th scope="col">Product Description</th>
+                <th scope="col">Gst %</th>
+                <th scope="col">Description</th>
                 <th scope="col">Keywords</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
 
-            {formData.length > 0 && (
+            {productformData.length > 0 && (
               <tbody>
-                {formData?.map((items, index) => (
+                {productformData?.map((items,index,image) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
+                    <td><img src={image} alt="saved" width="100" height="100" /></td>
                     <td>{items.productCategory}</td>
-                    <td>{items.productitem}</td>
                     <td>{items.productname}</td>
                     <td>{items.producthsn}</td>
                     <td>{items.productcode}</td>
-                    <td>{items.qty}</td>
-                    <td>{items.priceperunit}</td>
-                    <td>{items.gstrate}</td>
+                    <td>{items.gst}</td>
+                    <td>{items.productdescription}</td>
+                    <td>{items.keywords}</td>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-primary"
+                        style={{ height: "30px" }}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        style={{ height: "30px" }}
+                        onClick={handledelete}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            )}
+          </table>
+
+          <table className="table table-hover mt-1 " style={{display:itemtable ? "block" :"none", width: "100%" }}>
+            <thead>
+              <tr>
+                <th scope="col">SN</th>
+                <th scope="col">Product</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Sale Price</th>
+                <th scope="col">MRP Price</th>
+                <th scope="col">Total Qty</th>
+                <th scope="col">Available Qty</th>
+                <th scope="col">Discount %</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+
+            {itemformData.length > 0 && (
+              <tbody>
+                {itemformData?.map((items, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{items.productCategory}</td>
+                    <td>{items.productname}</td>
+                    <td>{items.producthsn}</td>
+                    <td>{items.productcode}</td>
                     <td>{items.fgst}</td>
-                    <td>{items.prices}</td>
                     <td>{items.productdescription}</td>
                     <td>{items.keywords}</td>
                     <td>
@@ -306,7 +402,7 @@ export default function Products() {
 
       <div
         className="container-fluid"
-        style={{ width: form || itemform ? "100%" : "0px", transition: "3s ease" }}
+        style={{ width: form || itemform ? "40%" : "0px", transition: "3s ease" }}
       >
         <form
           className="mt-5 p-4"
@@ -420,10 +516,9 @@ export default function Products() {
                 <input
                   type="number"
                   className="form-control"
-                  id="fgst"
-                  name="fgst"
-                  onChange={(e) => setFgst(e.target.value)}
-                  value={final_gst}
+                  id="gst"
+                  name="gst"
+                  onChange={(e) => setGst(e.target.value)}
                   placeholder="Enter GST (in %)...."
                   style={{ fontSize: "13px" }}
                   title="GST"
@@ -546,6 +641,7 @@ export default function Products() {
                   className="form-control"
                   id="productimage"
                   name="productimage"
+                  onChange={(e)=>setProductImage(e.target.files[0])}
                 />
               </div>
             </div>
@@ -557,7 +653,7 @@ export default function Products() {
             type="submit"
             className="btn btn-primary mt-4"
             style={{ width: "100%" }}
-            onClick={handlesubmit}
+            onClick={handleproductsubmit}
           >
             Add
           </button>
@@ -672,7 +768,7 @@ export default function Products() {
                   id="sale_price"
                   name="sale_price"
                   placeholder="Enter Sale Price...."
-                  onChange={(ev) => setQty(Number(ev.target.value))}
+                  onChange={(ev) => setSalePrice(Number(ev.target.value))}
                   style={{ fontSize: "13px" }}
                 />
               </div>
@@ -689,7 +785,7 @@ export default function Products() {
                   id="mrp_price"
                   name="mrp_price"
                   placeholder="Enter MRP Price...."
-                  onChange={(ev) => setQty(Number(ev.target.value))}
+                  onChange={(ev) => setMrpPrice(Number(ev.target.value))}
                   style={{ fontSize: "13px" }}
                 />
               </div>
@@ -706,7 +802,7 @@ export default function Products() {
                   id="total_qty"
                   name="total_qty"
                   placeholder="Total Qty...."
-                  onChange={(ev) => setQty(Number(ev.target.value))}
+                  onChange={(ev) => setTotalQty(Number(ev.target.value))}
                   style={{ fontSize: "13px" }}
                 />
               </div>
@@ -741,7 +837,7 @@ export default function Products() {
                   className="form-control"
                   id="discount"
                   name="discount"
-                  onChange={(e) => setFgst(e.target.value)}
+                  onChange={(e) => setGst(e.target.value)}
                   placeholder="Enter Discount (in %)"
                   style={{ fontSize: "13px" }}
                 />
@@ -757,7 +853,7 @@ export default function Products() {
                   type="file"
                   className="form-control"
                   id="productimages"
-                  name="productimages"
+                  name="productimages[]"
                 />
               </div>
             </div>
@@ -769,7 +865,7 @@ export default function Products() {
             type="submit"
             className="btn btn-primary mt-4"
             style={{ width: "100%" }}
-            onClick={handlesubmit}
+            onClick={handleitemsubmit}
           >
             Add
           </button>

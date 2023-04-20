@@ -101,10 +101,11 @@ input[type="password"]:focus {
   border-radius: 20px;
 }
 
+
 table th,
 table td {
   font-family: "Open Sans", sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .label {
