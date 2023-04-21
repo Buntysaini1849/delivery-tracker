@@ -20,6 +20,7 @@ export default function Products() {
   const [producttable,setProductTable] = useState(true);
   const [itemtable,setItemTable] = useState(false);
   const [productformData, setProductFormData] = useState([]);
+  const [values, setValues] = useState([]);
   const [itemformData, setItemFormData] = useState([]);
   const [data, setData] = useState([]);
   const [cards, setCards] = useState(false);
@@ -45,7 +46,6 @@ export default function Products() {
   const [images, setImages]= useState([]);
   const [gst, setGst] = useState('');
   const [productdescription, setProductDescription] = useState("");
-  const [keywords, setKeywords] = useState("");
   const [productimage, setProductImage] = useState([]);
 
 
@@ -74,7 +74,7 @@ export default function Products() {
 
   const handleAddClick = (e) => {
     e.preventDefault();
-    setList([...list, text]);
+    setValues([...values, text]);
     setText("");
   };
 
@@ -128,27 +128,25 @@ export default function Products() {
       productcode,
       gst,
       productdescription,
-      keywords,
-      productimage,
+      values,
     });
+
+    data.push('file', productimage)
+
+
     setProductFormData(data);
     localStorage.setItem("productformData", JSON.stringify(data));
     console.log(data);
 
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setImages([...productimage, reader.result]);
-      };
-    }
+   
     setProductCategory("");
     setProductname("");
     setProducthsn("");
     setProductcode("");
     setGst("");
     setProductDescription("");
-    setKeywords("");
+    setText("");
+    setValues([]);
     setProductImage("");
   };
 
@@ -220,11 +218,12 @@ export default function Products() {
               padding: "10px",
               borderRadius: "15px",
               width: "100%",
+              justifyContent:"space-between",
             }}
           >
-            <div className="col-md-9 col-sm-9">
+            <div className="col-md-6 col-sm-6">
               <div className="row d-flex">
-                <div className="col-md-2 col-sm-2">
+                <div className="col-md-6 col-sm-6">
                 <p
                 className="mt-3"
                 style={{
@@ -237,7 +236,7 @@ export default function Products() {
               </p>
                 </div>
 
-                <div className="col-md-2 col-sm-2">
+                <div className="col-md-6 col-sm-6">
                 <p
                 className="mt-3"
                 style={{
@@ -253,7 +252,7 @@ export default function Products() {
               </div>
               
             </div>
-            <div className=" col-md-3 col-sm-3">
+            <div className=" col-md-4 col-sm-4">
               <div className="row d-flex">
                 <div
                   className="col-md-6 col-sm-6"
@@ -314,17 +313,17 @@ export default function Products() {
 
             {productformData.length > 0 && (
               <tbody>
-                {productformData?.map((items,index,image) => (
+                {productformData?.map((items,index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td><img src={image} alt="saved" width="100" height="100" /></td>
+                    <td><img src={items.file} /></td>
                     <td>{items.productCategory}</td>
                     <td>{items.productname}</td>
                     <td>{items.producthsn}</td>
                     <td>{items.productcode}</td>
                     <td>{items.gst}</td>
                     <td>{items.productdescription}</td>
-                    <td>{items.keywords}</td>
+                    <td>{items.values}</td>
                     <td>
                       <button
                         className="btn btn-sm btn-primary"
@@ -549,7 +548,7 @@ export default function Products() {
           <div className="row mt-3">
           
 
-            <div className="col-md-4 col-sm-4">
+            <div className="col-md-6 col-sm-6">
               <div className="form-group">
                 <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
                   Keywords
@@ -569,7 +568,7 @@ export default function Products() {
               </div>
             </div>
 
-            <div className="col-md-4 col-sm-4">
+            <div className="col-md-6 col-sm-6">
               <button
                 type="submit"
                 className="btn btn-sm mt-4 keyword-btn"
@@ -579,56 +578,8 @@ export default function Products() {
                 Add
               </button>
             </div>
-
-            <div className="col-md-4 col-sm-4">
-              <div
-                className="container"
-                style={{
-                  border: "1px solid grey",
-                  height: "110px",
-                  overflowY: "scroll",
-                  display: box ? "block" : "none",
-                }}
-              >
-                <div
-                  className="container my-2 card-container"
-                  style={{ display: "flex" }}
-                >
-                  {list.map((item, index) => (
-                    <div
-                      className="card align-items-center text-white  mt-2 shadow-sm keyword-card mx-2"
-                      role="alert"
-                      aria-live="assertive"
-                      aria-atomic="true"
-                      style={{
-                        display: cards ? "none" : "block",
-                        marginLeft: "10px!important",
-                      }}
-                    >
-                      <div className="d-inherit">
-                        <div
-                          key={index}
-                          className="card-body keyword-card-body pt-1 pb-1"
-                          id="keywords"
-                          name="keywords"
-                          onChange={(e) => setKeywords(e.target.value)}
-                        >
-                          {item}
-                        </div>
-
-                        {/*}    <button
-                        type="button"
-                        className="btn-close keyword-card-btn"
-                        onClick={hidecard}
-                        aria-label="Close"
-                ></button> */}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
+
 
           <div className="row mt-3">
             <div className="col-md-6 col-sm-6">
@@ -644,6 +595,19 @@ export default function Products() {
                   onChange={(e)=>setProductImage(e.target.files[0])}
                 />
               </div>
+            </div>
+
+            
+            <div className="col-md-6 col-sm-6 mt-4">
+                        <input
+                          type="text"
+                          id="output"
+                          className="form-control"
+                          value={values.join(", ")}
+                          readonly
+                        />
+                      
+                
             </div>
 
           
