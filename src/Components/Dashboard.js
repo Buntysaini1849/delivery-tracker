@@ -28,13 +28,13 @@ export default function Dashboard() {
        
       </div>
       <div className="container mb-5">
-        <div className="row mt-5" style={{backgroundColor:"#fff",padding:"30px",borderRadius:"25px"}}>
+        <div className="row mt-5 dashboard-toprow" style={{backgroundColor:"#fff",padding:"30px",borderRadius:"25px"}}>
           <div
             className="col-md-4 col-sm-3 d-flex"
             style={{ justifyContent: "center" }}
           >
             <div
-              className="card w-50 shadow mt-2"
+              className="card w-50 shadow mt-2 dashboard-cards"
               alt="Total Vendors"
               style={{
                 height: "100px",
@@ -54,7 +54,7 @@ export default function Dashboard() {
             style={{ justifyContent: "center" }}
           >
             <div
-              className="card w-50 shadow mt-2"
+              className="card w-50 shadow mt-2 dashboard-cards"
               style={{
                 height: "100px",
                 borderRadius: "25px",
@@ -73,7 +73,7 @@ export default function Dashboard() {
             style={{ justifyContent: "center" }}
           >
             <div
-              className="card w-50 shadow mt-2"
+              className="card w-50 shadow mt-2 dashboard-cards"
               style={{
                 height: "100px",
                 borderRadius: "25px",
@@ -89,7 +89,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="container table-responsive" style={{marginTop:"50px",backgroundColor:"#fff",padding:"15px",borderRadius:"15px" }}>
+      <div className="container table-responsive dashboard-table" style={{marginTop:"50px",backgroundColor:"#fff",padding:"15px",borderRadius:"15px"}}>
         <table className="table table-hover mt-1 table-responsive">
         
           <thead>

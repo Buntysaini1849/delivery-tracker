@@ -29,6 +29,23 @@ body {
   opacity: 0.7;
 }
 
+.dashboard-cards:hover{
+  transform: scale(1.05);
+}
+
+.sidebar-icon:hover{
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.dashboard-toprow{
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-table{
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
 .loginheader {
   flex-direction: column;
   justify-content: center;
@@ -73,7 +90,9 @@ input[type="password"]:focus {
   background: #fff;
   height: auto;
   border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
+
 
 .logintop-head {
   text-align: center;
@@ -246,7 +265,7 @@ svg {
 }
 
 .icons {
-  font-size: 20px;
+  font-size: 20px; 
 }
 
 .list-link {

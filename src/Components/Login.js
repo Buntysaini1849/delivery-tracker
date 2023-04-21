@@ -91,7 +91,7 @@ export default function Login() {
       <br />
       <br />
      <div className="container-fluid p-4" style={{display:"flex",justifyContent:"center"}}>
-      <form className="login-form shadow-lg p-4 mt-2" style={{width:"30%",position:"relative"}}>
+      <form className="login-form p-4 mt-2" style={{width:"30%",position:"relative"}}>
         <h2 className="logintop-head mb-4">Login To Your Account</h2>
         <div className="form-group mt-1">
           <label className="label">Username</label>
