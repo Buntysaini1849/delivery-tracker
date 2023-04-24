@@ -404,6 +404,14 @@ svg {
   left: 69px;
 }
 
+
+.pro-topcont{
+  display: flex !important;
+  flex-direction: row !important;
+  }
+
+  
+
 @media only screen and (max-width: 650px) {
   .login-form {
     padding: 20px !important;
@@ -419,5 +427,19 @@ svg {
     top: 4px !important;
     left: 52px !important;
     opacity: 0.7 !important;
+  }
+
+}
+
+@media only screen and (max-width:912px) {
+  .pro-topcont{
+    display: inline !important;
+    }
+    .pro-leftsection{
+      width: 100% !important;
+    }
+  
+    .pro-rightsection{
+      width: 100% !important;
   }
 }

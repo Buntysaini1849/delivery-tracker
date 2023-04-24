@@ -29,9 +29,7 @@ export default function Products() {
   const [box, setBox] = useState(false);
   const [gstrate, setGstrate] = useState('');
   const [selectedOption, setSelectedOption] = useState("");
-  const [relatedOptions, setRelatedOptions] = useState([]);
   const [text, setText] = useState("");
-  const [list, setList] = useState([]);
   const [productCategory, setProductCategory] = useState("");
   const [productname, setProductname] = useState("");
   const [product, setProduct] = useState("");
@@ -47,6 +45,7 @@ export default function Products() {
   const [gst, setGst] = useState('');
   const [productdescription, setProductDescription] = useState("");
   const [productimage, setProductImage] = useState([]);
+  const [dropdownOptions, setDropdownOptions] = useState([]);
 
 
   const handlebtn = () => {
@@ -85,23 +84,12 @@ export default function Products() {
     { value: "HomeItems", label: "Home Items", name: "HomeItems" },
   ];
 
-  const optionRelatedMap = {
-    Electronics: [
-      "Mobiles",
-      "LED",
-      "Refridgerator",
-      "Washing Machine",
-      "LED Bulb",
-    ],
-    Grocery: ["Wheat Flour", "Oil", "Spices"],
-    HomeItems: ["Spoon", "Sofa", "Chair", "Tables"],
-  };
+
 
   const handledata = (e) => {
     const selectedOption = e.target.value;
     setSelectedOption(selectedOption);
     setProductCategory(selectedOption);
-    setRelatedOptions(optionRelatedMap[selectedOption]);
     console.log(selectedOption);
   };
 
@@ -118,7 +106,8 @@ export default function Products() {
     setGstrate(gstdata[value].gstrate);
   }; */
 
-  const handleproductsubmit = (e,file) => {
+  const handleproductsubmit = (e) => {
+    setDropdownOptions([...dropdownOptions, { productname:productname}]);
     e.preventDefault();
     const data = productformData;
     data.push({
@@ -132,7 +121,7 @@ export default function Products() {
     });
 
     data.push('file', productimage)
-
+  
 
     setProductFormData(data);
     localStorage.setItem("productformData", JSON.stringify(data));
@@ -206,8 +195,11 @@ export default function Products() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <div
-        className="container-fluid"
+
+
+  <div className="container-fluid pro-topcont">
+  <div
+        className="container-fluid pro-leftsection"
         style={{ width: contwidth ? "60%" : "100%", transition: "2s ease" }}
       >
         <div className="container-fluid mt-5">
@@ -400,7 +392,7 @@ export default function Products() {
       </div>
 
       <div
-        className="container-fluid"
+        className="container-fluid pro-rightsection"
         style={{ width: form || itemform ? "40%" : "0px", transition: "3s ease" }}
       >
         <form
@@ -654,18 +646,17 @@ export default function Products() {
                   id="productcategory"
                   name="productcategory"
                   className="form-control"
-                  key={selectedOption}
-                  value={selectedOption}
+                  key={dropdownOptions}
+                  value={dropdownOptions}
                   onChange={handledata}
                 >
-                  {options.map((option) => (
+                  {dropdownOptions.map((option, index) => (
                     <option
-                      key={option.value}
-                      value={option.value}
-                      name={option.name}
+                      key={index+1}
+                      value={option.productname}
+                      name = {option.productname}
                       style={{ fontSize: "12px" }}
-                    >
-                      {option.label}
+                    >  
                     </option>
                   ))}
                 </select>
@@ -835,6 +826,8 @@ export default function Products() {
           </button>
         </form>
       </div>
+  </div>
+      
     </div>
   );
 }
