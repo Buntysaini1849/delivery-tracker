@@ -217,6 +217,8 @@ table td {
   margin-top: 10px;
 }
 
+
+
 .main-container {
   background: rgb(0, 7, 61);
   color: #fff;
@@ -409,6 +411,20 @@ svg {
   display: flex !important;
   flex-direction: row !important;
   }
+
+
+.invoice-item-box{
+  padding: 15px;
+  border: 1px solid rgb(225, 222, 222);
+  position: relative;
+}
+
+.del-icon{
+  position: absolute;
+  top: -2px;
+  right: 2px;
+  cursor: pointer;
+}
 
   
 
