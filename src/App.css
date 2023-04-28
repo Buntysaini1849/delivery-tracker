@@ -22,6 +22,7 @@ body {
   border-radius: 5px;
 }
 
+
 .dashimage {
   position: absolute;
   top: -46px;
@@ -224,7 +225,7 @@ table td {
   color: #fff;
   height: 100vh;
   width: 200px;
-  position: relative;
+  position: fixed;
 }
 
 .list-top {
@@ -413,18 +414,28 @@ svg {
   }
 
 
-.invoice-item-box{
-  padding: 15px;
-  border: 1px solid rgb(225, 222, 222);
-  position: relative;
+
+
+.rowadd-btn{
+  background-color: #00264d;
+  color: #fff;
 }
 
-.del-icon{
-  position: absolute;
-  top: -2px;
-  right: 2px;
-  cursor: pointer;
+.rowadd-btn:hover{
+  background-color: #fff;
+  color: #00264d;
+  border: 1px solid #00264d;
+  font-weight: 400;
 }
+
+td.total-amount-text {
+  text-align: right;
+}
+
+td.total-amount-input {
+  text-align: right;
+}
+
 
   
 
@@ -457,5 +468,9 @@ svg {
   
     .pro-rightsection{
       width: 100% !important;
+  }
+
+  .invoicetop{
+    display: inline-table !important;
   }
 }

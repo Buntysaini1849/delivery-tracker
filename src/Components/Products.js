@@ -1,18 +1,5 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Sidebar from "./Sidebar";
-
-
-/*const gstdata = {
-  option1: {
-    gstrate: 0.05,
-  },
-  option2: {
-    gstrate: 0.2,
-  },
-  option3: {
-    gstrate: 0.03,
-  },
-}; */
 
 export default function Products() {
   const [form, setForm] = useState(false);
@@ -106,11 +93,10 @@ export default function Products() {
     setGstrate(gstdata[value].gstrate);
   }; */
 
-  const handleproductsubmit = (e) => {
-    setDropdownOptions([...dropdownOptions, { productname:productname}]);
-    e.preventDefault();
-    const data = productformData;
-    data.push({
+  const handleproductsubmitform = (event) => {
+    event.preventDefault();
+    const fdata = productformData;
+    fdata.push({
       productCategory,
       productname,
       producthsn,
@@ -119,28 +105,12 @@ export default function Products() {
       productdescription,
       values,
     });
-
-    data.push('file', productimage)
-  
-
-    setProductFormData(data);
-    localStorage.setItem("productformData", JSON.stringify(data));
-    console.log(data);
-
-   
-    setProductCategory("");
-    setProductname("");
-    setProducthsn("");
-    setProductcode("");
-    setGst("");
-    setProductDescription("");
-    setText("");
-    setValues([]);
-    setProductImage("");
+    setProductFormData(fdata);
+    localStorage.setItem("productformData", JSON.stringify(fdata));
   };
 
 
-  const handleitemsubmit = (e) => {
+  const handleitemsubmitform = (e) => {
     e.preventDefault();
     const data = itemformData;
     data.push({
@@ -166,10 +136,18 @@ export default function Products() {
     setImages("");
   };
 
-  const handledelete = (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    alert("Local Storage cleared successfully!");
+  const handledelete = (index) => {
+    const updatedFormData = [...productformData];
+    updatedFormData.splice(index, 1);
+    setProductFormData(updatedFormData);
+    localStorage.setItem('productformData', JSON.stringify(updatedFormData));
+  };
+
+  const handledeleteitem = (index) => {
+    const updateditemsData = [...itemformData];
+    updateditemsData.splice(index, 1);
+    setItemFormData(updateditemsData);
+    localStorage.setItem('itemformData', JSON.stringify(updateditemsData));
   };
 
   useEffect((id) => {
@@ -303,7 +281,6 @@ export default function Products() {
               </tr>
             </thead>
 
-            {productformData.length > 0 && (
               <tbody>
                 {productformData?.map((items,index) => (
                   <tr key={index}>
@@ -328,7 +305,7 @@ export default function Products() {
                       <button
                         className="btn btn-sm btn-danger"
                         style={{ height: "30px" }}
-                        onClick={handledelete}
+                        onClick={() => handledelete(index)}
                       >
                         Delete
                       </button>
@@ -336,7 +313,7 @@ export default function Products() {
                   </tr>
                 ))}
               </tbody>
-            )}
+   
           </table>
 
           <table className="table table-hover mt-1 " style={{display:itemtable ? "block" :"none", width: "100%" }}>
@@ -378,7 +355,7 @@ export default function Products() {
                       <button
                         className="btn btn-sm btn-danger"
                         style={{ height: "30px" }}
-                        onClick={handledelete}
+                        onClick={() => handledeleteitem(index)}
                       >
                         Delete
                       </button>
@@ -609,7 +586,7 @@ export default function Products() {
             type="submit"
             className="btn btn-primary mt-4"
             style={{ width: "100%" }}
-            onClick={handleproductsubmit}
+            onClick={handleproductsubmitform}
           >
             Add
           </button>
@@ -820,7 +797,7 @@ export default function Products() {
             type="submit"
             className="btn btn-primary mt-4"
             style={{ width: "100%" }}
-            onClick={handleitemsubmit}
+            onClick={handleitemsubmitform}
           >
             Add
           </button>
