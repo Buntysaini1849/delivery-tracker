@@ -81,7 +81,7 @@ export default function Orders(props) {
       <Sidebar />
       <div
         className="container-fluid"
-        style={{ width: contwidth ? "50%" : "100%", transition: "2s ease" }}
+        style={{ width: contwidth ? "50%" : "100%", transition: "2s ease"}}
       >
         <div className="container-fluid">
           <div className="container-fluid mt-5">

@@ -21,7 +21,7 @@ export default function Dashboard() {
   return (
    <div style={{display:"flex"}}>
      <Sidebar/>
-    <div className="container-fluid">
+    <div className="container">
       <div className="container-fluid signout-head mt-3">
         <p style={{color:"#00264D",fontWeight:"bold"}}>Welcome : <span>Dinesh</span> !</p>
        <FaSignOutAlt className="Signout-icon" style={{marginTop:"1px",marginLeft:"10px"}} alt="signout" onClick={logout}/>
