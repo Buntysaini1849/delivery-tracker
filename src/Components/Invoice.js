@@ -3,34 +3,36 @@ import Sidebar from "./Sidebar";
 
 
 export default function Invoice() {
-  const [rows, setRows] = useState([
-    {
-      item: "",
-      quantity: 0,
-      unit: "",
-      gst: 0,
-      price: 0,
-      amount: 0,
-    },
-  ]);
+  const rowadds = Array.from({length: 100}, (_, index) => index);
+  // const [rows, setRows] = useState([
+  //   {
+  //     item: "",
+  //     quantity: 0,
+  //     unit: "",
+  //     gst: 0,
+  //     price: 0,
+  //     amount: 0,
+  //   },
+  // ]);
 
-  const addRow = () => {
-    setRows((prevRows) => [
-      ...prevRows,
-      {
-        item: "",
-        quantity: 0,
-        unit: "",
-        gst: 0,
-        price: 0,
-        amount: 0,
-      },
-    ]);
-  };
+  // const addRow = () => {
+  //   setRows((prevRows) => [
+  //     ...prevRows,
+  //     {
+  //       item: "",
+  //       quantity: 0,
+  //       unit: "",
+  //       gst: 0,
+  //       price: 0,
+  //       amount: 0,
+  //     },
+  //   ]);
+  // };
 
 
   const printDiv = () => {
     window.print();
+
   };
 
   return (
@@ -39,7 +41,7 @@ export default function Invoice() {
 
       <div className="container-fluid mt-2 invoice-topcont">
         <div
-          className="container-fluid mt-2"
+          className="container-fluid mt-1 p-3"
           style={{ background: "#fff" }}
         >
           <p
@@ -54,7 +56,7 @@ export default function Invoice() {
           </p>
 
           <div
-            className="container mt-3"
+            className="container mt-1"
             style={{ display: "flex", justifyContent: "end" }}
           >
             <button className="btn btn-md rowadd-btn" onClick={printDiv}>
@@ -119,22 +121,24 @@ export default function Invoice() {
               </div>
             </div>
 
-            <div
+            {/* <div
               className="container-fluid mt-5 invoice-table-container"
               style={{ display: "flex", justifyContent: "end" }}
             >
               <button className="btn btn-md rowadd-btn" onClick={addRow}>
                 Add Row
               </button>
-            </div>
+            </div> */}
 
             <div
               className="table-responsive p-3 mt-2 d-flex"
               style={{
                 justifyContent: "center",
                 border: "1px solid lightgrey",
+                height:"393px"
               }}
             >
+
               <table style={{ borderSpacing: "0", overflowY: "scroll" }}>
                 <thead>
                   <tr>
@@ -148,7 +152,9 @@ export default function Invoice() {
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map((row, index) => (
+                  
+                  {/* {rows.map((row, index) => ( */}
+                  {rowadds.map((row, index) => (
                     <tr key={index}>
                       <td
                         style={{ textAlign: "right", fontWeight: "bold" }}
@@ -158,72 +164,82 @@ export default function Invoice() {
                       </td>
                       <td className="invoice-td invoice-td-item">
                         <select
-                          name={`item-${index}`}
+                          // name={`item-${index}`}
+                          name="item"
                           className="invoice-input form-control invoice-input-item text-center"
                           style={{width:"200px"}}
                         >
+                          <option value=""></option>
                           <option value="item1">item1</option>
-                          <option value="item2">Item 2</option>
-                          <option value="item3">Item 3</option>
+                          <option value="item2">Item2</option>
+                          <option value="item3">Item3</option>
                         </select>
                       </td>
                       <td className="invoice-td">
                         <input
                           type="number"
-                          name={`quantity-${index}`}
+                          // name={`quantity-${index}`}
+                          name="quantity"
                           className="invoice-input invoice-input-qty text-center"
                         />
                       </td>
                       <td className="invoice-td">
                         <input
                           type="text"
-                          name={`unit-${index}`}
+                          // name={`unit-${index}`}
+                          name="unit"
                           className="invoice-input form-control invoice-input-unit text-center"
                         />
                       </td>
                       <td className="invoice-td">
                         <input
                           type="number"
-                          name={`gst-${index}`}
+                          // name={`gst-${index}`}
+                          name="gst"
                           className="invoice-input form-control invoice-input-gst text-center"
                         />
                       </td>
                       <td className="invoice-td">
                         <input
                           type="number"
-                          name={`price-${index}`}
+                          // name={`price-${index}`}
+                          name="price"
                           className="invoice-input form-control invoice-input-price text-center"
                         />
                       </td>
                       <td className="invoice-td">
                         <input
                           type="number"
-                          name={`amount-${index}`}
+                          // name={`amount-${index}`}
+                          name="amount"
                           className="invoice-input form-control invoice-input-amount text-center"
                         />
                       </td>
                     </tr>
+                 
                   ))}
-                  <tr>
-                    <td
-                      className="total-amount-text"
-                      colspan="6"
+                  
+                </tbody>
+              </table>
+              
+            </div>
+          </div>
+          <div className="container d-flex mx-4" style={{justifyContent:"flex-end"}}>
+             
+                    <label
+                      className="total-amount-text mt-2"
                       style={{ fontWeight: "600", fontSize: "1rem" }}
                     >
                       Total Amount
-                    </td>
-                    <td className="total-amount-input invoice-td">
+                    </label>
+                    <div className="total-amount-input invoice-td">
                       <input
                         type="number"
                         name="total-amount"
                         className="invoice-input form-control invoice-input-amount text-center"  
                       />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                    </div>
+              </div>
         </div>
       </div>
     </div>
