@@ -1,5 +1,5 @@
 import React, { useState,createContext } from 'react'
-import { BrowserRouter , Routes, Route} from "react-router-dom";
+import { HashRouter , Routes, Route} from "react-router-dom";
 import Dashboard from './Dashboard'
 import Login from './Login';
 import Products from './Products';
@@ -9,6 +9,9 @@ import Orders from './Orders';
 
 export default function Homepage() {
   
+  const NotFound = () => {
+    return <h1>404 Page Not Found</h1>;
+  };
   
   return (
     <div>
@@ -16,17 +19,18 @@ export default function Homepage() {
         
     <div className="right-section">
       
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
 
-            <Route path='/' element={<Login/>}/>
-            <Route path="dashboard" element={<Dashboard/>} />
-            <Route path="products" element={<Products/>}/>
-            <Route path="orders" element={<Orders/>}/>
-            <Route path="invoice" element={<Invoice/>} />
+            <Route exact path='/' element={<Login/>}/>
+            <Route exact path="dashboard" element={<Dashboard/>} />
+            <Route exact path="products" element={<Products/>}/>
+            <Route exact path="orders" element={<Orders/>}/>
+            <Route exact path="invoice" element={<Invoice/>} />
+            <Route component={NotFound} />
 
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
   
     </div>
       

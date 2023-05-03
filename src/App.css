@@ -502,5 +502,86 @@ td.total-amount-input {
     width: 120px !important;
   }
 
+  .invoice-input-item{
+    width: 110px !important;
+  }
+
+  .invoice-input-price{
+    width: 110px !important;
+  }
+
   
+}
+
+@media print {
+  table {
+    margin: 0cm;
+  }
+  td,
+  th {
+    padding: 0.3cm;
+  }
+
+  td .invoice-input-unit{
+    width: 60px !important;
+  } 
+
+  td .invoice-input-price{
+    width: 80px !important;
+  } 
+
+  td .invoice-input-amount{
+    width: 100px !important;
+  } 
+
+  td .invoice-input-item{
+    width: 100px !important;
+  }
+
+  td .invoice-input-gst{
+    width: 100px !important;
+  }
+
+  td input{
+    width: 100% !important;
+  }
+
+  .invoice-date{
+    width: 20% !important;
+    margin-left: 80px !important;
+    border: 0px !important;
+   
+  }
+
+  .invoice-number{
+    width: 20% !important;
+    border: 0px !important;
+    margin-top: -10px !important;
+  }
+
+  .invoice-customer{
+    width: 20% !important;
+    border: 0px !important;
+    margin-top: -10px !important;
+  }
+
+  .invoice-top{
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .invoice-table-container{
+    margin-top: 20px !important;
+  }
+
+  .topcontainer-invoice{
+    width: 100% !important;
+    margin-left: -23px !important;
+    border: 1px solid #000!important;
+  }
+
+  .rowadd-btn{
+    display: none !important;
+  }
+
 }

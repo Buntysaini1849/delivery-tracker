@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState} from "react";
 import Sidebar from "./Sidebar";
-import { AiFillDelete } from "react-icons/ai";
+
 
 export default function Invoice() {
   const [rows, setRows] = useState([
@@ -28,26 +28,19 @@ export default function Invoice() {
     ]);
   };
 
-  const divRef = useRef(null);
 
   const printDiv = () => {
-    const printContent = divRef.current.innerHTML;
-    const originalContent = document.body.innerHTML;
-
-    document.body.innerHTML = printContent;
     window.print();
-    document.body.innerHTML = originalContent;
   };
 
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
 
-      <div className="container-fluid mt-2">
+      <div className="container-fluid mt-2 invoice-topcont">
         <div
           className="container-fluid mt-2"
           style={{ background: "#fff" }}
-          ref={divRef}
         >
           <p
             style={{
@@ -69,7 +62,7 @@ export default function Invoice() {
             </button>
           </div>
           <div
-            className="container p-2 mt-3"
+            className="container p-2 mt-3 topcontainer-invoice"
             style={{ border: "1px solid lightgrey" }}
           >
             <div className="row d-flex invoicetop">
@@ -86,7 +79,7 @@ export default function Invoice() {
                 <input
                   type="date"
                   name="date"
-                  className="form-control"
+                  className="form-control invoice-date"
                   placeholder="Select Date..."
                 />
               </div>
@@ -103,7 +96,7 @@ export default function Invoice() {
                 <input
                   type="text"
                   name="invoice-num"
-                  className="form-control"
+                  className="form-control invoice-number"
                   placeholder="Invoice number..."
                 />
               </div>
@@ -120,14 +113,14 @@ export default function Invoice() {
                 <input
                   type="text"
                   name="customer-name"
-                  className="form-control"
+                  className="form-control invoice-customer"
                   placeholder="Customer Name..."
                 />
               </div>
             </div>
 
             <div
-              className="container-fluid mt-5"
+              className="container-fluid mt-5 invoice-table-container"
               style={{ display: "flex", justifyContent: "end" }}
             >
               <button className="btn btn-md rowadd-btn" onClick={addRow}>
@@ -136,7 +129,7 @@ export default function Invoice() {
             </div>
 
             <div
-              className="table-responsive p-2 mt-2"
+              className="table-responsive p-3 mt-2 d-flex"
               style={{
                 justifyContent: "center",
                 border: "1px solid lightgrey",
@@ -159,14 +152,15 @@ export default function Invoice() {
                     <tr key={index}>
                       <td
                         style={{ textAlign: "right", fontWeight: "bold" }}
-                        className="invoice-td"
+                        className="invoice-td text-center"
                       >
                         {index + 1}
                       </td>
                       <td className="invoice-td invoice-td-item">
                         <select
                           name={`item-${index}`}
-                          className="invoice-input form-control"
+                          className="invoice-input form-control invoice-input-item text-center"
+                          style={{width:"200px"}}
                         >
                           <option value="item1">item1</option>
                           <option value="item2">Item 2</option>
@@ -177,36 +171,35 @@ export default function Invoice() {
                         <input
                           type="number"
                           name={`quantity-${index}`}
-                          className="invoice-input invoice-input-qty"
+                          className="invoice-input invoice-input-qty text-center"
                         />
                       </td>
                       <td className="invoice-td">
                         <input
                           type="text"
                           name={`unit-${index}`}
-                          className="invoice-input form-control"
+                          className="invoice-input form-control invoice-input-unit text-center"
                         />
                       </td>
                       <td className="invoice-td">
                         <input
                           type="number"
                           name={`gst-${index}`}
-                          className="invoice-input form-control"
+                          className="invoice-input form-control invoice-input-gst text-center"
                         />
                       </td>
                       <td className="invoice-td">
                         <input
                           type="number"
                           name={`price-${index}`}
-                          className="invoice-input form-control"
+                          className="invoice-input form-control invoice-input-price text-center"
                         />
                       </td>
                       <td className="invoice-td">
                         <input
                           type="number"
                           name={`amount-${index}`}
-                          className="invoice-input form-control invoice-input-amount"
-                          disabled
+                          className="invoice-input form-control invoice-input-amount text-center"
                         />
                       </td>
                     </tr>
@@ -223,8 +216,7 @@ export default function Invoice() {
                       <input
                         type="number"
                         name="total-amount"
-                        className="invoice-input form-control invoice-input-amount"
-                        disabled
+                        className="invoice-input form-control invoice-input-amount text-center"  
                       />
                     </td>
                   </tr>
