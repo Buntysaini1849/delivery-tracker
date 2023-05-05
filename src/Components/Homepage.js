@@ -1,11 +1,11 @@
-import React, { useState,createContext } from 'react'
 import { HashRouter , Routes, Route} from "react-router-dom";
 import Dashboard from './Dashboard'
 import Login from './Login';
 import Products from './Products';
 import Invoice from './Invoice';
 import Orders from './Orders';
-
+import store from '../state/store';
+import { Provider } from 'react-redux';
 
 export default function Homepage() {
   
@@ -18,10 +18,9 @@ export default function Homepage() {
 
         
     <div className="right-section">
-      
+    <Provider store={store}>
       <HashRouter>
         <Routes>
-
             <Route exact path='/' element={<Login/>}/>
             <Route exact path="dashboard" element={<Dashboard/>} />
             <Route exact path="products" element={<Products/>}/>
@@ -31,6 +30,7 @@ export default function Homepage() {
 
         </Routes>
       </HashRouter>
+      </Provider>
   
     </div>
       

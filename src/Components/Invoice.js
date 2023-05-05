@@ -1,9 +1,12 @@
 import React, { useState} from "react";
 import Sidebar from "./Sidebar";
-
+import { useSelector } from "react-redux";
 
 export default function Invoice() {
   const rowadds = Array.from({length: 100}, (_, index) => index);
+
+   const products = useSelector((state) => state.product.products);
+  const items = useSelector((state) => state.item.items);
   // const [rows, setRows] = useState([
   //   {
   //     item: "",
