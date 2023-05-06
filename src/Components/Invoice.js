@@ -1,42 +1,29 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
 
 export default function Invoice() {
-  const rowadds = Array.from({length: 100}, (_, index) => index);
-
-   const products = useSelector((state) => state.product.products);
+  const products = useSelector((state) => state.product.products);
   const items = useSelector((state) => state.item.items);
-  // const [rows, setRows] = useState([
-  //   {
-  //     item: "",
-  //     quantity: 0,
-  //     unit: "",
-  //     gst: 0,
-  //     price: 0,
-  //     amount: 0,
-  //   },
-  // ]);
-
-  // const addRow = () => {
-  //   setRows((prevRows) => [
-  //     ...prevRows,
-  //     {
-  //       item: "",
-  //       quantity: 0,
-  //       unit: "",
-  //       gst: 0,
-  //       price: 0,
-  //       amount: 0,
-  //     },
-  //   ]);
-  // };
-
+  const [selectedProduct, setSelectedProduct] = useState("");
+  const [unit, setUnit] = useState("");
+  const [gst, setGst] = useState("");
+  const [sale_price, setSalePrice] = useState("");
+  const rowadds = Array.from({ length: 100 }, (_, index) => index);
 
   const printDiv = () => {
     window.print();
-
   };
+
+  const handleProductSelection = (e) => {
+    setSelectedProduct(e.target.value);
+  };
+
+  const selectedProductData = items.find(
+    (product) => product.product === selectedProduct,
+    
+  );
+
 
   return (
     <div style={{ display: "flex" }}>
@@ -138,11 +125,16 @@ export default function Invoice() {
               style={{
                 justifyContent: "center",
                 border: "1px solid lightgrey",
-                height:"393px"
+                height: "393px",
               }}
             >
-
-              <table style={{ borderSpacing: "0", overflowY: "scroll" }}>
+              <table
+                style={{
+                  borderSpacing: "0",
+                  overflowY: "scroll",
+                  width: "100%",
+                }}
+              >
                 <thead>
                   <tr>
                     <th className="invoice-th">S.N.</th>
@@ -154,95 +146,106 @@ export default function Invoice() {
                     <th className="invoice-th">Amount</th>
                   </tr>
                 </thead>
-                <tbody>
-                  
-                  {/* {rows.map((row, index) => ( */}
-                  {rowadds.map((row, index) => (
-                    <tr key={index}>
-                      <td
-                        style={{ textAlign: "right", fontWeight: "bold" }}
-                        className="invoice-td text-center"
-                      >
-                        {index + 1}
-                      </td>
-                      <td className="invoice-td invoice-td-item">
-                        <select
-                          // name={`item-${index}`}
-                          name="item"
-                          className="invoice-input form-control invoice-input-item text-center"
-                          style={{width:"200px"}}
-                        >
-                          <option value=""></option>
-                          <option value="item1">item1</option>
-                          <option value="item2">Item2</option>
-                          <option value="item3">Item3</option>
-                        </select>
-                      </td>
-                      <td className="invoice-td">
-                        <input
-                          type="number"
-                          // name={`quantity-${index}`}
-                          name="quantity"
-                          className="invoice-input invoice-input-qty text-center"
-                        />
-                      </td>
-                      <td className="invoice-td">
-                        <input
-                          type="text"
-                          // name={`unit-${index}`}
-                          name="unit"
-                          className="invoice-input form-control invoice-input-unit text-center"
-                        />
-                      </td>
-                      <td className="invoice-td">
-                        <input
-                          type="number"
-                          // name={`gst-${index}`}
-                          name="gst"
-                          className="invoice-input form-control invoice-input-gst text-center"
-                        />
-                      </td>
-                      <td className="invoice-td">
-                        <input
-                          type="number"
-                          // name={`price-${index}`}
-                          name="price"
-                          className="invoice-input form-control invoice-input-price text-center"
-                        />
-                      </td>
-                      <td className="invoice-td">
-                        <input
-                          type="number"
-                          // name={`amount-${index}`}
-                          name="amount"
-                          className="invoice-input form-control invoice-input-amount text-center"
-                        />
-                      </td>
-                    </tr>
-                 
-                  ))}
-                  
-                </tbody>
-              </table>
+
+ 
+                    <tbody>
+                      {items.map((itemdata,index) => (
+                        <tr key={index}>
+                          <td
+                            style={{ textAlign: "right", fontWeight: "bold" }}
+                            className="invoice-td text-center"
+                          >
+                            {index+1}
+                          </td>
+                          <td className="invoice-td invoice-td-item">
+                            <select
+                              className="invoice-input form-control invoice-input-item text-center"
+                              style={{ width: "200px" }}
+                              value={selectedProduct}
+                              onChange={handleProductSelection}
+                            >
+                              <option value=""></option>
+                              {items.map((product) => (
+                                <option
+                                  key={product.product}
+                                  value={product.product}
+                                >
+                                  {product.product}
+                                </option>
+                              ))}
+                            </select>
+                          </td>
+                          <td className="invoice-td">
+                            <input
+                              type="number"
+                              className="invoice-input invoice-input-qty text-center"
+                            />
+                          </td>
+                          <td className="invoice-td">
+                            {selectedProductData && (
+                              <select
+                              className="invoice-input form-control invoice-input-item text-center"
+                              style={{ width: "200px" }}
+                              value={selectedProductData.unit}
+                              id={selectedProductData.unit}
+                            >
+                              <option value=""></option>
+                              <option value={selectedProductData.unit}>
+                                {selectedProductData.unit}
+                              </option>
+                            </select>
+                            )}
+                            
+                          </td>
+                          <td className="invoice-td">
+                          {selectedProductData && (
+                            <input
+                              type="number"
+                              value={selectedProductData.gst}
+                              className="invoice-input form-control invoice-input-gst text-center"
+                            />
+                          )}
+                          </td>
+                          <td className="invoice-td">
+                          {selectedProductData && (
+                            <input
+                              type="number"
+                              value={selectedProductData.saleprice}
+                              className="invoice-input form-control invoice-input-price text-center"
+                            />
+                          )}
+                          </td>
+                          <td className="invoice-td">
+                            <input
+                              type="number"
+                              className="invoice-input form-control invoice-input-amount text-center"
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
               
+              </table>
             </div>
           </div>
-          <div className="container d-flex mx-4" style={{justifyContent:"flex-end"}}>
-             
-                    <label
-                      className="total-amount-text mt-2"
-                      style={{ fontWeight: "600", fontSize: "1rem" }}
-                    >
-                      Total Amount
-                    </label>
-                    <div className="total-amount-input invoice-td">
-                      <input
-                        type="number"
-                        name="total-amount"
-                        className="invoice-input form-control invoice-input-amount text-center"  
-                      />
-                    </div>
-              </div>
+          <div
+            className="container d-flex mx-4"
+            style={{ justifyContent: "flex-end" }}
+          >
+            <label
+              className="total-amount-text mt-2"
+              style={{ fontWeight: "600", fontSize: "1rem" }}
+            >
+              Total Amount
+            </label>
+            <div className="total-amount-input invoice-td">
+              <input
+                type="number"
+                name="total-amount"
+                className="invoice-input form-control invoice-input-amount text-center"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
