@@ -10,6 +10,7 @@ export default function Invoice() {
   const [gst, setGst] = useState("");
   const [sale_price, setSalePrice] = useState("");
   const rowadds = Array.from({ length: 100 }, (_, index) => index);
+  const [tableData, setTableData] = useState(items);
 
   const printDiv = () => {
     window.print();
@@ -17,12 +18,17 @@ export default function Invoice() {
 
   const handleProductSelection = (e) => {
     setSelectedProduct(e.target.value);
+   
   };
 
   const selectedProductData = items.find(
     (product) => product.product === selectedProduct,
     
   );
+
+  const handleaddRow = () => {
+     setTableData([...tableData,{}]);
+  }
 
 
   return (
@@ -125,7 +131,7 @@ export default function Invoice() {
               style={{
                 justifyContent: "center",
                 border: "1px solid lightgrey",
-                height: "393px",
+                height: "auto",
               }}
             >
               <table
@@ -149,8 +155,8 @@ export default function Invoice() {
 
  
                     <tbody>
-                      {items.map((itemdata,index) => (
-                        <tr key={index}>
+                      {tableData.map((itemdata,index) => (
+                        <tr key={itemdata.id}>
                           <td
                             style={{ textAlign: "right", fontWeight: "bold" }}
                             className="invoice-td text-center"
@@ -167,7 +173,7 @@ export default function Invoice() {
                               <option value=""></option>
                               {items.map((product) => (
                                 <option
-                                  key={product.product}
+                                  key={product.id}
                                   value={product.product}
                                 >
                                   {product.product}
@@ -178,6 +184,7 @@ export default function Invoice() {
                           <td className="invoice-td">
                             <input
                               type="number"
+                              onClick={handleaddRow}
                               className="invoice-input invoice-input-qty text-center"
                             />
                           </td>
@@ -187,7 +194,7 @@ export default function Invoice() {
                               className="invoice-input form-control invoice-input-item text-center"
                               style={{ width: "200px" }}
                               value={selectedProductData.unit}
-                              id={selectedProductData.unit}
+                              id={`product-unit-${selectedProductData.id}`}
                             >
                               <option value=""></option>
                               <option value={selectedProductData.unit}>
@@ -202,6 +209,7 @@ export default function Invoice() {
                             <input
                               type="number"
                               value={selectedProductData.gst}
+                              id={`product-gst-${selectedProductData.id}`}
                               className="invoice-input form-control invoice-input-gst text-center"
                             />
                           )}
@@ -211,6 +219,7 @@ export default function Invoice() {
                             <input
                               type="number"
                               value={selectedProductData.saleprice}
+                              id={`product-saleprice-${selectedProductData.id}`}
                               className="invoice-input form-control invoice-input-price text-center"
                             />
                           )}
