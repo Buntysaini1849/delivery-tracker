@@ -5,13 +5,13 @@ import itemReducer from './reducers/itemReducer';
 
 const rootReducer = combineReducers(
     productReducer,
-    itemReducer
+    itemReducer,
   );
 
   const store = configureStore({
     reducer: {
       product: productReducer,
-      item: itemReducer
+      item: itemReducer,
     }
   });
 

@@ -2,14 +2,11 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import TableRow from "./Tablerow";
 
-
-
-
 export default function Invoice() {
-
 const rows = Array.from({ length: 50 }, (_, index) => {
   return <TableRow key={index} id={index + 1} />;
 });
+
 
 
   const printDiv = () => {
@@ -44,7 +41,7 @@ const rows = Array.from({ length: 50 }, (_, index) => {
             style={{ display: "flex", justifyContent: "end" }}
           >
             <button className="btn btn-md rowadd-btn" onClick={printDiv}>
-              Print
+              Print Preview
             </button>
           </div>
           <div
@@ -126,7 +123,7 @@ const rows = Array.from({ length: 50 }, (_, index) => {
                     <th className="invoice-th">Item</th>
                     <th className="invoice-th">Quantity</th>
                     <th className="invoice-th">Unit</th>
-                    <th className="invoice-th">GST</th>
+                    <th className="invoice-th">GST %</th>
                     <th className="invoice-th">Price</th>
                     <th className="invoice-th">Amount</th>
                   </tr>
@@ -151,11 +148,15 @@ const rows = Array.from({ length: 50 }, (_, index) => {
               Total Amount
             </label>
             <div className="total-amount-input invoice-td">
-              <input
+
+                <input
                 type="number"
                 name="total-amount"
                 className="invoice-input form-control invoice-input-amount text-center"
               />
+
+       
+              
             </div>
           </div>
         </div>

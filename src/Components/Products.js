@@ -35,10 +35,10 @@ export default function Products() {
   const [images, setImages] = useState([]);
   const [productdescription, setProductDescription] = useState("");
   const [productimage, setProductImage] = useState([]);
-  const [selectedProductName, setSelectedProductName] = useState("");
   const [gst, setGst] = useState('');
-  const [itemgst, setItemGst] = useState('');
-  const [itemproduct, setItemProduct] = useState('');
+  const [selectedItem, setSelectedItem] = useState('');
+  // const [gstvalue, setGstValue] = useState('');
+
 
 
 
@@ -144,6 +144,7 @@ export default function Products() {
         totalqty,
         availableqty,
         discount,
+        gst,
         images,
       })
     );
@@ -157,6 +158,7 @@ export default function Products() {
     setTotalQty("");
     setAvailableQty("");
     setDiscount("");
+    setGst("");
     setImages("");
   };
 
@@ -194,24 +196,17 @@ export default function Products() {
     console.log(data);
   }, []);
 
-  const handleProductChange = (event) => {
-    const productname = event.target.value;
-    setItemProduct(productname);
-    const selectedProduct = products.find(
-      (product) => product.productname === productname
-    );
-    if (selectedProduct) {
-      setSelectedProductName(selectedProduct);
-      setItemGst(selectedProduct.itemgst);
-    } else {
-      setSelectedProductName("");
-      setItemGst("");
-    }
-    
+
+
+  const handleItemChange = (event) => {
+    setProduct(event.target.value);
+    const selectedItem = event.target.value;
+    setSelectedItem(selectedItem);
+
+    const selectedGst = products.find(item => item.productname === selectedItem).gst;
+    setGst(selectedGst);
   };
 
-
- 
 
   return (
     <div style={{ display: "flex" }}>
@@ -666,8 +661,9 @@ export default function Products() {
                   id="product"
                   name="product"
                   className="form-control"
-                  value={itemproduct}
-                  onChange={handleProductChange}
+                  value={selectedItem}
+                  // onChange={(e) => setProduct(e.target.value)}
+                 onChange={handleItemChange}
                   >
                     <option selected={true}>--Select Product--</option>
                     {products.map((option) => (
@@ -711,21 +707,20 @@ export default function Products() {
                 </div>
               </div>
 
-              <div className="col" style={{display:"block"}}>
+              <div className="col" style={{display:"none"}}>
              
                 <div className="form-group">
                   <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
                     GST %
                   </label>
-                  {selectedProductName && (
                   <input
                     type="number"
                     className="form-control"
-                    value={itemgst}
+                    value={gst}
                     readOnly
 
                   />
-                  )}
+    
                 </div>
                  
               </div>

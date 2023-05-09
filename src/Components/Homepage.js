@@ -6,7 +6,7 @@ import Invoice from './Invoice';
 import Orders from './Orders';
 import store from '../state/store';
 import { Provider } from 'react-redux';
-
+import TableRow from "./Tablerow";
 export default function Homepage() {
   
   const NotFound = () => {
@@ -25,6 +25,7 @@ export default function Homepage() {
             <Route exact path="dashboard" element={<Dashboard/>} />
             <Route exact path="products" element={<Products/>}/>
             <Route exact path="orders" element={<Orders/>}/>
+            <Route exact path="" element={<TableRow/>}  />
             <Route exact path="invoice" element={<Invoice/>} />
             <Route component={NotFound} />
 
