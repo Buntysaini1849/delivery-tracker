@@ -1,34 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import Sidebar from "./Sidebar";
-import { useSelector } from "react-redux";
+import TableRow from "./Tablerow";
+
+
+
 
 export default function Invoice() {
-  const products = useSelector((state) => state.product.products);
-  const items = useSelector((state) => state.item.items);
-  const [selectedProduct, setSelectedProduct] = useState("");
-  const [unit, setUnit] = useState("");
-  const [gst, setGst] = useState("");
-  const [sale_price, setSalePrice] = useState("");
-  const rowadds = Array.from({ length: 100 }, (_, index) => index);
-  const [tableData, setTableData] = useState(items);
+
+const rows = Array.from({ length: 50 }, (_, index) => {
+  return <TableRow key={index} id={index + 1} />;
+});
+
 
   const printDiv = () => {
     window.print();
   };
 
-  const handleProductSelection = (e) => {
-    setSelectedProduct(e.target.value);
-   
-  };
 
-  const selectedProductData = items.find(
-    (product) => product.product === selectedProduct,
-    
-  );
-
-  const handleaddRow = () => {
-     setTableData([...tableData,{}]);
-  }
 
 
   return (
@@ -117,21 +105,12 @@ export default function Invoice() {
               </div>
             </div>
 
-            {/* <div
-              className="container-fluid mt-5 invoice-table-container"
-              style={{ display: "flex", justifyContent: "end" }}
-            >
-              <button className="btn btn-md rowadd-btn" onClick={addRow}>
-                Add Row
-              </button>
-            </div> */}
-
             <div
               className="table-responsive p-3 mt-2 d-flex"
               style={{
                 justifyContent: "center",
                 border: "1px solid lightgrey",
-                height: "auto",
+                height: "350px",
               }}
             >
               <table
@@ -155,83 +134,7 @@ export default function Invoice() {
 
  
                     <tbody>
-                      {tableData.map((itemdata,index) => (
-                        <tr key={itemdata.id}>
-                          <td
-                            style={{ textAlign: "right", fontWeight: "bold" }}
-                            className="invoice-td text-center"
-                          >
-                            {index+1}
-                          </td>
-                          <td className="invoice-td invoice-td-item">
-                            <select
-                              className="invoice-input form-control invoice-input-item text-center"
-                              style={{ width: "200px" }}
-                              value={selectedProduct}
-                              onChange={handleProductSelection}
-                            >
-                              <option value=""></option>
-                              {items.map((product) => (
-                                <option
-                                  key={product.id}
-                                  value={product.product}
-                                >
-                                  {product.product}
-                                </option>
-                              ))}
-                            </select>
-                          </td>
-                          <td className="invoice-td">
-                            <input
-                              type="number"
-                              onClick={handleaddRow}
-                              className="invoice-input invoice-input-qty text-center"
-                            />
-                          </td>
-                          <td className="invoice-td">
-                            {selectedProductData && (
-                              <select
-                              className="invoice-input form-control invoice-input-item text-center"
-                              style={{ width: "200px" }}
-                              value={selectedProductData.unit}
-                              id={`product-unit-${selectedProductData.id}`}
-                            >
-                              <option value=""></option>
-                              <option value={selectedProductData.unit}>
-                                {selectedProductData.unit}
-                              </option>
-                            </select>
-                            )}
-                            
-                          </td>
-                          <td className="invoice-td">
-                          {selectedProductData && (
-                            <input
-                              type="number"
-                              value={selectedProductData.gst}
-                              id={`product-gst-${selectedProductData.id}`}
-                              className="invoice-input form-control invoice-input-gst text-center"
-                            />
-                          )}
-                          </td>
-                          <td className="invoice-td">
-                          {selectedProductData && (
-                            <input
-                              type="number"
-                              value={selectedProductData.saleprice}
-                              id={`product-saleprice-${selectedProductData.id}`}
-                              className="invoice-input form-control invoice-input-price text-center"
-                            />
-                          )}
-                          </td>
-                          <td className="invoice-td">
-                            <input
-                              type="number"
-                              className="invoice-input form-control invoice-input-amount text-center"
-                            />
-                          </td>
-                        </tr>
-                      ))}
+                      {rows}
                     </tbody>
               
               </table>

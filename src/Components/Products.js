@@ -33,10 +33,14 @@ export default function Products() {
   const [availableqty, setAvailableQty] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [images, setImages] = useState([]);
-  const [gst, setGst] = useState("");
   const [productdescription, setProductDescription] = useState("");
   const [productimage, setProductImage] = useState([]);
-  const [dropdownOptions, setDropdownOptions] = useState([]);
+  const [selectedProductName, setSelectedProductName] = useState("");
+  const [gst, setGst] = useState('');
+  const [itemgst, setItemGst] = useState('');
+  const [itemproduct, setItemProduct] = useState('');
+
+
 
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
@@ -99,24 +103,10 @@ export default function Products() {
     }
   };
 
-  /*const handlegstrate = (value) => {
-    setGstrate(gstdata[value].gstrate);
-  }; */
 
   const handleproductsubmitform = (event) => {
     event.preventDefault();
-    //   const fdata = productformData;
-    // fdata.push({
-    //   productCategory,
-    //   productname,
-    //   producthsn,
-    //   productcode,
-    //   gst,
-    //   productdescription,
-    //   values,
-    // });
-    // setProductFormData(fdata);
-    // localStorage.setItem("productformData", JSON.stringify(fdata));
+
 
     const dataas = dispatch(
       addProduct({
@@ -132,8 +122,6 @@ export default function Products() {
 
     console.log(dataas.payload);
 
-    // setProductFormData(dataas.payload);
-    // localStorage.setItem("productformData", JSON.stringify(dataas.payload));
 
     setProductCategory("");
     setProductname("");
@@ -145,19 +133,7 @@ export default function Products() {
 
   const handleitemsubmitform = (e) => {
     e.preventDefault();
-    // const data = itemformData;
-    // data.push({
-    //   product,
-    //   unit,
-    //   saleprice,
-    //   mrpprice,
-    //   totalqty,
-    //   availableqty,
-    //   discount,
-    //   images
-    // });
-    // setItemFormData(data);
-    // localStorage.setItem("itemformData", JSON.stringify(data));
+
 
     const itemdatas = dispatch(
       addItem({
@@ -217,6 +193,25 @@ export default function Products() {
       .then((data) => setData(data.data));
     console.log(data);
   }, []);
+
+  const handleProductChange = (event) => {
+    const productname = event.target.value;
+    setItemProduct(productname);
+    const selectedProduct = products.find(
+      (product) => product.productname === productname
+    );
+    if (selectedProduct) {
+      setSelectedProductName(selectedProduct);
+      setItemGst(selectedProduct.itemgst);
+    } else {
+      setSelectedProductName("");
+      setItemGst("");
+    }
+    
+  };
+
+
+ 
 
   return (
     <div style={{ display: "flex" }}>
@@ -490,6 +485,7 @@ export default function Products() {
                     name="productname"
                     placeholder="Enter product name...."
                     style={{ fontSize: "13px" }}
+                    value={productname}
                     onChange={(ev) => setProductname(ev.target.value)}
                   />
                 </div>
@@ -546,6 +542,7 @@ export default function Products() {
                     placeholder="Enter GST (in %)...."
                     style={{ fontSize: "13px" }}
                     title="GST"
+                    value={gst}
                   />
                 </div>
               </div>
@@ -669,12 +666,13 @@ export default function Products() {
                   id="product"
                   name="product"
                   className="form-control"
-                  onChange={(e) => setProduct(e.target.value)}
+                  value={itemproduct}
+                  onChange={handleProductChange}
                   >
                     <option selected={true}>--Select Product--</option>
                     {products.map((option) => (
                       <option
-                        key={option.id}
+                        key={option.productname}
                         value={option.productname}
                         style={{ fontSize: "12px" }}
                       >
@@ -712,6 +710,26 @@ export default function Products() {
                   </select>
                 </div>
               </div>
+
+              <div className="col" style={{display:"block"}}>
+             
+                <div className="form-group">
+                  <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
+                    GST %
+                  </label>
+                  {selectedProductName && (
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={itemgst}
+                    readOnly
+
+                  />
+                  )}
+                </div>
+                 
+              </div>
+
             </div>
 
             <div className="row mt-3">
