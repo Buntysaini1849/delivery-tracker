@@ -55,7 +55,7 @@ function TableRow(props) {
     <>
       
       <tr key={props.id}>
-        <td className="invoice-td">{props.ids}</td>
+        <td className="invoice-td text-center">{props.id}</td>
         <td className="invoice-td invoice-td-item" style={{ width: "20%" }}>
           <select
             value={product}
