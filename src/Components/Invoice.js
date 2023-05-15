@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import TableRow from "./Tablerow";
 
 export default function Invoice() {
+  const [totalamount,setTotalAmount] = useState(0);
+
+  const handleDataFromChild = (data) => {
+    setTotalAmount(data);
+  }
+  
 const rows = Array.from({ length: 50 }, (_, index) => {
-  return <TableRow key={index} id={index + 1} />;
+  return <TableRow key={index} id={index + 1}  sendDataToParent={handleDataFromChild}/>;
 });
 
 
@@ -12,8 +18,6 @@ const rows = Array.from({ length: 50 }, (_, index) => {
   const printDiv = () => {
     window.print();
   };
-
-
 
 
   return (
@@ -152,6 +156,7 @@ const rows = Array.from({ length: 50 }, (_, index) => {
                 <input
                 type="number"
                 name="total-amount"
+                value={totalamount}
                 className="invoice-input form-control invoice-input-amount text-center"
               />
 

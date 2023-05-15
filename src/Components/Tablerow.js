@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 
 
-function TableRow({ id }) {
+function TableRow(props) {
   const items = useSelector((state) => state.item.items);
   // const products = useSelector((state) => state.product.products);
   const [product, setProduct] = useState("");
@@ -12,11 +12,22 @@ function TableRow({ id }) {
   const [gstrate, setGstRate] = useState("");
   const [qty, setQty] = useState("");
 
-  const amount = qty * price * (1 + gstrate / 100);
-  const [totalamount, setTotalAmount] = useState(amount);
+  const amount = (qty * price * (1 + (gstrate / 100)));
+
+  const handleClick = (e) => {
+
+    if (e.key === 'Enter'){
+      const data = amount;
+      props.sendDataToParent(data);
+    }
+ 
+  }
+  
 
   const handleQuantityChange = (event) => {
     setQty(parseInt(event.target.value));
+  
+  
   };
 
   const handlePriceChange = (event) => {
@@ -43,8 +54,8 @@ function TableRow({ id }) {
   return (
     <>
       
-      <tr key={id}>
-        <td className="invoice-td">{id}</td>
+      <tr key={props.id}>
+        <td className="invoice-td">{props.ids}</td>
         <td className="invoice-td invoice-td-item" style={{ width: "20%" }}>
           <select
             value={product}
@@ -93,7 +104,8 @@ function TableRow({ id }) {
         <td className="invoice-td" name="amount">
           <input
             type="number"
-            value={amount.toFixed(2)}
+            value={amount}
+            onKeyDown={handleClick}
             className="invoice-input form-control invoice-input-amount text-center"
           />
         </td>

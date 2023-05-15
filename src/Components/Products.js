@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
-import { useMemo } from "react";
 import { addProduct, addItem } from ".././state/actions/action";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -38,9 +37,6 @@ export default function Products() {
   const [gst, setGst] = useState('');
   const [selectedItem, setSelectedItem] = useState('');
   // const [gstvalue, setGstValue] = useState('');
-
-
-
 
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
