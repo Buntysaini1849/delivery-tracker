@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import { useSelector } from "react-redux";
 
 
 
-function TableRow(props) {
+function TableRow({index,id,sendDataToParent,rows}) {
+   
   const items = useSelector((state) => state.item.items);
   // const products = useSelector((state) => state.product.products);
   const [product, setProduct] = useState("");
@@ -11,17 +12,41 @@ function TableRow(props) {
   const [units, setUnits] = useState("");
   const [gstrate, setGstRate] = useState("");
   const [qty, setQty] = useState("");
+  const [totalamountdata,setTotalAmountData] = useState(0);
 
   const amount = (qty * price * (1 + (gstrate / 100)));
 
+  
+  
   const handleClick = (e) => {
+    if (e.key === 'Enter') {
+      let rows = document.querySelectorAll("tr");
+      let total = 0;
+      rows.forEach((row,id) => {
+        total += amount;
+      });
+      setTotalAmountData(total);
+// This needs to be corrected ****************************
 
-    if (e.key === 'Enter'){
-      const data = amount;
-      props.sendDataToParent(data);
+      const data = total;
+
+ /// *************************************************    
+      console.log(data);
+      
+      sendDataToParent(data);
     }
- 
+    else {
+      console.log("error on key press")
+    }
   }
+  
+
+  
+  
+  
+
+
+
   
 
   const handleQuantityChange = (event) => {
@@ -54,8 +79,8 @@ function TableRow(props) {
   return (
     <>
       
-      <tr key={props.id}>
-        <td className="invoice-td text-center">{props.id}</td>
+      <tr Key={id}>
+        <td className="invoice-td text-center">{index+1}</td>
         <td className="invoice-td invoice-td-item" style={{ width: "20%" }}>
           <select
             value={product}

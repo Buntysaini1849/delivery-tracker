@@ -9,11 +9,19 @@ export default function Invoice() {
     setTotalAmount(data);
   }
   
-const rows = Array.from({ length: 50 }, (_, index) => {
-  return <TableRow key={index} id={index + 1}  sendDataToParent={handleDataFromChild}/>;
-});
+// const rows = Array.from({ length: 50 }, (_, index) => {
+//   return <TableRow index={index} id={index + 1}  sendDataToParent={handleDataFromChild} rows={rows}/>;
+// }); 
 
-
+const rows = [];
+for (let i = 0; i < 7; i++) {
+  rows.push(<TableRow 
+    index={i} 
+    id={i + 1}  
+    sendDataToParent={handleDataFromChild} 
+    rows={rows}
+  />);
+}
 
 
   const printDiv = () => {

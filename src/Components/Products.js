@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import Sidebar from "./Sidebar";
 import { addProduct, addItem } from ".././state/actions/action";
 import { useDispatch } from "react-redux";
@@ -41,6 +41,34 @@ export default function Products() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
   const items = useSelector((state) => state.item.items);
+
+
+  //Ref section start
+   
+   const productCategoryRef = useRef(null);
+   const productnameRef = useRef(null);
+   const producthsnRef = useRef(null);
+   const productcodeRef = useRef(null);
+   const gstRef = useRef(null);
+   const imageRef = useRef(null);
+   const valuesRef = useRef(null);
+   const productdescriptionRef = useRef(null);
+   const keywordRef = useRef(null);
+   const productimageRef = useRef(null);
+   const productRef = useRef(null);
+   const unitRef = useRef(null);
+   const salepriceRef = useRef(null);
+   const mrppriceRef = useRef(null);
+   const totalqtyRef =  useRef(null);
+   const availableqtyRef = useRef(null);
+   const discountRef = useRef(null);
+   const imagesRef = useRef(null);
+   const btnRef = useRef(null);
+   const submitbtn1Ref = useRef(null);
+   const submitbtn2Ref = useRef(null);
+
+
+  //Ref section ends
 
   const handlebtn = () => {
     setItemForm(false);
@@ -88,6 +116,8 @@ export default function Products() {
     setSelectedOption(selectedOption);
     setProductCategory(selectedOption);
     console.log(selectedOption);
+    productnameRef.current.focus();
+
   };
 
   const handleitembox = (event) => {
@@ -158,6 +188,17 @@ export default function Products() {
     setImages("");
   };
 
+  function handleKeyPress(event, inputRef) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      inputRef.current.focus();
+      console.log(inputRef.current.value);
+    }
+   
+  }
+
+ 
+
   const handledelete = (index) => {
     const updatedFormData = [...productformData];
     updatedFormData.splice(index, 1);
@@ -201,7 +242,13 @@ export default function Products() {
 
     const selectedGst = products.find(item => item.productname === selectedItem).gst;
     setGst(selectedGst);
+    unitRef.current.focus();
   };
+
+  const handleunit = (e) => {
+    setUnit(e.target.value);
+    salepriceRef.current.focus();
+  }
 
 
   return (
@@ -448,6 +495,8 @@ export default function Products() {
                     key={selectedOption}
                     value={selectedOption}
                     onChange={handledata}
+                    ref={productCategoryRef}
+                    
                   >
                     <option selected={true}>--Select Category--</option>
                     {options.map((option) => (
@@ -478,6 +527,8 @@ export default function Products() {
                     style={{ fontSize: "13px" }}
                     value={productname}
                     onChange={(ev) => setProductname(ev.target.value)}
+                    ref={productnameRef}
+                    onKeyDown={(event) => handleKeyPress(event, producthsnRef)}
                   />
                 </div>
               </div>
@@ -497,6 +548,8 @@ export default function Products() {
                     placeholder="Enter product HSN...."
                     style={{ fontSize: "13px" }}
                     onChange={(e) => setProducthsn(e.target.value)}
+                    ref={producthsnRef}
+                    onKeyDown={(event) => handleKeyPress(event,productcodeRef)}
                   />
                 </div>
               </div>
@@ -513,6 +566,8 @@ export default function Products() {
                     placeholder="Enter product code...."
                     style={{ fontSize: "13px" }}
                     onChange={(e) => setProductcode(e.target.value)}
+                    ref={productcodeRef}
+                    onKeyDown={(event) => handleKeyPress(event, gstRef)}
                   />
                 </div>
               </div>
@@ -534,6 +589,8 @@ export default function Products() {
                     style={{ fontSize: "13px" }}
                     title="GST"
                     value={gst}
+                    ref={gstRef}
+                    onKeyDown={(event) => handleKeyPress(event, productdescriptionRef)}
                   />
                 </div>
               </div>
@@ -552,6 +609,8 @@ export default function Products() {
                     style={{ fontSize: "13px" }}
                     title="Description"
                     onChange={(e) => setProductDescription(e.target.value)}
+                    ref={productdescriptionRef}
+                    onKeyDown={(event) => handleKeyPress(event, keywordRef)}
                   />
                 </div>
               </div>
@@ -573,6 +632,8 @@ export default function Products() {
                     name="keyword"
                     title="Keyword"
                     onChange={handleInputChange}
+                    ref={keywordRef}
+                    onKeyDown={(event) => handleKeyPress(event,btnRef)}
                     value={text}
                   />
                 </div>
@@ -581,9 +642,12 @@ export default function Products() {
               <div className="col-md-6 col-sm-6">
                 <button
                   type="submit"
-                  className="btn btn-sm mt-4 keyword-btn"
+                  className="btn-sm mt-4 keyword-btn"
                   style={{ width: "100%" }}
                   onClick={handleAddClick}
+                  ref={btnRef}
+                  onKeyDown={(event) => handleKeyPress(event,imageRef)}
+
                 >
                   Add
                 </button>
@@ -602,6 +666,8 @@ export default function Products() {
                     id="productimage"
                     name="productimage"
                     onChange={(e) => setProductImage(e.target.files[0])}
+                    ref={imageRef}
+                    onKeyDown={(event) => handleKeyPress(event,valuesRef)}
                   />
                 </div>
               </div>
@@ -612,6 +678,8 @@ export default function Products() {
                   id="output"
                   className="form-control"
                   value={values}
+                  ref={valuesRef}
+                  onKeyDown={(event) => handleKeyPress(event,submitbtn1Ref)}
                   readonly
                 />
               </div>
@@ -621,6 +689,8 @@ export default function Products() {
               type="submit"
               className="btn btn-primary mt-4"
               style={{ width: "100%" }}
+              ref={submitbtn1Ref}
+              onKeyDown={handleproductsubmitform}
               onClick={handleproductsubmitform}
             >
               Add
@@ -660,6 +730,7 @@ export default function Products() {
                   value={selectedItem}
                   // onChange={(e) => setProduct(e.target.value)}
                  onChange={handleItemChange}
+                 ref={productRef}
                   >
                     <option selected={true}>--Select Product--</option>
                     {products.map((option) => (
@@ -686,7 +757,9 @@ export default function Products() {
                     name="unit"
                     title="Unit Type"
                     className="form-control"
-                    onChange={(e) => setUnit(e.target.value)}
+                   // onChange={(e) => setUnit(e.target.value)}
+                   onChange ={handleunit}
+                    ref={unitRef}
                   >
                     <option selected={true}>--Select unit--</option>
                     {unitoptions.map((option) => (
@@ -714,6 +787,7 @@ export default function Products() {
                     className="form-control"
                     value={gst}
                     readOnly
+                    
 
                   />
     
@@ -736,6 +810,8 @@ export default function Products() {
                     name="sale_price"
                     placeholder="Enter Sale Price...."
                     onChange={(ev) => setSalePrice(Number(ev.target.value))}
+                    ref={salepriceRef}
+                    onKeyDown={(event) => handleKeyPress(event, mrppriceRef)}
                     style={{ fontSize: "13px" }}
                   />
                 </div>
@@ -753,6 +829,8 @@ export default function Products() {
                     name="mrp_price"
                     placeholder="Enter MRP Price...."
                     onChange={(ev) => setMrpPrice(Number(ev.target.value))}
+                    ref={mrppriceRef}
+                    onKeyDown={(event) => handleKeyPress(event, totalqtyRef)}
                     style={{ fontSize: "13px" }}
                   />
                 </div>
@@ -770,6 +848,8 @@ export default function Products() {
                     name="total_qty"
                     placeholder="Total Qty...."
                     onChange={(ev) => setTotalQty(Number(ev.target.value))}
+                    ref={totalqtyRef}
+                    onKeyDown={(event) => handleKeyPress(event, availableqtyRef)}
                     style={{ fontSize: "13px" }}
                   />
                 </div>
@@ -787,6 +867,8 @@ export default function Products() {
                     id="available_Qty"
                     name="available_Qty"
                     onChange={(ev) => setAvailableQty(Number(ev.target.value))}
+                    ref={availableqtyRef}
+                    onKeyDown={(event) => handleKeyPress(event, discountRef)}
                     placeholder="Enter Qty"
                     style={{ fontSize: "13px" }}
                     title="Available Qty"
@@ -805,6 +887,8 @@ export default function Products() {
                     id="discount_no"
                     name="discount_no"
                     onChange={(e) => setDiscount(e.target.value)}
+                    ref={discountRef}
+                    onKeyDown={(event) => handleKeyPress(event, imagesRef)}
                     placeholder="Enter Discount (in %)"
                     style={{ fontSize: "13px" }}
                   />
@@ -821,6 +905,9 @@ export default function Products() {
                     className="form-control"
                     id="productimages"
                     name="productimages[]"
+                    ref={imagesRef}
+                    onKeyDown={(event) => handleKeyPress(event,submitbtn2Ref)}
+       
                   />
                 </div>
               </div>
@@ -830,7 +917,9 @@ export default function Products() {
               type="submit"
               className="btn btn-primary mt-4"
               style={{ width: "100%" }}
+              ref={submitbtn2Ref}
               onClick={handleitemsubmitform}
+              onKeyDown={handleitemsubmitform}
             >
               Add
             </button>
