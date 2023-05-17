@@ -44,6 +44,8 @@ export default function Products() {
 
 
   //Ref section start
+
+  const formRef = useRef();
    
    const productCategoryRef = useRef(null);
    const productnameRef = useRef(null);
@@ -132,8 +134,6 @@ export default function Products() {
 
   const handleproductsubmitform = (event) => {
     event.preventDefault();
-
-
     const dataas = dispatch(
       addProduct({
         productCategory,
@@ -148,13 +148,17 @@ export default function Products() {
 
     console.log(dataas.payload);
 
-
-    setProductCategory("");
-    setProductname("");
+    setSelectedOption('');
+    setProductname('');
     setProducthsn("");
-    setGst("");
+    setProductcode('');
+    setGst('');
     setProductDescription("");
     setValues("");
+
+    formRef.current.reset();
+    
+
   };
 
   const handleitemsubmitform = (e) => {
@@ -176,8 +180,8 @@ export default function Products() {
     );
 
     console.log(itemdatas.payload);
-
-    setProduct("");
+    
+    setSelectedItem("");
     setUnit("");
     setSalePrice("");
     setMrpPrice("");
@@ -186,6 +190,8 @@ export default function Products() {
     setDiscount("");
     setGst("");
     setImages("");
+    formRef.current.reset();
+   
   };
 
   function handleKeyPress(event, inputRef) {
@@ -470,6 +476,7 @@ export default function Products() {
               borderRadius: "20px",
               display: form ? "block" : "none",
             }}
+            ref={formRef}
           >
             <p
               className="d-flex"
@@ -546,6 +553,7 @@ export default function Products() {
                     id="producthsn"
                     name="producthsn"
                     placeholder="Enter product HSN...."
+                    value={producthsn}
                     style={{ fontSize: "13px" }}
                     onChange={(e) => setProducthsn(e.target.value)}
                     ref={producthsnRef}
@@ -563,6 +571,7 @@ export default function Products() {
                     className="form-control"
                     id="productcode"
                     name="productcode"
+                    value={productcode}
                     placeholder="Enter product code...."
                     style={{ fontSize: "13px" }}
                     onChange={(e) => setProductcode(e.target.value)}
@@ -607,6 +616,7 @@ export default function Products() {
                     name="productDescription"
                     placeholder="Enter description...."
                     style={{ fontSize: "13px" }}
+                    value={productdescription}
                     title="Description"
                     onChange={(e) => setProductDescription(e.target.value)}
                     ref={productdescriptionRef}
@@ -704,6 +714,7 @@ export default function Products() {
               borderRadius: "20px",
               display: itemform ? "block" : "none",
             }}
+            ref={formRef}
           >
             <p
               className="d-flex"
