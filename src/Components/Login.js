@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from "react";
+import React, { useState,useEffect,useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import {FaUserAlt} from 'react-icons/fa';
 import { BiKey } from "react-icons/bi";
@@ -12,6 +12,7 @@ export default function Login() {
    };
 
 
+  const inputRef = useRef();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -35,10 +36,12 @@ export default function Login() {
       setDisabled(false);
       console.log('This will run after 1 second!')
     }, 10000);
-
-    
-  
   }
+
+
+  useEffect(() =>{
+    inputRef.current.focus();
+  },[]);
 
 
 
@@ -100,6 +103,7 @@ export default function Login() {
             className="form-control login-input"
             id="username"
             name="username"
+            ref={inputRef}
             onChange={(e) => setUsername(e.target.value)}
           />
           <FaUserAlt className="usericon"/>

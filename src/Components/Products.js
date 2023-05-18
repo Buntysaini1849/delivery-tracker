@@ -33,7 +33,7 @@ export default function Products() {
   const [discount, setDiscount] = useState(0);
   const [images, setImages] = useState([]);
   const [productdescription, setProductDescription] = useState("");
-  const [productimage, setProductImage] = useState([]);
+  const [image, setImage] = useState(null);
   const [gst, setGst] = useState('');
   const [selectedItem, setSelectedItem] = useState('');
   // const [gstvalue, setGstValue] = useState('');
@@ -378,7 +378,7 @@ export default function Products() {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>
-                      <img src={items.file} />
+                      <img src={items.image} alt={items.productname} style={{maxWidth:"100px"}} />
                     </td>
                     <td>{items.productCategory}</td>
                     <td>{items.productname}</td>
@@ -673,9 +673,9 @@ export default function Products() {
                   <input
                     type="file"
                     className="form-control"
-                    id="productimage"
-                    name="productimage"
-                    onChange={(e) => setProductImage(e.target.files[0])}
+                    id="image"
+                    name="image"
+                    onChange={(e) => setImage(e.target.files[0])}
                     ref={imageRef}
                     onKeyDown={(event) => handleKeyPress(event,valuesRef)}
                   />

@@ -62,23 +62,24 @@ for (let i = 0; i < 7; i++) {
             style={{ border: "1px solid lightgrey" }}
           >
             <div className="row d-flex invoicetop">
-              <div
-                className="col-md-3 col-sm-6 col-lg-3 d-flex mt-3"
+            <div
+                className="col-md-4 col-sm-6 col-lg-4 d-flex mt-3"
                 style={{ height: "40px" }}
               >
                 <label
                   style={{ fontWeight: "600", fontSize: "1rem" }}
-                  className="mx-2 mt-2"
+                  className="mx-2"
                 >
-                  Date
+                  Customer Name
                 </label>
                 <input
-                  type="date"
-                  name="date"
-                  className="form-control invoice-date"
-                  placeholder="Select Date..."
+                  type="text"
+                  name="customer-name"
+                  className="form-control invoice-customer"
+                  placeholder="Customer Name..."
                 />
               </div>
+             
               <div
                 className="col-md-4 col-sm-6 col-lg-4 d-flex mt-3"
                 style={{ height: "40px" }}
@@ -97,20 +98,20 @@ for (let i = 0; i < 7; i++) {
                 />
               </div>
               <div
-                className="col-md-4 col-sm-6 col-lg-4 d-flex mt-3"
+                className="col-md-3 col-sm-6 col-lg-3 d-flex mt-3"
                 style={{ height: "40px" }}
               >
                 <label
                   style={{ fontWeight: "600", fontSize: "1rem" }}
-                  className="mx-2"
+                  className="mx-2 mt-2"
                 >
-                  Customer Name
+                  Date
                 </label>
                 <input
-                  type="text"
-                  name="customer-name"
-                  className="form-control invoice-customer"
-                  placeholder="Customer Name..."
+                  type="date"
+                  name="date"
+                  className="form-control invoice-date"
+                  placeholder="Select Date..."
                 />
               </div>
             </div>
