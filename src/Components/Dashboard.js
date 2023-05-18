@@ -11,15 +11,17 @@ export default function Dashboard() {
   useEffect(() => {
     localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
     document.body.style.backgroundColor = isDarkMode ? '#212121' : '#e8e8e8';
-    document.documentElement.style.setProperty('--slider-color', isDarkMode ? '#000000' : '#00073D');
+    document.documentElement.style.setProperty('--slider-color', isDarkMode ? '#263544' : '#00073D');
     document.documentElement.style.setProperty('--loghead-color', isDarkMode ? '#ffffff' : '#000000');
+    document.documentElement.style.setProperty('--li-color', isDarkMode ? '#2f3ea8' : '#3f6791');
   }, [isDarkMode]);
 
   const handletoggle = () => {
     setIsDarkMode(!isDarkMode);
     document.body.style.backgroundColor = isDarkMode ? '#212121' : '#e8e8e8';
-    document.documentElement.style.setProperty('--slider-color', isDarkMode ? '#000000' : '#00073D');
+    document.documentElement.style.setProperty('--slider-color', isDarkMode ? '#263544' : '#00073D');
     document.documentElement.style.setProperty('--loghead-color', isDarkMode ? '#ffffff' : '#000000');
+    document.documentElement.style.setProperty('--li-color', isDarkMode ? '#2f3ea8' : '#3f6791');
 
   };
 

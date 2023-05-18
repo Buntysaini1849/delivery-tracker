@@ -4,6 +4,7 @@
   --slider-color: rgb(0,7,61);
   --text-color: #00000;
   --loghead-color:#00264D;
+  --li-color:#00264d;
 }
 
 
@@ -323,7 +324,7 @@ nav a {
 
 nav li,
 nav a:hover {
-  background-color: #00264d !important;
+  background-color: var(--li-color)!important;
 }
 
 .list-items {
