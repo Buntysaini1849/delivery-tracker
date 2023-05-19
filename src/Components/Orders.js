@@ -111,7 +111,7 @@ export default function Orders(props) {
                 style={{ display: "flex", justifyContent: "end" }}
               >
                 <button
-                  className="btn btn-sm btn-primary"
+                  className="btn btn-sm  buttons"
                   onClick={handlebtn}
                   style={{ height: "36px", marginTop: "9px" }}
                 >
@@ -452,7 +452,7 @@ export default function Orders(props) {
           <div className="text-center">
             <button
               type="submit"
-              className="btn btn-primary btn-md mt-4"
+              className="btn buttons mt-4"
               style={{ width: "100%" }}
               onClick={handlesubmit}
             >

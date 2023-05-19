@@ -1,31 +1,51 @@
 import React, { useState,useEffect } from "react";
-import { FaHtml5, FaSignOutAlt } from "react-icons/fa";
+import { SketchPicker} from "react-color";
+import {FaSignOutAlt,FaCog } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
-import Login from "./Login";
 import dashimg from "../images/dashimg.png";
 
 export default function Dashboard() {
-  const [isDarkMode, setIsDarkMode] = useState( JSON.parse(localStorage.getItem('isDarkMode')) || false);
+  // const [isDarkMode, setIsDarkMode] = useState( JSON.parse(localStorage.getItem('isDarkMode')) || false);
 
-  useEffect(() => {
-    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
-    document.body.style.backgroundColor = isDarkMode ? '#212121' : '#e8e8e8';
-    document.documentElement.style.setProperty('--slider-color', isDarkMode ? '#263544' : '#00073D');
-    document.documentElement.style.setProperty('--loghead-color', isDarkMode ? '#ffffff' : '#000000');
-    document.documentElement.style.setProperty('--li-color', isDarkMode ? '#2f3ea8' : '#3f6791');
-  }, [isDarkMode]);
+  // useEffect(() => {
+  //   localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+  //   document.body.style.backgroundColor = isDarkMode ? '#212121' : '#e8e8e8';
+  //   document.documentElement.style.setProperty('--slider-color', isDarkMode ? '#263544' : '#00073D');
+  //   document.documentElement.style.setProperty('--loghead-color', isDarkMode ? '#ffffff' : '#000000');
+  //   document.documentElement.style.setProperty('--li-color', isDarkMode ? '#2f3ea8' : '#3f6791');
+  // }, [isDarkMode]);
 
-  const handletoggle = () => {
-    setIsDarkMode(!isDarkMode);
-    document.body.style.backgroundColor = isDarkMode ? '#212121' : '#e8e8e8';
-    document.documentElement.style.setProperty('--slider-color', isDarkMode ? '#263544' : '#00073D');
-    document.documentElement.style.setProperty('--loghead-color', isDarkMode ? '#ffffff' : '#000000');
-    document.documentElement.style.setProperty('--li-color', isDarkMode ? '#2f3ea8' : '#3f6791');
+  // const handletoggle = () => {
+  //   setIsDarkMode(!isDarkMode);
+  //   document.body.style.backgroundColor = isDarkMode ? '#212121' : '#e8e8e8';
+  //   document.documentElement.style.setProperty('--slider-color', isDarkMode ? '#263544' : '#00073D');
+  //   document.documentElement.style.setProperty('--loghead-color', isDarkMode ? '#ffffff' : '#000000');
+  //   document.documentElement.style.setProperty('--li-color', isDarkMode ? '#2f3ea8' : '#3f6791');
 
+  // };
+
+  const [slideColor, setSlideColor] = useState("#00073d");
+  const [logheadColor, setLogheadColor] = useState("#00264D");
+  const [sideliColor, setSideliColor] = useState("#00264d");
+  
+  const [showColorPicker, setShowColorPicker] = useState(false);
+
+  const handleColorChange = (color) => {
+    document.documentElement.style.setProperty("--slider-color", color.hex);
+    document.documentElement.style.setProperty("--loghead-color", color.hex);
+    const hslColor = color.hsl;
+    hslColor.s -= 0.3;   
+    hslColor.l -= 0.1;
+    const newMenuItemsColor = `hsl(${hslColor.h}, ${hslColor.s * 100}%, ${hslColor.l * 100}%)`;
+    document.documentElement.style.setProperty("--li-color", newMenuItemsColor);
+    setSlideColor(color.hex);
+    setLogheadColor(color.hex);
+    setSideliColor(newMenuItemsColor);
   };
 
-  
+
+
 
 
 
@@ -38,19 +58,30 @@ export default function Dashboard() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <div className="container">
+      <div className="container-fluid">
         
         <div className="container-fluid signout-head mt-3">
           <div className="dashbox">
           <h5 style={{fontWeight:"bold",fontSize:"27px"}} className="logheadtab">Dashboard</h5>
           </div>
 
-          <div className="boxtops" style={{width:"72%",display:"flex",justifyContent:"end"}}>
+          {/* <div className="boxtops" style={{width:"72%",display:"flex",justifyContent:"end"}}>
           <label className="switch">
             <input type="checkbox" checked={isDarkMode} onChange={handletoggle}/>
             {isDarkMode ? 'ON' : 'OFF'}
             <span className="slider round"></span>
           </label>
+          </div> */}
+
+          <div className="boxtops" style={{width:"72%",display:"flex",justifyContent:"end"}}>
+            <FaCog onClick={()=> {setShowColorPicker(!showColorPicker);}} className="settings-icon"/>
+             
+            {showColorPicker && (
+          <div className="color-picker">
+            <SketchPicker color={slideColor} onChange={handleColorChange} />
+          </div>
+           )}
+
           </div>
         
           <div className="box d-flex" style={{marginLeft:"35px"}}>

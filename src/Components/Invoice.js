@@ -1,33 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Sidebar from "./Sidebar";
 import TableRow from "./Tablerow";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Invoice() {
-  const [totalamount,setTotalAmount] = useState(0);
+  const [totalamount, setTotalAmount] = useState(0);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const invoiceRef = useRef();
+
+  const customerRef = useRef(null);
+  const invoicenumRef = useRef(null);
+  const dateRef = useRef(null);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const handleDataFromChild = (data) => {
     setTotalAmount(data);
+  };
+
+
+  const handleDatepickerClick = () => {
+    if (dateRef.current) {
+      dateRef.current.setOpen(true);
+      setTimeout(() =>
+        dateRef.current.input.focus(), 0);
+    }
+  };
+
+
+  // const rows = Array.from({ length: 50 }, (_, index) => {
+  //   return <TableRow index={index} id={index + 1}  sendDataToParent={handleDataFromChild} rows={rows}/>;
+  // });
+
+  const rows = [];
+  for (let i = 0; i < 7; i++) {
+    rows.push(
+      <TableRow
+        index={i}
+        id={i + 1}
+        sendDataToParent={handleDataFromChild}
+        rows={rows}
+      />
+    );
   }
-  
-// const rows = Array.from({ length: 50 }, (_, index) => {
-//   return <TableRow index={index} id={index + 1}  sendDataToParent={handleDataFromChild} rows={rows}/>;
-// }); 
 
-const rows = [];
-for (let i = 0; i < 7; i++) {
-  rows.push(<TableRow 
-    index={i} 
-    id={i + 1}  
-    sendDataToParent={handleDataFromChild} 
-    rows={rows}
-  />);
-}
-
+  function handleKeyPress(event, inputRef) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      inputRef.current.focus();
+      console.log(inputRef.current.value);
+    }
+  }
 
   const printDiv = () => {
     window.print();
   };
-
 
   return (
     <div style={{ display: "flex" }}>
@@ -62,9 +93,10 @@ for (let i = 0; i < 7; i++) {
             style={{ border: "1px solid lightgrey" }}
           >
             <div className="row d-flex invoicetop">
-            <div
+              <div
                 className="col-md-4 col-sm-6 col-lg-4 d-flex mt-3"
                 style={{ height: "40px" }}
+                ref={invoiceRef}
               >
                 <label
                   style={{ fontWeight: "600", fontSize: "1rem" }}
@@ -73,13 +105,15 @@ for (let i = 0; i < 7; i++) {
                   Customer Name
                 </label>
                 <input
-                  type="text"
+                  type="search"
                   name="customer-name"
                   className="form-control invoice-customer"
                   placeholder="Customer Name..."
+                  ref={customerRef}
+                  onKeyDown={(event) => handleKeyPress(event, invoicenumRef)}
                 />
               </div>
-             
+
               <div
                 className="col-md-4 col-sm-6 col-lg-4 d-flex mt-3"
                 style={{ height: "40px" }}
@@ -90,12 +124,16 @@ for (let i = 0; i < 7; i++) {
                 >
                   Invoice Number
                 </label>
-                <input
-                  type="text"
-                  name="invoice-num"
-                  className="form-control invoice-number"
-                  placeholder="Invoice number..."
-                />
+                <label class="input-group">
+                  <input
+                    type="text"
+                    name="invoice-num"
+                    className="form-control invoice-number"
+                    placeholder="Invoice number..."
+                    ref={invoicenumRef}
+                    onKeyDown={(event) => handleKeyPress(event, dateRef)}
+                  />
+                </label>
               </div>
               <div
                 className="col-md-3 col-sm-6 col-lg-3 d-flex mt-3"
@@ -107,12 +145,27 @@ for (let i = 0; i < 7; i++) {
                 >
                   Date
                 </label>
-                <input
-                  type="date"
+
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={handleDateChange}
                   name="date"
+                  id="datepicker"
                   className="form-control invoice-date"
                   placeholder="Select Date..."
+                  ref={dateRef}
+                  onKeyDown={(event) => handleKeyPress(event, dateRef)}
                 />
+
+                {/* <input
+                  type="date"
+                  name="date"
+                  id="datepicker"
+                  className="form-control invoice-date"
+                  placeholder="Select Date..."
+                  onClick={handledatePick}
+                  ref={dateRef}
+                /> */}
               </div>
             </div>
 
@@ -130,6 +183,7 @@ for (let i = 0; i < 7; i++) {
                   overflowY: "scroll",
                   width: "100%",
                 }}
+                ref={invoiceRef}
               >
                 <thead>
                   <tr>
@@ -143,11 +197,7 @@ for (let i = 0; i < 7; i++) {
                   </tr>
                 </thead>
 
- 
-                    <tbody>
-                      {rows}
-                    </tbody>
-              
+                <tbody>{rows}</tbody>
               </table>
             </div>
           </div>
@@ -162,16 +212,12 @@ for (let i = 0; i < 7; i++) {
               Total Amount
             </label>
             <div className="total-amount-input invoice-td">
-
-                <input
+              <input
                 type="number"
                 name="total-amount"
                 value={totalamount}
                 className="invoice-input form-control invoice-input-amount text-center"
               />
-
-       
-              
             </div>
           </div>
         </div>

@@ -315,7 +315,7 @@ export default function Products() {
                     style={{ display: "flex", justifyContent: "end" }}
                   >
                     <button
-                      className="btn btn-sm btn-primary"
+                      className="btn btn-sm  buttons"
                       onClick={handlebtn}
                       style={{ marginTop: "9px" }}
                     >
@@ -328,7 +328,7 @@ export default function Products() {
                     style={{ display: "flex", justifyContent: "end" }}
                   >
                     <button
-                      className="btn btn-sm btn-primary"
+                      className="btn btn-sm buttons"
                       onClick={handleitembtn}
                       style={{ marginTop: "9px" }}
                     >
@@ -369,6 +369,7 @@ export default function Products() {
                   <th scope="col">Gst %</th>
                   <th scope="col">Description</th>
                   <th scope="col">Keywords</th>
+                  <th scope="col">Rating</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -387,6 +388,7 @@ export default function Products() {
                     <td>{items.gst}</td>
                     <td>{items.productdescription}</td>
                     <td>{items.values}</td>
+                    <td>5</td>
                     <td>
                       <button
                         className="btn btn-sm btn-primary"
@@ -438,6 +440,7 @@ export default function Products() {
                     <td>{itemdata.totalqty}</td>
                     <td>{itemdata.availableqty}</td>
                     <td>{itemdata.discount}</td>
+                    
                     <td>
                       <button
                         className="btn btn-sm btn-primary"
@@ -652,7 +655,7 @@ export default function Products() {
               <div className="col-md-6 col-sm-6">
                 <button
                   type="submit"
-                  className="btn-sm mt-4 keyword-btn"
+                  className="btn-sm mt-4 btn-secondary keyword-btn"
                   style={{ width: "100%" }}
                   onClick={handleAddClick}
                   ref={btnRef}
@@ -697,7 +700,7 @@ export default function Products() {
 
             <button
               type="submit"
-              className="btn btn-primary mt-4"
+              className="btn buttons mt-4"
               style={{ width: "100%" }}
               ref={submitbtn1Ref}
               onKeyDown={handleproductsubmitform}
@@ -926,7 +929,7 @@ export default function Products() {
 
             <button
               type="submit"
-              className="btn btn-primary mt-4"
+              className="btn buttons mt-4"
               style={{ width: "100%" }}
               ref={submitbtn2Ref}
               onClick={handleitemsubmitform}

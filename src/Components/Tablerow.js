@@ -1,9 +1,9 @@
-import React, { useState,useEffect} from "react";
+import React, { useState,useRef} from "react";
 import { useSelector } from "react-redux";
 
 
 
-function TableRow({index,id,sendDataToParent,rows}) {
+function TableRow({index,id,sendDataToParent,rows,itemref}) {
    
   const items = useSelector((state) => state.item.items);
   // const products = useSelector((state) => state.product.products);
@@ -16,6 +16,11 @@ function TableRow({index,id,sendDataToParent,rows}) {
 
   const amount = (qty * price * (1 + (gstrate / 100)));
 
+
+
+  const itemRef = useRef(null);
+  const qtyRef = useRef(null);
+  const amountRef = useRef(null);
   
   
   const handleClick = (e) => {
@@ -73,6 +78,16 @@ function TableRow({index,id,sendDataToParent,rows}) {
     }
   };
 
+
+  function handleKeyPress(event, inputRef) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      inputRef.current.focus();
+      console.log(inputRef.current.value);
+    }
+
+   
+  }
  
   
 
@@ -85,6 +100,8 @@ function TableRow({index,id,sendDataToParent,rows}) {
           <select
             value={product}
             onChange={handleProductChange}
+            ref={itemRef}
+            onKeyDown={(event) => handleKeyPress(event, qtyRef)}
             className="invoice-input form-control invoice-input-item text-center"
           >
             <option value="" disabled={true}></option>
@@ -101,12 +118,15 @@ function TableRow({index,id,sendDataToParent,rows}) {
             className="invoice-input invoice-input-qty text-center"
             value={qty}
             onChange={handleQuantityChange}
+            ref={qtyRef}
+            onKeyDown={(event) => handleKeyPress(event, amountRef)}
             style={{ width: "100%" }}
           />
         </td>
         <td
           className="invoice-td text-center"
           style={{ width: "10%", fontWeight: "bold" }}
+
         >
           {units}
         </td>
@@ -130,7 +150,9 @@ function TableRow({index,id,sendDataToParent,rows}) {
           <input
             type="number"
             value={amount}
-            onKeyDown={handleClick}
+            //onKeyDown={handleClick}
+            onKeyDown={(event) => handleKeyPress(event, itemRef)}
+            ref={amountRef}
             className="invoice-input form-control invoice-input-amount text-center"
           />
         </td>
