@@ -23,13 +23,7 @@ export default function Invoice() {
   };
 
 
-  const handleDatepickerClick = () => {
-    if (dateRef.current) {
-      dateRef.current.setOpen(true);
-      setTimeout(() =>
-        dateRef.current.input.focus(), 0);
-    }
-  };
+
 
 
   // const rows = Array.from({ length: 50 }, (_, index) => {
@@ -48,11 +42,14 @@ export default function Invoice() {
     );
   }
 
-  function handleKeyPress(event, inputRef) {
-    if (event.key === "Enter") {
+  function handleKeyPress(event) {
+    if (event.keyCode === 13 && !event.shiftKey) {
       event.preventDefault();
-      inputRef.current.focus();
-      console.log(inputRef.current.value);
+      if (event.target === customerRef.current) {
+        invoicenumRef.current.focus();
+      } else if (event.target === invoicenumRef.current) {
+        dateRef.current.setFocus();
+      }
     }
   }
 
@@ -110,7 +107,7 @@ export default function Invoice() {
                   className="form-control invoice-customer"
                   placeholder="Customer Name..."
                   ref={customerRef}
-                  onKeyDown={(event) => handleKeyPress(event, invoicenumRef)}
+                  onKeyDown={handleKeyPress}
                 />
               </div>
 
@@ -131,7 +128,7 @@ export default function Invoice() {
                     className="form-control invoice-number"
                     placeholder="Invoice number..."
                     ref={invoicenumRef}
-                    onKeyDown={(event) => handleKeyPress(event, dateRef)}
+                    onKeyDown={handleKeyPress}
                   />
                 </label>
               </div>
@@ -154,7 +151,7 @@ export default function Invoice() {
                   className="form-control invoice-date"
                   placeholder="Select Date..."
                   ref={dateRef}
-                  onKeyDown={(event) => handleKeyPress(event, dateRef)}
+                  onKeyDown={handleKeyPress}
                 />
 
                 {/* <input
