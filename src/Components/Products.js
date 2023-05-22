@@ -212,6 +212,9 @@ export default function Products() {
     localStorage.setItem("productformData", JSON.stringify(updatedFormData));
   };
 
+
+
+
   const handledeleteitem = (index) => {
     const updateditemsData = [...itemformData];
     updateditemsData.splice(index, 1);

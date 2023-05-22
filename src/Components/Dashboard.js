@@ -1,9 +1,10 @@
 import React, { useState,useEffect } from "react";
-import { SketchPicker} from "react-color";
-import {FaSignOutAlt,FaCog } from "react-icons/fa";
+import {FaSignOutAlt} from "react-icons/fa";
 import Sidebar from "./Sidebar";
+import Products from "./Products";
 import { useNavigate } from "react-router-dom";
 import dashimg from "../images/dashimg.png";
+import { useSelector } from "react-redux";
 
 export default function Dashboard() {
   // const [isDarkMode, setIsDarkMode] = useState( JSON.parse(localStorage.getItem('isDarkMode')) || false);
@@ -24,31 +25,13 @@ export default function Dashboard() {
   //   document.documentElement.style.setProperty('--li-color', isDarkMode ? '#2f3ea8' : '#3f6791');
 
   // };
+  const [productCount, setProductCount] = useState(0);
 
-  const [slideColor, setSlideColor] = useState("#00073d");
-  const [logheadColor, setLogheadColor] = useState("#00264D");
-  const [sideliColor, setSideliColor] = useState("#00264d");
-  
-  const [showColorPicker, setShowColorPicker] = useState(false);
 
-  const handleColorChange = (color) => {
-    document.documentElement.style.setProperty("--slider-color", color.hex);
-    document.documentElement.style.setProperty("--loghead-color", color.hex);
-    const hslColor = color.hsl;
-    hslColor.s -= 0.3;   
-    hslColor.l -= 0.1;
-    const newMenuItemsColor = `hsl(${hslColor.h}, ${hslColor.s * 100}%, ${hslColor.l * 100}%)`;
-    document.documentElement.style.setProperty("--li-color", newMenuItemsColor);
-    setSlideColor(color.hex);
-    setLogheadColor(color.hex);
-    setSideliColor(newMenuItemsColor);
+  const handleProductCountChange = (count) => {
+    setProductCount(count);
   };
-
-
-
-
-
-
+  
   let navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem("email", "password");
@@ -56,6 +39,7 @@ export default function Dashboard() {
   };
 
   return (
+
     <div style={{ display: "flex" }}>
       <Sidebar />
       <div className="container-fluid">
@@ -73,7 +57,7 @@ export default function Dashboard() {
           </label>
           </div> */}
 
-          <div className="boxtops" style={{width:"72%",display:"flex",justifyContent:"end"}}>
+          {/* <div className="boxtops" style={{width:"72%",display:"flex",justifyContent:"end"}}>
             <FaCog onClick={()=> {setShowColorPicker(!showColorPicker);}} className="settings-icon"/>
              
             {showColorPicker && (
@@ -82,7 +66,7 @@ export default function Dashboard() {
           </div>
            )}
 
-          </div>
+          </div> */}
         
           <div className="box d-flex" style={{marginLeft:"35px"}}>
 

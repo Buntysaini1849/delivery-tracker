@@ -22,10 +22,6 @@ export default function Invoice() {
     setTotalAmount(data);
   };
 
-
-
-
-
   // const rows = Array.from({ length: 50 }, (_, index) => {
   //   return <TableRow index={index} id={index + 1}  sendDataToParent={handleDataFromChild} rows={rows}/>;
   // });
@@ -66,23 +62,52 @@ export default function Invoice() {
           className="container-fluid mt-1 p-3"
           style={{ background: "#fff" }}
         >
-          <p
-            style={{
-              textAlign: "center",
-              fontSize: "20px",
-              fontWeight: "600",
-              padding: "20px",
-            }}
+          <div
+            className="container-fluid d-flex"
+            style={{ justifyContent: "flex-end" }}
           >
-            Invoice
-          </p>
+            <div
+              className="box"
+              style={{ width: "100%", display: "flex", justifyContent: "end" }}
+            >
+              <p
+                style={{
+                  textAlign: "center",
+                  fontSize: "20px",
+                  fontWeight: "600",
+                  padding: "20px",
+                }}
+              >
+                Invoice
+              </p>
+            </div>
+
+            <div
+              className="box mt-3"
+              style={{
+                width: "100%",
+                height: "40px",
+                display: "flex",
+                justifyContent: "end",
+              }}
+            >
+              <button
+                type="button"
+                className="btn btn-md rowadd-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModalCenter"
+              >
+                Add Customer
+              </button>
+            </div>
+          </div>
 
           <div
-            className="container mt-1"
+            className="container mt-5"
             style={{ display: "flex", justifyContent: "end" }}
           >
             <button className="btn btn-md rowadd-btn" onClick={printDiv}>
-              Print Preview
+              Print invoice
             </button>
           </div>
           <div
@@ -215,6 +240,61 @@ export default function Invoice() {
                 value={totalamount}
                 className="invoice-input form-control invoice-input-amount text-center"
               />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLongTitle">
+                Add Customer
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="container-fluid">
+              <form>
+              <div class="form-group">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="City" />
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="State" />
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Zip" />
+                </div>
+              </div>
+              </form>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" className="btn btn-primary">
+                Save changes
+              </button>
             </div>
           </div>
         </div>

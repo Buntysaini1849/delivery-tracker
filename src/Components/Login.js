@@ -2,15 +2,21 @@ import React, { useState,useEffect,useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import {FaUserAlt} from 'react-icons/fa';
 import { BiKey } from "react-icons/bi";
+import { useDispatch } from 'react-redux';
+
+
+
 
 export default function Login() {
 
-  const userDetails = {
-    username:"admin",
-    email:"admin",
-    password:"admin"
-   };
+  // const userDetails = {
+  //   username:"admin",
+  //   email:"admin",
+  //   password:"admin"
+  //  };
 
+
+  const dispatch = useDispatch();
 
   const inputRef = useRef();
 
@@ -23,6 +29,7 @@ export default function Login() {
   const [disabled, setDisabled] = useState(false);
   const [shownewinput, SetShownewinput]=useState(false);
   const [disabledotp, setDisabledotp] = useState(true);
+  const [error, setError] = useState('');
 
 
   const showhidediv = (e) =>{
@@ -57,34 +64,55 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const login = (e) => {
-    if (username !== userDetails.username) {
-      setMessageError("username did not match");
-      console.log("username did not match");
-      setIsAuthenticated(false);
-      navigate("/");
-    } 
+  // const login = (e) => {
+  //   if (username !== userDetails.username) {
+  //     setMessageError("username did not match");
+  //     console.log("username did not match");
+  //     setIsAuthenticated(false);
+  //     navigate("/");
+  //   } 
 
     
-    else if (password !== userDetails.password){
-      setMessageError("password did not match");
-      console.log("password did not match");
-      setIsAuthenticated(false);
-      navigate("/");
-    }
+  //   else if (password !== userDetails.password){
+  //     setMessageError("password did not match");
+  //     console.log("password did not match");
+  //     setIsAuthenticated(false);
+  //     navigate("/");
+  //   }
 
     
-    else{
-      console.log("login done");
-      navigate("/dashboard");
+  //   else{
+  //     console.log("login done");
+  //     navigate("/dashboard");
+  //   }
+
+  // };
+
+
+   async function handleSubmit(event) {
+    event.preventDefault();
+    try {
+      const response = await fetch('http://ecommerce.techiecy.com/auth/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        // Redirect to dashboard page
+       // dispatch(setUsernames(username));
+        navigate('/dashboard');
+      } else {
+        setError(result?.message || 'An unknown error occurred while logging in.');
+      }
+    } catch (error) {
+      console.error(error);
+      setError('An error occurred while logging in.');
     }
-
-  };
-
-
-
-
-
+  }
+  
 
   return (
     <div className="loginheader">
@@ -94,7 +122,7 @@ export default function Login() {
       <br />
       <br />
      <div className="container-fluid p-4" style={{display:"flex",justifyContent:"center"}}>
-      <form className="login-form p-4 mt-2" style={{width:"30%",position:"relative"}}>
+      <form className="login-form p-4 mt-2" style={{width:"30%",position:"relative"}} onSubmit={handleSubmit}>
         <h2 className="logintop-head mb-4">Login To Your Account</h2>
         <div className="form-group mt-1">
           <label className="label">Username</label>
@@ -102,6 +130,7 @@ export default function Login() {
             type="username"
             className="form-control login-input"
             id="username"
+            value={username}
             name="username"
             ref={inputRef}
             onChange={(e) => setUsername(e.target.value)}
@@ -114,6 +143,7 @@ export default function Login() {
             type="password"
             className="form-control login-input"
             id="password"
+            value={password}
             name="password"
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -124,7 +154,6 @@ export default function Login() {
       <div className="col-md-6">
       <button
           type="submit"
-          onClick={login}
           style={{background:"rgb(108,100,251)"}}
           className="btn login-btn mt-1"
         >
@@ -138,7 +167,7 @@ export default function Login() {
       </div>
 
      </div>
-        
+     {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
       </div>
 
@@ -212,6 +241,7 @@ export default function Login() {
             style={{width:"48%"}}
           />
           </div>:null}
+          
         </form>
       </div>
       <div className="modal-footer">

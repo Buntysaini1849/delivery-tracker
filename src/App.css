@@ -18,17 +18,17 @@
   color: #000;
 }
 
-.settings-icon{
-  font-size: 24px !important;
-  margin-top: 5px !important;
-  cursor:  pointer !important;
+.settings-icon {
+  font-size: 20px !important;
+  margin-top: 6px !important;
+  cursor: pointer !important;
 }
 
 
 .color-picker {
   position: absolute;
-  left: 82.1%;
-  top: 29%;
+  left: 259.1%;
+  top: 77%;
   transform: translate(-50%, -50%);
   z-index: 1;
 }
@@ -373,9 +373,6 @@ nav a:hover {
   margin-left: -25px;
 }
 
-svg {
-  margin-top: -7px;
-}
 
 .list-items:hover {
   cursor: pointer;
