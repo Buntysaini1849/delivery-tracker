@@ -244,16 +244,16 @@ table td {
 
 .usericon {
   position: absolute;
-  top: 109px;
-  left: 34px;
+  top: 38px;
+  left: 11px;
   color: #003bc5;
   font-size: 13px;
 }
 
 .keyicon {
   position: absolute;
-  top: 185px;
-  left: 34px;
+  top: 38px;
+  left: 11px;
   color: #003bc5;
   font-size: 20px;
 }
@@ -283,7 +283,7 @@ table td {
 }
 
 .login-input {
-  padding-left: 35px;
+  padding-left: 44px;
 }
 
 .signout-head {

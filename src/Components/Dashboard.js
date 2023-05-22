@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import Products from "./Products";
 import { useNavigate } from "react-router-dom";
 import dashimg from "../images/dashimg.png";
-import { useSelector } from "react-redux";
+
 
 export default function Dashboard() {
   // const [isDarkMode, setIsDarkMode] = useState( JSON.parse(localStorage.getItem('isDarkMode')) || false);
