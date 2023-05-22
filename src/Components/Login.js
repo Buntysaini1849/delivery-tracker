@@ -96,19 +96,22 @@ export default function Login() {
   //   }
   // }
 
-  const LOGIN_URL = "http://ecommerce.techiecy.com/auth/login/";
+  
+ 
+
 
   async function handleSubmit(event) {
     event.preventDefault();
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value.trim();
-
-    // if (!username || !password) {
-    //   setError('Please enter both username and password.');
-    //   return;
-    // }
-
+  
+    if (!username || !password) {
+      setError('Please enter both username and password.');
+      return;
+    }
+  
     try {
+      const LOGIN_URL = "http://ecommerce.techiecy.com/auth/login/";
       const response = await fetch(LOGIN_URL, {
         method: "POST",
         headers: {
@@ -116,28 +119,26 @@ export default function Login() {
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
           // Redirect to dashboard page
-          navigate("/dashboard");
+          navigate("/dashboard"); // replace with actual navigate method
         } else {
           setError(
             result?.message || "An unknown error occurred while logging in."
           );
         }
       } else {
-        setError(
-          `Server responded with ${response.status}: ${response.statusText}`
-        );
+        setError("An error occurred while logging in.");
       }
     } catch (error) {
       console.error(error);
       setError("An error occurred while logging in.");
     }
   }
-
+  
   return (
     <div className="loginheader">
       <h3 className="login-titles pt-3">Delivery Management System</h3>
