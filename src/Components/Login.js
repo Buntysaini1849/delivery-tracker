@@ -111,8 +111,7 @@ export default function Login() {
     }
   
     try {
-      const LOGIN_URL = "http://ecommerce.techiecy.com/auth/login/";
-      const response = await fetch(LOGIN_URL, {
+      const response = await fetch("http://ecommerce.techiecy.com/auth/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
