@@ -124,7 +124,7 @@ export default function Login() {
           navigate("/dashboard");
         } else {
           setError(
-            "Incorrect username or password"
+            result?.message || "An unknown error occurred while logging in."
           );
         }
       } else {
