@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 import { BiKey } from "react-icons/bi";
+import axios from 'axios';
 
 export default function Login() {
   // const userDetails = {
@@ -50,94 +51,37 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  // const login = (e) => {
-  //   if (username !== userDetails.username) {
-  //     setMessageError("username did not match");
-  //     console.log("username did not match");
-  //     setIsAuthenticated(false);
-  //     navigate("/");
-  //   }
-
-  //   else if (password !== userDetails.password){
-  //     setMessageError("password did not match");
-  //     console.log("password did not match");
-  //     setIsAuthenticated(false);
-  //     navigate("/");
-  //   }
-
-  //   else{
-  //     console.log("login done");
-  //     navigate("/dashboard");
-  //   }
-
-  // };
-
-  //  async function handleSubmit(event) {
-  //   event.preventDefault();
-  //   try {
-  //     const response = await fetch('http://ecommerce.techiecy.com/auth/login/', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ username, password }),
-  //     });
-  //     const result = await response.json();
-  //     if (result.success) {
-  //       // Redirect to dashboard page
-  //      // dispatch(setUsernames(username));
-  //       navigate('/dashboard');
-  //     } else {
-  //       setError(result?.message || 'An unknown error occurred while logging in.');
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     setError('An error occurred while logging in.');
-  //   }
-  // }
-
-  
- 
 
 
-  async function handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value.trim();
   
-    if (!username || !password) {
-      setError('Please enter both username and password.');
-      return;
-    }
-  
-    try {
-      const response = await fetch("http://ecommerce.techiecy.com/auth/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-  
-      if (response.ok) {
-        const result = await response.json();
-        if (result.success) {
-          // Redirect to dashboard page
-          navigate("/dashboard"); // replace with actual navigate method
-        } else {
-          setError(
-            result?.message || "An unknown error occurred while logging in."
-          );
-        }
-      } else {
-        setError("An error occurred while logging in.");
+    const api_url = 'http://ecommerce.techiecy.com/auth/login/';
+    const datas = { username, password };
+    
+    fetch(api_url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datas)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      if (data.success) {
+        navigate("/dashboard");
+      }else{
+        setError("Invalid login credentials");
       }
-    } catch (error) {
-      console.error(error);
-      setError("An error occurred while logging in.");
-    }
-  }
+      
+    })
+    .catch(error => {
+      console.error('error:', error);
+      setError(error.message || 'An error occurred');
+    });
+  };
   
+  
+
   return (
     <div className="loginheader">
       <h3 className="login-titles pt-3">Delivery Management System</h3>
