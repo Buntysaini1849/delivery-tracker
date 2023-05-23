@@ -55,14 +55,11 @@ export default function Login() {
 
   const handleSubmit = event => {
     event.preventDefault();
-  
-    const api_url = 'http://ecommerce.techiecy.com/auth/login/';
-    const datas = { username, password };
     
-    fetch(api_url, {
+    fetch('http://ecommerce.techiecy.com/auth/login/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datas)
+      body: JSON.stringify({ username, password })
     })
     .then(response => response.json())
     .then(data => {
