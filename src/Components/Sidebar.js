@@ -178,16 +178,21 @@ export default function Sidebar() {
                       left: menu ? "174px" : "70px",
                     }}
                   >
+                    <Link to="/orderhistory" className="list-link">
                     <a
                       className="menu-item"
                       href="#"
                       style={{
-                        fontSize: menu ? "1rem" : "0.800rem",
+                        fontSize: menu ? "1rem" : "0.700rem",
                         padding: menu ? "3px" : "5px",
+                        marginLeft: menu ? "-5px" : "-40px",
+                        whiteSpace:"nowrap",
                       }}
+
                     >
-                      Product
+                      Order history
                     </a>
+                    </Link>
                     <a
                       className="menu-item"
                       href="#"

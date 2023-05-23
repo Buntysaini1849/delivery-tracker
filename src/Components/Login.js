@@ -5,11 +5,11 @@ import { BiKey } from "react-icons/bi";
 import axios from 'axios';
 
 export default function Login() {
-  // const userDetails = {
-  //   username:"admin",
-  //   email:"admin",
-  //   password:"admin"
-  //  };
+  const userDetails = {
+    username:"admin",
+    email:"admin",
+    password:"admin"
+   };
 
   const inputRef = useRef();
 
@@ -53,55 +53,51 @@ export default function Login() {
 
 
 
-  // const handleSubmit = event => {
+  
+  function handleSubmit(event) {
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Input Validation
+    if (!username || !password) {
+        console.log("Please enter both a username and password.");
+        return;
+    }
+
+    // Authentication Check
+    if (username === userDetails.username && password === userDetails.password) {
+        console.log("Login successful!");
+        navigate("/dashboard");
+    } else {
+        console.log("Login failed. Please check your credentials and try again.");
+        setError("Login failed. Please try again");
+    }
+}
+  // const handleSubmit = async event => {
   //   event.preventDefault();
-    
-  //   fetch('http://ecommerce.techiecy.com/auth/login/', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ username, password })
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
+  
+  //   try {
+  //     const response = await fetch('http://ecommerce.techiecy.com/auth/login/', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ username, password })
+  //     });
+  
+  //     const data = await response.json();
   //     console.log(data);
+  
   //     if (data.success) {
   //       navigate("/dashboard");
-  //     }else{
+  //     } else {
   //       setError("Invalid login credentials");
   //     }
-      
-  //   })
-  //   .catch(error => {
-  //     console.error('error:', error);
+  
+  //   } catch (error) {
+  //     console.error('Error:', error);
   //     setError(error.message || 'An error occurred');
-  //   });
+  //   }
   // };
-  
-
-  const handleSubmit = async event => {
-    event.preventDefault();
-  
-    try {
-      const response = await fetch('http://ecommerce.techiecy.com/auth/login/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-  
-      const data = await response.json();
-      console.log(data);
-  
-      if (data.success) {
-        navigate("/dashboard");
-      } else {
-        setError("Invalid login credentials");
-      }
-  
-    } catch (error) {
-      console.error('Error:', error);
-      setError(error.message || 'An error occurred');
-    }
-  };
   
   
 

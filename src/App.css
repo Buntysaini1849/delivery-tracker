@@ -575,7 +575,20 @@ td.total-amount-input {
   padding: 5px;
   border: 1px solid #151515;
 }
+
+
+.details-btn{
+  background: none !important;
+  border: 0px !important;
+  outline: none !important;
+  color: #003bc5 !important;
+}
   
+.orderh-table tr{
+  line-height: 25px !important;
+  min-height: 25px !important;
+  height: 25px !important;
+}
 
 @media only screen and (max-width: 650px) {
   .login-form {
