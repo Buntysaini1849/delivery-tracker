@@ -270,18 +270,33 @@ export default function Invoice() {
             <div className="modal-body">
               <div className="container-fluid">
               <form>
-              <div class="form-group">
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="City" />
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="State" />
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Zip" />
-                </div>
-              </div>
-              </form>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="customerFirstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="customerFirstName" name="customerFirstName" />
+            </div>
+            <div class="col-md-6">
+              <label for="customerLastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="customerLastName" name="customerLastName" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="customerMobile" class="form-label">Mobile</label>
+              <input type="text" class="form-control" id="customerMobile" name="customerMobile" />
+            </div>
+            <div class="col-md-6">
+              <label for="customerEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="customerEmail" name="customerEmail" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label for="customerAddress" class="form-label">Address</label>
+              <textarea class="form-control" id="customerAddress" name="customerAddress" rows="3"></textarea>
+            </div>
+          </div>
+        </form>
               </div>
             </div>
             <div className="modal-footer">

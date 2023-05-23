@@ -53,28 +53,54 @@ export default function Login() {
 
 
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  // const handleSubmit = event => {
+  //   event.preventDefault();
     
-    fetch('http://ecommerce.techiecy.com/auth/login/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    })
-    .then(response => response.json())
-    .then(data => {
+  //   fetch('http://ecommerce.techiecy.com/auth/login/', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ username, password })
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     console.log(data);
+  //     if (data.success) {
+  //       navigate("/dashboard");
+  //     }else{
+  //       setError("Invalid login credentials");
+  //     }
+      
+  //   })
+  //   .catch(error => {
+  //     console.error('error:', error);
+  //     setError(error.message || 'An error occurred');
+  //   });
+  // };
+  
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+  
+    try {
+      const response = await fetch('http://ecommerce.techiecy.com/auth/login/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+  
+      const data = await response.json();
       console.log(data);
+  
       if (data.success) {
         navigate("/dashboard");
-      }else{
+      } else {
         setError("Invalid login credentials");
       }
-      
-    })
-    .catch(error => {
-      console.error('error:', error);
+  
+    } catch (error) {
+      console.error('Error:', error);
       setError(error.message || 'An error occurred');
-    });
+    }
   };
   
   
