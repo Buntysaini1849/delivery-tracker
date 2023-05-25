@@ -61,7 +61,7 @@ export default function Login() {
 
     // Input Validation
     if (!username || !password) {
-        console.log("Please enter both a username and password.");
+        console.log("Please enter both  username and password.");
         return;
     }
 
