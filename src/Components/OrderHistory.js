@@ -8,8 +8,8 @@ function OrderHistory() {
     {
       orderNo: 1,
       trackingNo: "ABCD123456",
-      customerName: "John Doe",
-      amount: "$50.00",
+      customerName: "Dinesh",
+      amount: "₹500.00",
       paymentMode: "Cash on Delivery",
       details: "5 items",
       deliveryBoy: "",
@@ -18,8 +18,8 @@ function OrderHistory() {
     {
       orderNo: 2,
       trackingNo: "EFGH789012",
-      customerName: "Jane Smith",
-      amount: "$100.00",
+      customerName: "Bunty",
+      amount: "₹1000.00",
       paymentMode: "Credit Card",
       details: "10 items",
       deliveryBoy: "",
