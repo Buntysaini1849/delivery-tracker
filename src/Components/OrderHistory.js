@@ -11,7 +11,7 @@ function OrderHistory() {
       customerName: "Dinesh",
       amount: "₹500.00",
       paymentMode: "Cash on Delivery",
-      details: "5 items",
+      totalItems: "5 items",
       deliveryBoy: "",
       selected: false
     },
@@ -21,7 +21,7 @@ function OrderHistory() {
       customerName: "Bunty",
       amount: "₹1000.00",
       paymentMode: "Credit Card",
-      details: "10 items",
+      totalItems: "10 items",
       deliveryBoy: "",
       selected: false
     }
@@ -39,12 +39,7 @@ function OrderHistory() {
 
 
   function handleResetClick() {
-    // Update the state using the functional form of setState
-    setOrders(prevOrders => prevOrders.map(order => ({ ...order, item: '', qty: '' }))); // Create a new array of orders with empty values for each input field
-  
-    // Alternatively, you can also define the 'resettedOrders' variable before calling setState
-    // const resettedOrders = orders.map(order => ({ ...order, item: '', qty: '' }));
-    // setOrders(resettedOrders);
+    setOrders(prevOrders => prevOrders.map(order => ({ ...order, item: '', qty: '' })));
   }
   
 
