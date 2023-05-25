@@ -28,9 +28,9 @@ function OrderHistory() {
   ]);
 
   const [deliveryBoys, setDeliveryBoys] = useState([
-    "Adam",
-    "Bob",
-    "Charlie"
+    "Amit",
+    "Kunal",
+    "Naveen",
   ]);
 
   const [selectedOrders, setSelectedOrders] = useState([]);
