@@ -135,6 +135,7 @@ function OrderHistory() {
                   <select
                     value=""
                     onChange={(e) => handleAssignDeliveryBoy(e.target.value)}
+                    className="form-control"
                   >
                     <option disabled value="">
                       Select Delivery Boy
