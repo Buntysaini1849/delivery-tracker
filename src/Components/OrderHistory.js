@@ -122,10 +122,22 @@ function OrderHistory() {
                 {order.deliveryBoy ? (
                   order.deliveryBoy
                 ) : (
+                  <p></p>
+                )}
+              </td>
+              <td><button onClick={handleResetClick}>Reset</button></td>
+     
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    
+  
+      <div className="container">
+      
                   <select
                     value=""
                     onChange={(e) => handleAssignDeliveryBoy(e.target.value)}
-                    disabled={!order.selected}
                   >
                     <option disabled value="">
                       Select Delivery Boy
@@ -136,14 +148,9 @@ function OrderHistory() {
                       </option>
                     ))}
                   </select>
-                )}
-              </td>
-              <td><button onClick={handleResetClick}>Reset</button></td>
-     
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                
+        </div>
+    
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>

@@ -258,14 +258,7 @@ export default function Invoice() {
               <h5 className="modal-title" id="exampleModalLongTitle">
                 Add Customer
               </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+              
             </div>
             <div className="modal-body">
               <div className="container-fluid">
@@ -273,27 +266,27 @@ export default function Invoice() {
           <div class="row mb-3">
             <div class="col-md-6">
               <label for="customerFirstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="customerFirstName" name="customerFirstName" />
+              <input type="text" class="form-control" id="customerFirstName" name="customerFirstName" placeholder="Enter first name..." required={true}/>
             </div>
             <div class="col-md-6">
               <label for="customerLastName" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="customerLastName" name="customerLastName" />
+              <input type="text" class="form-control" id="customerLastName" name="customerLastName" placeholder="Enter last name..." required={true}/>
             </div>
           </div>
           <div class="row mb-3">
             <div class="col-md-6">
               <label for="customerMobile" class="form-label">Mobile</label>
-              <input type="text" class="form-control" id="customerMobile" name="customerMobile" />
+              <input type="number" class="form-control" id="customerMobile" name="customerMobile" placeholder="Enter mobile no. ..." required={true}/>
             </div>
             <div class="col-md-6">
               <label for="customerEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="customerEmail" name="customerEmail" />
+              <input type="email" class="form-control" id="customerEmail" name="customerEmail" placeholder="Enter email..." required={true}/>
             </div>
           </div>
           <div class="row mb-3">
             <div class="col">
               <label for="customerAddress" class="form-label">Address</label>
-              <textarea class="form-control" id="customerAddress" name="customerAddress" rows="3"></textarea>
+              <textarea class="form-control" id="customerAddress" name="customerAddress" rows="3" placeholder="Enter Address..." required={true}></textarea>
             </div>
           </div>
         </form>
@@ -307,8 +300,8 @@ export default function Invoice() {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
+              <button type="submit" className="btn btn-primary">
+                Save
               </button>
             </div>
           </div>
