@@ -37,11 +37,8 @@ function OrderHistory() {
   const [showModal, setShowModal] = useState(false);
   const [modalOrder, setModalOrder] = useState({});
 
-
-  function handleResetClick() {
-    setOrders(prevOrders => prevOrders.map(order => ({ ...order, item: '', qty: '' })));
-  }
   
+ 
 
   const handleSelectOrder = (index) => {
     const newOrders = [...orders];
@@ -67,6 +64,7 @@ function OrderHistory() {
     setSelectedOrders([]);
   };
 
+
   const handleViewDetails = (order) => {
     setShowModal(true);
     setModalOrder(order);
@@ -90,7 +88,6 @@ function OrderHistory() {
             <th>Payment Mode</th>
             <th>Details</th>
             <th>Delivery Boy</th>
-            <th>Action</th>
             
           </tr>
         </thead>
@@ -125,7 +122,7 @@ function OrderHistory() {
                   <p></p>
                 )}
               </td>
-              <td><button onClick={handleResetClick}>Reset</button></td>
+             
      
             </tr>
           ))}
