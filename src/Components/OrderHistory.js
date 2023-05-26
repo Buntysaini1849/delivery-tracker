@@ -178,10 +178,6 @@ function OrderHistory() {
             {modalOrder.paymentMode}
           </p>
           <p>
-            <strong>Details: </strong>
-            {modalOrder.details}
-          </p>
-          <p>
             <strong>Delivery Boy: </strong>
             {modalOrder.deliveryBoy || "Not Assigned"}
           </p>
