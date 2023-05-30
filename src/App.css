@@ -479,7 +479,7 @@ nav a:hover {
 .menu {
   display: flex;
   flex-direction: column;
-  background: rgb(0, 7, 61);
+  background: var(--slider-color);
   width: 87%;
   border-radius: 6px;
   text-align: start;
