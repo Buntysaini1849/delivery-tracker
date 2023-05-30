@@ -176,7 +176,8 @@ function OrderHistory() {
             <input type="text" className="form-control"  placeholder="Search..." value={searchTerm} onChange={handleSearchInputChange} />
             </div>
           </div>
-          <div className="container mt-2">
+          <div className="container-fluid mt-3 d-flex">
+            <div className="container p-0">
             <select
               value=""
               onChange={(e) => handleAssignDeliveryBoy(e.target.value)}
@@ -191,6 +192,12 @@ function OrderHistory() {
                 </option>
               ))}
             </select>
+            </div>
+
+            <div className="container">
+              <button className="btn btn-primary">Assign</button>
+            </div>
+       
           </div>
           <div className="container-fluid mt-2" style={{overflow:"scroll",overflowX:"auto"}}>
           <table className="table table-striped table-bordered bg-light orderh-table mt-2">

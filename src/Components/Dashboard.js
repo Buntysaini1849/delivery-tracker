@@ -1,10 +1,11 @@
-import React, { useState,useEffect } from "react";
-import {FaSignOutAlt} from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaSignOutAlt } from "react-icons/fa";
+import { BsFullscreen, BsFullscreenExit } from "react-icons/bs";
+import { HiOutlineArrowUp } from "react-icons/hi";
 import Sidebar from "./Sidebar";
 import Products from "./Products";
 import { useNavigate } from "react-router-dom";
 import dashimg from "../images/dashimg.png";
-
 
 export default function Dashboard() {
   // const [isDarkMode, setIsDarkMode] = useState( JSON.parse(localStorage.getItem('isDarkMode')) || false);
@@ -26,65 +27,103 @@ export default function Dashboard() {
 
   // };
   const [productCount, setProductCount] = useState(0);
-
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const handleProductCountChange = (count) => {
     setProductCount(count);
   };
-  
+
   let navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem("email", "password");
     navigate("/");
   };
 
-  return (
+  const handleFullScreen = () => {
+    const doc = window.document;
+    const docEl = doc.documentElement;
 
+    if (isFullScreen) {
+      exitFullScreen();
+    } else {
+      enterFullScreen();
+    }
+  };
+
+  const enterFullScreen = () => {
+    const docEl = document.documentElement;
+
+    if (docEl.requestFullscreen) {
+      docEl.requestFullscreen();
+    } else if (docEl.webkitRequestFullscreen) {
+      docEl.webkitRequestFullscreen();
+    } else if (docEl.mozRequestFullScreen) {
+      docEl.mozRequestFullScreen();
+    } else if (docEl.msRequestFullscreen) {
+      docEl.msRequestFullscreen();
+    }
+
+    setIsFullScreen(true);
+  };
+
+  const exitFullScreen = () => {
+    const doc = window.document;
+
+    if (doc.exitFullscreen) {
+      doc.exitFullscreen();
+    } else if (doc.webkitExitFullscreen) {
+      doc.webkitExitFullscreen();
+    } else if (doc.mozCancelFullScreen) {
+      doc.mozCancelFullScreen();
+    } else if (doc.msExitFullscreen) {
+      doc.msExitFullscreen();
+    }
+
+    setIsFullScreen(false);
+  };
+
+  return (
     <div style={{ display: "flex" }}>
       <Sidebar />
       <div className="container-fluid">
-        
-        <div className="container-fluid signout-head mt-3">
+        <div className="container signout-head mt-3">
           <div className="dashbox">
-          <h5 style={{fontWeight:"bold",fontSize:"27px"}} className="logheadtab">Dashboard</h5>
+            {/* <h5 style={{fontWeight:"400",fontSize:"18px"}} className="logheadtab">Dashboard</h5> */}
+            <button onClick={handleFullScreen} className="transparent-btn">
+              {isFullScreen ? <BsFullscreenExit /> : <BsFullscreen />}
+            </button>
           </div>
 
-          {/* <div className="boxtops" style={{width:"72%",display:"flex",justifyContent:"end"}}>
-          <label className="switch">
-            <input type="checkbox" checked={isDarkMode} onChange={handletoggle}/>
-            {isDarkMode ? 'ON' : 'OFF'}
-            <span className="slider round"></span>
-          </label>
-          </div> */}
-
-          {/* <div className="boxtops" style={{width:"72%",display:"flex",justifyContent:"end"}}>
-            <FaCog onClick={()=> {setShowColorPicker(!showColorPicker);}} className="settings-icon"/>
-             
-            {showColorPicker && (
-          <div className="color-picker">
-            <SketchPicker color={slideColor} onChange={handleColorChange} />
+          <div className="box d-flex" style={{ marginLeft: "35px" }}>
+            <p
+              style={{ fontWeight: "bold", lineHeight: "30px" }}
+              className="logheadtab"
+            >
+              Welcome : <span>Dinesh</span> !
+            </p>
+            <FaSignOutAlt
+              className="Signout-icon logheadtab"
+              style={{ marginTop: "3px", marginLeft: "10px" }}
+              alt="signout"
+              onClick={logout}
+            />
           </div>
-           )}
-
-          </div> */}
-        
-          <div className="box d-flex" style={{marginLeft:"35px"}}>
-
-          <p style={{fontWeight: "bold",lineHeight:"30px" }} className="logheadtab">
-            Welcome : <span>Dinesh</span> !
-          </p>
-          <FaSignOutAlt
-            className="Signout-icon logheadtab"
-            style={{ marginTop: "3px", marginLeft: "10px" }}
-            alt="signout"
-            onClick={logout}
-          />
-          </div>
-          
         </div>
-        <div className="container mb-5">
+
+        <div className="container mt-3">
+          <div className="row d-flex">
+            <div className="col-12">
+              <div className="page-header-dash">
+                <h5 className="page-header-title">Dashboard</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="container mb-5">
+          <div className="card">
           <div
-            className="row mt-5 dashboard-toprow"
+            className="row mt-5"
             style={{
               backgroundColor: "#fff",
               padding: "30px",
@@ -96,7 +135,7 @@ export default function Dashboard() {
               style={{ justifyContent: "center" }}
             >
               <div
-                className="card w-50 shadow mt-2 dashboard-cards"
+                className="card w-50  mt-2 dashboard-cards"
                 alt="Total Vendors"
                 style={{
                   height: "100px",
@@ -120,7 +159,7 @@ export default function Dashboard() {
               style={{ justifyContent: "center" }}
             >
               <div
-                className="card w-50 shadow mt-2 dashboard-cards"
+                className="card w-50  mt-2 dashboard-cards"
                 style={{
                   height: "100px",
                   borderRadius: "25px",
@@ -143,7 +182,7 @@ export default function Dashboard() {
               style={{ justifyContent: "center" }}
             >
               <div
-                className="card w-50 shadow mt-2 dashboard-cards"
+                className="card w-50  mt-2 dashboard-cards"
                 style={{
                   height: "100px",
                   borderRadius: "25px",
@@ -161,9 +200,121 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
+          </div>
+        
+        </div> */}
+        <div className="container mt-2">
+          <div className="main-body">
+            <div className="page-wrapper">
+              <div className="row">
+                <div className="col-xl-4 col-md-6">
+                  <div className="card main-card mt-4">
+                    <div className="card-body" style={{ padding: "35px 30px" }}>
+                      <h6 className="cb-font">Total Users</h6>
+                      <div className="row d-flex align-items-center mt-3">
+                        <div className="col-9">
+                          <h3
+                            class="d-flex align-items-center m-b-0"
+                            style={{
+                              fontWeight: "300",
+                              color: "#111",
+                              fontSize: "26px",
+                            }}
+                          >
+                            <HiOutlineArrowUp className="text-c-green" />{" "}
+                            5000
+                          </h3>
+                        </div>
+                        <div className="col-3 text-right">
+                          <p className="mb-0">50%</p>
+                        </div>
+                      </div>
+                      <div className="progress mt-4" style={{height:"7px"}}><div className="progress-bar progress-c-theme" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style={{width:"50%"}}></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xl-4 col-md-6">
+                  <div className="card main-card mt-4">
+                    <div className="card-body" style={{ padding: "35px 30px" }}>
+                      <h6 className="cb-font">Total Products</h6>
+                      <div className="row d-flex align-items-center mt-3">
+                        <div className="col-9">
+                          <h3
+                            class="d-flex align-items-center m-b-0"
+                            style={{
+                              fontWeight: "300",
+                              color: "#111",
+                              fontSize: "26px",
+                            }}
+                          >
+                            <HiOutlineArrowUp className="text-c-green" />{" "}
+                            500
+                          </h3>
+                        </div>
+                        <div className="col-3 text-right">
+                          <p className="mb-0">36%</p>
+                        </div>
+                      </div>
+                      <div className="progress mt-4" style={{height:"7px"}}><div className="progress-bar progress-c-theme2" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style={{width:"35%"}}></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xl-4 col-md-6">
+                  <div className="card main-card mt-4">
+                    <div className="card-body" style={{ padding: "35px 30px" }}>
+                      <h6 className="cb-font">Total Sales</h6>
+                      <div className="row d-flex align-items-center mt-3">
+                        <div className="col-9">
+                          <h3
+                            class="d-flex align-items-center m-b-0"
+                            style={{
+                              fontWeight: "300",
+                              color: "#111",
+                              fontSize: "26px",
+                            }}
+                          >
+                            <HiOutlineArrowUp className="text-c-green" />{" "}
+                            ₹50000
+                          </h3>
+                        </div>
+                        <div className="col-3 text-right">
+                          <p className="mb-0">70%</p>
+                        </div>
+                      </div>
+                      <div className="progress mt-4" style={{height:"7px"}}>
+                        <div className="progress-bar progress-c-theme" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style={{width:"70%"}}></div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xl-8 col-md-4">
+                  <div className="card main-card mt-4">
+                    <div className="card-header" style={{ padding: "35px 30px" }}>
+                      <h6 className="cb-font">Pending Users</h6>
+                    </div>
+                    <div className="card-body py-2 px-0">
+                      <div className="table-responsive">
+                        <table className="table table-hover">
+                          <tbody>
+                            <tr className="unread">
+                              <td>
+                              <img src="" alt="Avatar" />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      
+                      </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
         </div>
 
-        <div
+        {/* <div
           className="container table-responsive dashboard-table"
           style={{
             marginTop: "50px",
@@ -218,7 +369,7 @@ export default function Dashboard() {
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> */}
       </div>
     </div>
   );

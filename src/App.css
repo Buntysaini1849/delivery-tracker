@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
 :root {
-  --background-color:#e5e0e0;
+  --background-color:#f4f7fa;
   --slider-color: rgb(0,7,61);
   --text-color: #00000;
   --loghead-color:#00264D;
@@ -43,6 +43,7 @@ body {
   font-family: "Open Sans", sans-serif;
   box-sizing: border-box;
   background: var(--background-color);
+  color: #888;
 }
 
 
@@ -63,6 +64,50 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgb(0, 7, 61);
   border-radius: 5px;
+}
+
+.main-card{
+  box-shadow: 0 1px 20px 0 rgba(69,90,100,.08) !important;
+  border: 0px !important;
+  border-radius: 0px !important;
+}
+
+.progress-bar.progress-c-theme {
+  background: -webkit-linear-gradient(225deg,#1de9b6,#1dc4e9);
+  background: linear-gradient(-135deg,#1de9b6,#1dc4e9);
+  box-shadow: 0 10px 20px 0 rgba(0,0,0,.3) !important;
+}
+
+.progress-bar.progress-c-theme2 {
+  background: -webkit-linear-gradient(225deg,#899fd4,#a389d4);
+  background: linear-gradient(-135deg,#899fd4,#a389d4);
+  box-shadow: 0 10px 20px 0 rgba(0,0,0,.3) !important;
+}
+
+
+.cb-font{
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+
+
+.transparent-btn {
+  background: transparent;
+  border: none;
+  color: blue;
+  cursor: pointer;
+}
+
+.page-header-title{
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.text-c-green{
+  color: #1de9b6;
+  font-size: 30px;
+  margin-right: 5px !important;
 }
 
 
@@ -337,6 +382,7 @@ table td {
   height: 100vh;
   width: 200px;
   position: relative;
+  box-shadow: 1px 0 20px 0 #3f4d67;
 }
 
 .list-top {
