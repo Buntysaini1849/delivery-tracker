@@ -195,7 +195,7 @@ function OrderHistory() {
             </div>
 
             <div className="container">
-              <button className="btn btn-primary">Assign</button>
+              <button className="btn buttons">Assign</button>
             </div>
        
           </div>

@@ -93,7 +93,7 @@ export default function Invoice() {
             >
               <button
                 type="button"
-                className="btn btn-md rowadd-btn"
+                className="btn btn-md buttons"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalCenter"
               >
@@ -106,7 +106,7 @@ export default function Invoice() {
             className="container mt-5"
             style={{ display: "flex", justifyContent: "end" }}
           >
-            <button className="btn btn-md rowadd-btn" onClick={printDiv}>
+            <button className="btn btn-md buttons" onClick={printDiv}>
               Print invoice
             </button>
           </div>

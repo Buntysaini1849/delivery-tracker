@@ -23,7 +23,7 @@ export default function Sidebar() {
   const handleTrigger = () => setBars(!bars) & setMenu(!menu);
   const [slideColor, setSlideColor] = useState("#00073d");
   const [logheadColor, setLogheadColor] = useState("#00264D");
-  const [sideliColor, setSideliColor] = useState("#00264d");
+  //const [sideliColor, setSideliColor] = useState("#00264d");
 
   const [showColorPicker, setShowColorPicker] = useState(false);
 
@@ -36,10 +36,10 @@ export default function Sidebar() {
     const newMenuItemsColor = `hsl(${hslColor.h}, ${hslColor.s * 100}%, ${
       hslColor.l * 100
     }%)`;
-    document.documentElement.style.setProperty("--li-color", newMenuItemsColor);
+   // document.documentElement.style.setProperty("--li-color", newMenuItemsColor);
     setSlideColor(color.hex);
     setLogheadColor(color.hex);
-    setSideliColor(newMenuItemsColor);
+  //  setSideliColor(newMenuItemsColor);
   };
 
   const handleClick = () => {
@@ -100,8 +100,8 @@ export default function Sidebar() {
                 </Link>
                 <Link to="/products" className="list-link">
                 <li className="list-items mt-3" style={{display:"flex",justifyContent:"center"}}>
-                 
-                    <span
+             
+                 <span
                       className="icons"
                       style={{ marginLeft: !bars ? "30px" : "35px" }}
                     >
@@ -117,6 +117,8 @@ export default function Sidebar() {
                     >
                       Products
                     </span>
+               
+                   
                  
                 </li>
                 </Link>

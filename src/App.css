@@ -2,10 +2,11 @@
 
 :root {
   --background-color:#f4f7fa;
-  --slider-color: rgb(0,7,61);
+  --slider-color: #3f4d67;
+  --btns-color:#04a9f5;
   --text-color: #00000;
-  --loghead-color:#00264D;
-  --li-color:#00264d;
+  --loghead-color:#464646;
+  --li-color:#04a9f5;
 }
 
 
@@ -47,10 +48,6 @@ body {
 }
 
 
-.logheadtab{
-  color: #373737;
-}
-
 
 ::-webkit-scrollbar {
   width: 10px !important;
@@ -90,7 +87,10 @@ body {
   font-weight: 400 !important;
 }
 
-
+.rounded-circle-img{
+  border-radius: 50% !important;
+  width: 40px ;
+}
 
 .transparent-btn {
   background: transparent;
@@ -99,6 +99,33 @@ body {
   cursor: pointer;
 }
 
+.theme-bg{
+  padding: 4px 10px;
+  min-height: auto;
+  position: relative;
+  margin-right: 5px;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,.2);
+  font-size: 12px;
+  background: -webkit-linear-gradient(225deg,#1de9b6,#1dc4e9);
+  background: linear-gradient(-135deg,#1de9b6,#1dc4e9);
+  text-decoration: none !important;
+
+}
+
+.theme-bg2{
+    padding: 4px 10px;
+    min-height: auto;
+    position: relative;
+    margin-right: 5px;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.2);
+    font-size: 12px;
+    background: -webkit-linear-gradient(225deg,#899fd4,#a389d4);
+    background: linear-gradient(-135deg,#899fd4,#a389d4);
+    text-decoration: none !important;
+
+}
 .page-header-title{
   font-size: 18px;
   font-weight: 400;
@@ -396,18 +423,18 @@ nav li {
   padding: 0;
 }
 
-nav li {
+/* nav li {
   background-color:var(--li-color)!important;
-}
+} */
 
 nav a {
   margin-left: 40px;
 }
 
-nav li,
+/* nav li,
 nav a:hover {
   background-color:var(--li-color)!important;
-}
+} */
 
 .list-items {
   list-style-type: none;
@@ -568,14 +595,15 @@ nav a:hover {
   }
 
 .buttons{
-  background-color: var(--slider-color);
+  background-color: var(--btns-color);
+  border-color: #04a9f5;
   color: #fff;
   border: 0px !important;
   outline: none !important;
 }
 
 .buttons:hover{
-  background-color:var(--li-color);
+  background-color:#039ae0;
   color: #fff;
   border: 0px !important;
   outline: none !important;
