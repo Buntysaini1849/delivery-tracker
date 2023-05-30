@@ -86,16 +86,16 @@ export default function Dashboard() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <div className="container-fluid">
-        <div className="container-fluid signout-head mt-3">
-          <div className="dashbox">
+      <div className="container-fluid" style={{padding:"0px"}}>
+        <nav className="container-fluid signout-head p-1">
+          <div className="dashbox p-1">
             {/* <h5 style={{fontWeight:"400",fontSize:"18px"}} className="logheadtab">Dashboard</h5> */}
-            <button onClick={handleFullScreen} className="transparent-btn">
-              {isFullScreen ? <BsFullscreenExit /> : <BsFullscreen />}
+            <button onClick={handleFullScreen} className="transparent-btn my-1">
+              {isFullScreen ? <BsFullscreenExit style={{color:"#fff",marginLeft:"20px"}}/> : <BsFullscreen style={{color:"#fff",marginLeft:"20px"}}/>}
             </button>
           </div>
 
-          <div className="box d-flex" style={{ marginLeft: "35px" }}>
+          <div className="box d-flex my-1" style={{ marginRight: "20px",color:"#fff" }}>
             <p
               style={{ fontWeight: "500", lineHeight: "30px" }}
             >
@@ -103,18 +103,18 @@ export default function Dashboard() {
             </p>
             <FaSignOutAlt
               className="Signout-icon"
-              style={{ marginTop: "3px", marginLeft: "10px",color:"#111" }}
+              style={{ marginTop: "3px", marginLeft: "10px",color:"#fff" }}
               alt="signout"
               onClick={logout}
             />
           </div>
-        </div>
+        </nav>
 
         <div className="container-fluid mt-3">
           <div className="row d-flex">
             <div className="col-12">
-              <div className="page-header-dash">
-                <h5 className="page-header-title">Dashboard</h5>
+              <div className="page-header-dash mt-1">
+                <h5 className="page-header-title" style={{marginLeft:"10px"}}>Dashboard</h5>
               </div>
             </div>
           </div>
