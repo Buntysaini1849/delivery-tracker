@@ -87,7 +87,7 @@ export default function Dashboard() {
     <div style={{ display: "flex" }}>
       <Sidebar />
       <div className="container-fluid">
-        <div className="container signout-head mt-3">
+        <div className="container-fluid signout-head mt-3">
           <div className="dashbox">
             {/* <h5 style={{fontWeight:"400",fontSize:"18px"}} className="logheadtab">Dashboard</h5> */}
             <button onClick={handleFullScreen} className="transparent-btn">
@@ -110,7 +110,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="container mt-3">
+        <div className="container-fluid mt-3">
           <div className="row d-flex">
             <div className="col-12">
               <div className="page-header-dash">
