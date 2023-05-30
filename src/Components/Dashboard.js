@@ -203,7 +203,7 @@ export default function Dashboard() {
           </div>
         
         </div> */}
-        <div className="container mt-2">
+        <div className="container-fluid mt-2">
           <div className="main-body">
             <div className="page-wrapper">
               <div className="row">
