@@ -508,6 +508,7 @@ nav a:hover {
   /* position: absolute; */
   top: 364px;
   left: 174px;
+  z-index:1000;
   transition: 1s ease;
 
 }
