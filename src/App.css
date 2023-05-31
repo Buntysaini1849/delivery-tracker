@@ -10,6 +10,7 @@
 }
 
 
+
 /* color picker start */
 
 
@@ -59,8 +60,8 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(0, 7, 61);
-  border-radius: 5px;
+  background: #3f4d67;
+  border-radius: 3px;
 }
 
 .main-card{
@@ -402,19 +403,30 @@ table td {
 }
 
 
+.list-headings{
+  font-size: 10px !important;
+    font-weight: 600;
+    padding: 25px 20px 5px;
+    text-transform: uppercase;
+}
 
 .main-container {
   /* background: rgb(0, 7, 61); */
-  background-color: var(--slider-color);
   color: #fff;
   height: 100vh;
-  width: 200px;
+  width: 250px;
   position: relative;
   box-shadow: 1px 0 20px 0 #3f4d67;
 }
 
+.sidebar-head{
+  font-size: 1.1rem !important;
+  margin-left: 29px;
+  margin-top: 7px;
+}
+
 .list-top {
-  margin-top: 60px;
+  margin-top: 36px;
 }
 
 nav ul,
@@ -440,18 +452,24 @@ nav a:hover {
 .list-items {
   list-style-type: none;
   width: 100%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   display: flex;
   justify-content: space-evenly;
   padding: 5px;
-  margin-left: -25px;
+  color: #a9b7d0;
+  /* margin-left: -25px; */
 }
 
 
-.list-items:hover {
+
+.list-items:hover,
+.list-items:active,
+.list-items:focus {
   cursor: pointer;
-  width: 100%;
+  color: #1dc4e9 !important;
+  background-color: #333f54 !important; /* common property */
 }
+
 
 .icons {
   font-size: 20px; 
@@ -480,17 +498,21 @@ nav a:hover {
 .menu {
   display: flex;
   flex-direction: column;
-  background: var(--slider-color);
-  width: 87%;
+  background: #333f54;
+  /* width: 87%; */
   border-radius: 6px;
   text-align: start;
   align-items: flex-start;
   padding: 12px;
-  position: absolute;
+  /* margin-left: 17px; */
+  /* position: absolute; */
   top: 251px;
   left: 174px;
   transition: 1s ease;
+
 }
+
+
 
 .menu-item {
   text-decoration: none;
@@ -506,7 +528,7 @@ nav a:hover {
 }
 
 .menu-item:hover {
-  background-color: #00264d !important;
+  background-color: #3f4d67 !important;
   color: #fff;
 }
 

@@ -95,7 +95,7 @@ export default function Dashboard() {
             </button>
           </div>
 
-          <div className="box d-flex my-1" style={{ marginRight: "20px",color:"#fff" }}>
+          <div className="box d-flex  mt-2" style={{ marginRight: "20px",color:"#fff" }}>
             <p
               style={{ fontWeight: "500", lineHeight: "30px" }}
             >

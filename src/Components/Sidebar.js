@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { SketchPicker } from "react-color";
 import {
   FaBars,
-  FaHome,
-  FaRegFolder,
+  FaShoppingBasket,
   FaFileInvoice,
   FaCog,
 } from "react-icons/fa";
@@ -11,8 +10,10 @@ import {
   MdOutlineArrowDropDown,
   MdOutlineBorderStyle,
   MdOutlineDashboard,
+  MdOutlineInventory2,
 } from "react-icons/md";
-import { BiDockTop } from "react-icons/bi";
+import { BsFillLayersFill } from "react-icons/bs";
+import { BiDockTop,BiHome} from "react-icons/bi";
 import { Link, Outlet } from "react-router-dom";
 
 export default function Sidebar() {
@@ -53,44 +54,49 @@ export default function Sidebar() {
     setIsShown(false);
   }
   return (
-    <div>
+    <div style={{backgroundColor:"var(--slider-color)"}}>
       <div
         className="main-container"
         style={{
-          width: bars ? "200px" : "70px",
-          transition: "1s ease",
+          width: bars ? "250px" : "70px",
+          transition: "0.5s ease",
           marginTop: "-10px",
         }}
       >
         <div
-          className="container bars-cont"
-          style={{ justifyContent: !bars ? "center" : "end" }}
+          className="container bars-cont mt-4"
+          style={{ justifyContent: !bars ? "center" : "space-between",display:"flex"}}
         >
+           <h3 className="sidebar-head" style={{display:!bars?"none":"block",transition: !bars? "none":"opacity 0.3s 0.2s !important"}}>Delivery Tracker</h3>
           <FaBars className="bars" onClick={handleTrigger} />
+         
         </div>
 
         <div>
           <section className="routes">
             <nav className="navigation-bar">
-              <ul className="list-top">
-              <Link to="/dashboard" className="list-link">
-                <li className="list-items mt-3" style={{display:"flex",justifyContent:"center"}}>
+              <ul className="list-top" style={{overflowY:"auto",height:"600px"}}> 
+              <li>
+                <h3 className="list-headings" style={{display:!bars?"none":"block",}}>Components</h3>
+              </li>
+              <Link to="/dashboard" className="list-link active">
+                <li className="list-items mt-1" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
                  
                     <span
                       className="icons"
                       style={{
-                        marginLeft: !bars ? "30px" : "20px",
+                        marginLeft: !bars ? "0px" : "0px",
                         title: "Home",
                       }}
                     >
-                      <MdOutlineDashboard />
+                      <BiHome />
                     </span>
                     <span
                       style={{
                         display: !bars ? "none" : "block",
-                        marginLeft: "19px",
                         fontSize: "0.910rem",
-                        lineHeight:"36px"
+                        lineHeight:"36px",
+                        width:"100px",
                       }}
                     >
                       Home
@@ -99,20 +105,20 @@ export default function Sidebar() {
                 </li>
                 </Link>
                 <Link to="/products" className="list-link">
-                <li className="list-items mt-3" style={{display:"flex",justifyContent:"center"}}>
+                <li className="list-items mt-3" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
              
                  <span
                       className="icons"
-                      style={{ marginLeft: !bars ? "30px" : "35px" }}
+                      style={{ marginLeft: !bars ? "0px" : "0px" }}
                     >
-                      <FaRegFolder style={{fontSize:"23px"}}/>
+                      <MdOutlineInventory2 style={{fontSize:"20px"}}/>
                     </span>
                     <span
                       style={{
                         display: !bars ? "none" : "block",
-                        marginLeft: "19px",
                         lineHeight:"36px",
                         fontSize: "0.910rem",
+                        width:"100px",
                       }}
                     >
                       Products
@@ -123,20 +129,20 @@ export default function Sidebar() {
                 </li>
                 </Link>
                 <Link to="/orders" className="list-link">
-                <li className="list-items mt-3" style={{display:"flex",justifyContent:"center"}}>
+                <li className="list-items mt-3" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
                  
                     <span
                       className="icons"
-                      style={{ marginLeft: !bars ? "30px" : "19px" }}
+                      style={{ marginLeft: !bars ? "0px" : "0px" }}
                     >
-                      <MdOutlineBorderStyle style={{fontSize:"24px"}}/>
+                      <FaShoppingBasket style={{fontSize:"20px"}}/>
                     </span>
                     <span
                       style={{
                         display: !bars ? "none" : "block",
-                        marginLeft: "19px",
                         lineHeight:"36px",
                         fontSize: "0.910rem",
+                        width:"100px",
 
                       }}
                     >
@@ -145,21 +151,48 @@ export default function Sidebar() {
                   
                 </li>
                 </Link>
+              
+            
+      <Link to="/invoice" className="list-link">
+                <li className="list-items mt-3" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
+                 
+                    <span
+                      className="icons"
+                      style={{ marginLeft: !bars ? "0px" : "0px" }}
+                    >
+                      <FaFileInvoice style={{fontSize:"20px"}}/>
+                    </span>
+                    <span
+                      style={{
+                        display: !bars ? "none" : "block",
+                        lineHeight:"36px",
+                        fontSize: "0.910rem",
+                        width:"100px",
+                      }}
+                    >
+                      Invoice
+                    </span>
+                  
+                </li>
+                </Link>
+                <li>
+                <h3 className="list-headings" style={{display:!bars?"none":"block",}}>Masters</h3>
+              </li>
                 <Link to="" className="list-link" onClick={handleClick}>
-                <li className="list-items mt-3"  style={{display:"flex",justifyContent:"center"}}>
+                <li className="list-items mt-0"  style={{display:"flex",justifyContent:"space-around",alignItems:"center"}}>
                 
                     <span className="icons">
-                      <BiDockTop
+                      <BsFillLayersFill
                         className="svg-masters"
-                        style={{ marginLeft: !bars ? "30px" : "55px",fontSize:"24px" }}
+                        style={{ marginLeft: !bars ? "0px" : "20px",fontSize:"20px" }}
                       />
                     </span>
                     <span
                       style={{
                         display: !bars ? "none" : "block",
-                        marginLeft: "19px",
                         lineHeight:"29px",
                         fontSize: "0.910rem",
+                        width:"120px",
                       }}
                     >
                       Masters
@@ -169,37 +202,36 @@ export default function Sidebar() {
                     </span>
                   
                 </li>
-                </Link>
 
                 {isShown && (
-                  <div
+                  <li
                     className="menu mt-3"
                     style={{
-                      width: menu ? "100%" : "fit-content",
-                      top: menu ? "340px" : "352px",
-                      left: menu ? "174px" : "70px",
+                      position:!bars ? "absolute":"inherit",
+                      top:!bars ? "317px" :"none",
+                      left:!bars ? "71px": "none",
                     }}
                   >
-                    <Link to="/orderhistory" className="list-link">
-                    <a
+                    <Link to="/orderhistory" className="list-link" style={{width:"100%",marginLeft:"0px"}}>
+                    <span
                       className="menu-item"
                       href="#"
                       style={{
-                        fontSize: menu ? "1rem" : "0.700rem",
+                        fontSize: menu ? "0.91rem" : "0.700rem",
                         padding: menu ? "3px" : "5px",
-                        marginLeft: menu ? "-5px" : "-40px",
                         whiteSpace:"nowrap",
+                        display:"block",
                       }}
 
                     >
                       Order history
-                    </a>
+                    </span>
                     </Link>
                     <a
                       className="menu-item"
                       href="#"
                       style={{
-                        fontSize: menu ? "1rem" : "0.800rem",
+                        fontSize: menu ? "0.91rem" : "0.800rem",
                         padding: menu ? "3px" : "5px",
                       }}
                     >
@@ -209,48 +241,30 @@ export default function Sidebar() {
                       className="menu-item"
                       href="#"
                       style={{
-                        fontSize: menu ? "1rem" : "0.800rem",
+                        fontSize: menu ? "0.91rem" : "0.800rem",
                         padding: menu ? "3px" : "5px",
                       }}
                     >
                       Location
                     </a>
-                  </div>
+                  </li>
                 )}
-
-      <Link to="/invoice" className="list-link">
-                <li className="list-items mt-3" style={{display:"flex",justifyContent:"center"}}>
-                 
-                    <span
-                      className="icons"
-                      style={{ marginLeft: !bars ? "30px" : "20px" }}
-                    >
-                      <FaFileInvoice style={{fontSize:"22px"}}/>
-                    </span>
-                    <span
-                      style={{
-                        display: !bars ? "none" : "block",
-                        marginLeft: "19px",
-                        lineHeight:"36px",
-                        fontSize: "0.910rem",
-                      }}
-                    >
-                      Invoice
-                    </span>
-                  
-                </li>
                 </Link>
-                <li className="list-items mt-5" style={{display:"flex",justifyContent:"center"}} onClick={handleColorPicker}>
+
+                <li>
+                <h3 className="list-headings" style={{display:!bars?"none":"block",}}>Settings</h3>
+              </li>
+                <li className="list-items mt-3" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}} onClick={handleColorPicker}>
                       <FaCog
                         className="settings-icon"
-                        style={{ marginLeft: !bars ? "30px" : "20px",fontSize:"23px" }}
+                        style={{ marginLeft: !bars ? "0px" : "0px",fontSize:"20px" }}
                       />
                     <span
                       style={{
                         display: !bars ? "none" : "block",
-                        marginLeft: "19px",
                         lineHeight:"33px",
                         fontSize: "0.910rem",
+                        width:"100px",
                       }}
                     >
                       Settings
