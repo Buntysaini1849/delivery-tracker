@@ -213,7 +213,7 @@ export default function Sidebar() {
                     className="menu mt-3"
                     style={{
                       position:!bars ? "absolute":"inherit",
-                      top:!bars ? "317px" :"none",
+                      top:!bars ? "364px" :"none",
                       left:!bars ? "71px": "none",
                     }}
                   >
