@@ -96,6 +96,7 @@ export default function Sidebar() {
                         display: !bars ? "none" : "block",
                         fontSize: "0.910rem",
                         lineHeight:"36px",
+                        marginTop:"3px",
                         width:"100px",
                       }}
                     >
@@ -105,7 +106,7 @@ export default function Sidebar() {
                 </li>
                 </Link>
                 <Link to="/products" className="list-link">
-                <li className="list-items mt-3" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
+                <li className="list-items mt-2" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
              
                  <span
                       className="icons"
@@ -118,6 +119,7 @@ export default function Sidebar() {
                         display: !bars ? "none" : "block",
                         lineHeight:"36px",
                         fontSize: "0.910rem",
+                        marginTop:"3px",
                         width:"100px",
                       }}
                     >
@@ -129,7 +131,7 @@ export default function Sidebar() {
                 </li>
                 </Link>
                 <Link to="/orders" className="list-link">
-                <li className="list-items mt-3" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
+                <li className="list-items mt-2" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
                  
                     <span
                       className="icons"
@@ -143,6 +145,7 @@ export default function Sidebar() {
                         lineHeight:"36px",
                         fontSize: "0.910rem",
                         width:"100px",
+                        marginTop:"3px",
 
                       }}
                     >
@@ -154,7 +157,7 @@ export default function Sidebar() {
               
             
       <Link to="/invoice" className="list-link">
-                <li className="list-items mt-3" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
+                <li className="list-items mt-2" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
                  
                     <span
                       className="icons"
@@ -168,6 +171,7 @@ export default function Sidebar() {
                         lineHeight:"36px",
                         fontSize: "0.910rem",
                         width:"100px",
+                        marginTop:"3px",
                       }}
                     >
                       Invoice
@@ -193,6 +197,7 @@ export default function Sidebar() {
                         lineHeight:"29px",
                         fontSize: "0.910rem",
                         width:"120px",
+                        marginTop:"3px",
                       }}
                     >
                       Masters
@@ -254,7 +259,7 @@ export default function Sidebar() {
                 <li>
                 <h3 className="list-headings" style={{display:!bars?"none":"block",}}>Settings</h3>
               </li>
-                <li className="list-items mt-3" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}} onClick={handleColorPicker}>
+                <li className="list-items mt-2" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}} onClick={handleColorPicker}>
                       <FaCog
                         className="settings-icon"
                         style={{ marginLeft: !bars ? "0px" : "0px",fontSize:"20px" }}
@@ -265,6 +270,7 @@ export default function Sidebar() {
                         lineHeight:"33px",
                         fontSize: "0.910rem",
                         width:"100px",
+                        marginTop:"3px",
                       }}
                     >
                       Settings
