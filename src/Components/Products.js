@@ -38,6 +38,7 @@ export default function Products() {
   const [gst, setGst] = useState('');
   const [selectedItem, setSelectedItem] = useState('');
   // const [gstvalue, setGstValue] = useState('');
+  const [formstyle, setFormStyle] = useState({right:"-600px"})
 
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
@@ -84,6 +85,7 @@ export default function Products() {
     setProductTable(true);
     setForm(true);
     setContwidth(true);
+    setFormStyle({right:"0"});
   };
 
   const handleitembtn = () => {
@@ -92,6 +94,8 @@ export default function Products() {
     setItemTable(true);
     setItemForm(true);
     setContwidth(true);
+    setFormStyle({right:"0"});
+    
   };
 
   const handlebox = () => setBox(true);
@@ -267,7 +271,7 @@ export default function Products() {
 
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex"}}>
       <Sidebar />
 
       <div className="container-fluid pro-topcont">
@@ -477,13 +481,11 @@ export default function Products() {
 
         <div
           className="container-fluid pro-rightsection"
-          style={{
-            width:"0px",
-          }}
+          style={formstyle}
         >
          
           <form
-            className="mt-5 p-4 shadow"
+            className="mt-5 p-4 shadow productform"
             style={{
               background: "#fff",
               borderRadius: "20px",
@@ -724,7 +726,7 @@ export default function Products() {
               Add
             </button>
           </form>
-
+       
           <form
             className="mt-5 p-4 shadow"
             style={{
