@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import { addProduct, addItem } from ".././state/actions/action";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { MdCancel } from "react-icons/md";
 
 export default function Products() {
   const [form, setForm] = useState(false);
@@ -71,6 +72,11 @@ export default function Products() {
 
 
   //Ref section ends
+
+  const handleformdisplay = () => {
+   setItemForm(false);
+   setForm(false);
+  }
 
   const handlebtn = () => {
     setItemForm(false);
@@ -267,7 +273,7 @@ export default function Products() {
       <div className="container-fluid pro-topcont">
         <div
           className="container-fluid pro-leftsection"
-          style={{ width: contwidth ? "60%" : "100%", transition: "2s ease" }}
+          style={{transition: "2s ease" }}
         >
           <div className="container-fluid mt-5">
             <div
@@ -287,8 +293,9 @@ export default function Products() {
                       className="mt-3"
                       style={{
                         fontStyle: "normal",
-                        fontWeight: "500",
+                        fontWeight: "600",
                         fontSize: "15px",
+                        color:"rgb(70, 68, 68)",
                       }}
                     >
                       Total Products :{" "}
@@ -301,8 +308,9 @@ export default function Products() {
                       className="mt-3"
                       style={{
                         fontStyle: "normal",
-                        fontWeight: "500",
+                        fontWeight: "600",
                         fontSize: "15px",
+                        color:"rgb(70, 68, 68)",
                       }}
                     >
                       Total Items :{" "}
@@ -344,21 +352,20 @@ export default function Products() {
           </div>
 
           <div
-            className="container mt-5 d-flex table-responsive"
+            className="container-fluid mt-5 table-responsive"
             style={{
-              justifyContent: "start",
               padding: "15px",
               background: "#fff",
               borderRadius: "15px",
-              height: "auto",
+              height: "75vh",
               overflowY: "scroll",
             }}
           >
             <table
-              className="table table-hover mt-1 "
+              className="table table-hover table-striped table-bordered mt-1 "
               style={{
                 width: "100%",
-                display: producttable ? "block" : "none",
+                display: producttable ? "inline-table" : "none",
               }}
             >
               <thead>
@@ -368,10 +375,10 @@ export default function Products() {
                   <th scope="col">Product Category</th>
                   <th scope="col">Product Name</th>
                   <th scope="col">Product HSN</th>
-                  <th scope="col">Product Code</th>
+                  {/* <th scope="col">Product Code</th> */}
                   <th scope="col">Gst %</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Keywords</th>
+                  {/* <th scope="col">Description</th> */}
+                  {/* <th scope="col">Keywords</th> */}
                   <th scope="col">Rating</th>
                   <th scope="col">Action</th>
                 </tr>
@@ -387,10 +394,10 @@ export default function Products() {
                     <td>{items.productCategory}</td>
                     <td>{items.productname}</td>
                     <td>{items.producthsn}</td>
-                    <td>{items.productcode}</td>
+                    {/* <td>{items.productcode}</td> */}
                     <td>{items.gst}</td>
-                    <td>{items.productdescription}</td>
-                    <td>{items.values}</td>
+                    {/* <td>{items.productdescription}</td> */}
+                    {/* <td>{items.values}</td> */}
                     <td>5</td>
                     <td>
                       <button
@@ -415,8 +422,8 @@ export default function Products() {
             </table>
 
             <table
-              className="table table-hover mt-1 "
-              style={{ display: itemtable ? "block" : "none", width: "100%" }}
+              className="table table-bordered table-striped mt-1 "
+              style={{ display: itemtable ? "inline-table" : "none", width: "100%" }}
             >
               <thead>
                 <tr>
@@ -471,34 +478,38 @@ export default function Products() {
         <div
           className="container-fluid pro-rightsection"
           style={{
-            width: form || itemform ? "40%" : "0px",
-            transition: "3s ease",
+            width:"0px",
           }}
         >
+         
           <form
-            className="mt-5 p-4"
+            className="mt-5 p-4 shadow"
             style={{
               background: "#fff",
               borderRadius: "20px",
               display: form ? "block" : "none",
+              transition: "2s ease !important",
+              position:"relative"
             }}
             ref={formRef}
           >
+             <MdCancel className="close-icon" onClick={handleformdisplay}/>
             <p
               className="d-flex"
               style={{
                 justifyContent: "center",
-                fontSize: "20px",
-                fontWeight: "bold",
+                fontSize: "18px",
+                fontWeight: "600",
+                color: "#111",
               }}
             >
-              Add Product
+              ADD PRODUCT
             </p>
 
             <div className="row mt-2">
               <div className="col">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Product Category
                   </label>
                   <select
@@ -509,9 +520,10 @@ export default function Products() {
                     value={selectedOption}
                     onChange={handledata}
                     ref={productCategoryRef}
+                    style={{fontSize:"13px"}}
                     
                   >
-                    <option selected={true}>--Select Category--</option>
+                    <option selected={true}><p>--Select Category--</p></option>
                     {options.map((option) => (
                       <option
                         key={option.value}
@@ -528,7 +540,7 @@ export default function Products() {
 
               <div className="col">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Product Name
                   </label>
                   <input
@@ -550,7 +562,7 @@ export default function Products() {
             <div class="row mt-3">
               <div className="col">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Product HSN
                   </label>
                   <input
@@ -569,7 +581,7 @@ export default function Products() {
               </div>
               <div className="col">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Product Code
                   </label>
                   <input
@@ -591,7 +603,7 @@ export default function Products() {
             <div className="row mt-3">
               <div className="col">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
+                  <label className="pro-label">
                     GST %
                   </label>
                   <input
@@ -612,7 +624,7 @@ export default function Products() {
 
               <div className="col">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Product Description
                   </label>
                   <input
@@ -635,7 +647,7 @@ export default function Products() {
             <div className="row mt-3">
               <div className="col-md-6 col-sm-6">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Keywords
                   </label>
                   <input
@@ -714,7 +726,7 @@ export default function Products() {
           </form>
 
           <form
-            className="mt-5 p-4"
+            className="mt-5 p-4 shadow"
             style={{
               background: "#fff",
               borderRadius: "20px",
@@ -722,21 +734,24 @@ export default function Products() {
             }}
             ref={formRef}
           >
+             <MdCancel className="close-icon1" onClick={handleformdisplay}/>
             <p
               className="d-flex"
               style={{
                 justifyContent: "center",
-                fontSize: "20px",
-                fontWeight: "bold",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "18px",
+                color:"#111",
               }}
             >
-              Add Item
+              ADD ITEM
             </p>
 
-            <div className="row mt-2">
+            <div className="row mt-4">
               <div className="col-md-6 col-sm-6">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Select Product
                   </label>
 
@@ -748,6 +763,7 @@ export default function Products() {
                   // onChange={(e) => setProduct(e.target.value)}
                  onChange={handleItemChange}
                  ref={productRef}
+                 style={{fontSize:"13px"}}
                   >
                     <option selected={true}>--Select Product--</option>
                     {products.map((option) => (
@@ -759,13 +775,13 @@ export default function Products() {
                         {option.productname}
                       </option>
                     ))}
-                    ,
+            
                   </select>
                 </div>
               </div>
               <div className="col-md-6 col-sm-6">
                 <div className="form-group d-grid">
-                  <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
+                  <label className="pro-label">
                     Unit
                   </label>
 
@@ -777,6 +793,7 @@ export default function Products() {
                    // onChange={(e) => setUnit(e.target.value)}
                    onChange ={handleunit}
                     ref={unitRef}
+                    style={{fontSize:"13px"}}
                   >
                     <option selected={true}>--Select unit--</option>
                     {unitoptions.map((option) => (
@@ -796,7 +813,7 @@ export default function Products() {
               <div className="col" style={{display:"none"}}>
              
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
+                  <label className="pro-label">
                     GST %
                   </label>
                   <input
@@ -815,9 +832,9 @@ export default function Products() {
             </div>
 
             <div className="row mt-3">
-              <div className="col-md-4 col-sm-4">
+              <div className="col-md-6 col-xl-6 col-sm-4">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Sale Price
                   </label>
                   <input
@@ -834,9 +851,9 @@ export default function Products() {
                 </div>
               </div>
 
-              <div className="col-md-4 col-sm-4">
+              <div className="col-md-6 col-sm-4">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     MRP Price
                   </label>
                   <input
@@ -853,9 +870,9 @@ export default function Products() {
                 </div>
               </div>
 
-              <div className="col-md-4 col-sm-4">
+              <div className="col-md-12 col-sm-4 mt-3">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Total Qty
                   </label>
                   <input
@@ -874,9 +891,9 @@ export default function Products() {
             </div>
 
             <div className="row mt-3">
-              <div className="col">
+              <div className="col-md-6 col-sm-4">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
+                  <label className="pro-label">
                     Available Qty
                   </label>
                   <input
@@ -893,9 +910,9 @@ export default function Products() {
                 </div>
               </div>
 
-              <div className="col">
+              <div className="col-md-6 col-sm-4">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: "verdana" }}>
+                  <label className="pro-label">
                     Discount %
                   </label>
                   <input
@@ -911,9 +928,9 @@ export default function Products() {
                   />
                 </div>
               </div>
-              <div className="col-md-6 col-sm-6">
+              <div className="col-md-12 col-sm-6 mt-3">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Product Images
                   </label>
                   <input
