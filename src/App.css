@@ -140,6 +140,22 @@ body {
   color: rgb(70, 68, 68) !important;
 }
 
+.table tr td {
+  color: #111;
+}
+
+.table-label{
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  color: rgb(70, 68, 68) !important;
+}
+
+.table-label-order{
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: rgb(70, 68, 68) !important;
+}
+
 .pro-label{
   font-size: 12px;
   font-weight: 600;
@@ -665,12 +681,17 @@ nav a:hover {
   overflow-y: scroll !important;
   }
 
+.shadow-lg{
+  box-shadow: 0 10px 18px 0 rgba(62,57,107,.2) !important;
+}
+
 .buttons{
   background-color: var(--btns-color);
   border-color: #04a9f5;
   color: #fff;
   border: 0px !important;
   outline: none !important;
+  transition: all .3s ease-in-out !important;
 }
 
 .buttons:hover{
@@ -715,10 +736,20 @@ td.total-amount-input {
 
 }
 
+.top-label{
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  white-space:nowrap !important;
+  color: rgb(70, 68, 68) !important;
+}
+
 .invoice-th{
   background: #EFEFEF;
   padding: 5px;
   border: 1px solid #151515;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(70, 68, 68) !important;
 }
 
 

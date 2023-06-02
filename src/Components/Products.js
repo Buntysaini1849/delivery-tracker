@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./Sidebar";
 import { addProduct, addItem } from ".././state/actions/action";
 import { useDispatch } from "react-redux";
@@ -35,49 +35,48 @@ export default function Products() {
   const [images, setImages] = useState([]);
   const [productdescription, setProductDescription] = useState("");
   const [image, setImage] = useState(null);
-  const [gst, setGst] = useState('');
-  const [selectedItem, setSelectedItem] = useState('');
+  const [gst, setGst] = useState("");
+  const [selectedItem, setSelectedItem] = useState("");
   // const [gstvalue, setGstValue] = useState('');
-  const [formstyle, setFormStyle] = useState({right:"-600px"})
+  const [formstyle, setFormStyle] = useState({ right: "-600px" });
 
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
   const items = useSelector((state) => state.item.items);
 
-
   //Ref section start
 
   const formRef = useRef();
-   
-   const productCategoryRef = useRef(null);
-   const productnameRef = useRef(null);
-   const producthsnRef = useRef(null);
-   const productcodeRef = useRef(null);
-   const gstRef = useRef(null);
-   const imageRef = useRef(null);
-   const valuesRef = useRef(null);
-   const productdescriptionRef = useRef(null);
-   const keywordRef = useRef(null);
-   const productimageRef = useRef(null);
-   const productRef = useRef(null);
-   const unitRef = useRef(null);
-   const salepriceRef = useRef(null);
-   const mrppriceRef = useRef(null);
-   const totalqtyRef =  useRef(null);
-   const availableqtyRef = useRef(null);
-   const discountRef = useRef(null);
-   const imagesRef = useRef(null);
-   const btnRef = useRef(null);
-   const submitbtn1Ref = useRef(null);
-   const submitbtn2Ref = useRef(null);
 
+  const productCategoryRef = useRef(null);
+  const productnameRef = useRef(null);
+  const producthsnRef = useRef(null);
+  const productcodeRef = useRef(null);
+  const gstRef = useRef(null);
+  const imageRef = useRef(null);
+  const valuesRef = useRef(null);
+  const productdescriptionRef = useRef(null);
+  const keywordRef = useRef(null);
+  const productimageRef = useRef(null);
+  const productRef = useRef(null);
+  const unitRef = useRef(null);
+  const salepriceRef = useRef(null);
+  const mrppriceRef = useRef(null);
+  const totalqtyRef = useRef(null);
+  const availableqtyRef = useRef(null);
+  const discountRef = useRef(null);
+  const imagesRef = useRef(null);
+  const btnRef = useRef(null);
+  const submitbtn1Ref = useRef(null);
+  const submitbtn2Ref = useRef(null);
 
   //Ref section ends
 
   const handleformdisplay = () => {
-   setItemForm(false);
-   setForm(false);
-  }
+    setItemForm(false);
+    setForm(false);
+    setFormStyle({ right: "-600px" });
+  };
 
   const handlebtn = () => {
     setItemForm(false);
@@ -85,7 +84,7 @@ export default function Products() {
     setProductTable(true);
     setForm(true);
     setContwidth(true);
-    setFormStyle({right:"0"});
+    setFormStyle({ right: "0" });
   };
 
   const handleitembtn = () => {
@@ -94,8 +93,7 @@ export default function Products() {
     setItemTable(true);
     setItemForm(true);
     setContwidth(true);
-    setFormStyle({right:"0"});
-    
+    setFormStyle({ right: "0" });
   };
 
   const handlebox = () => setBox(true);
@@ -129,7 +127,6 @@ export default function Products() {
     setProductCategory(selectedOption);
     console.log(selectedOption);
     productnameRef.current.focus();
-
   };
 
   const handleitembox = (event) => {
@@ -140,7 +137,6 @@ export default function Products() {
       setItembox(false);
     }
   };
-
 
   const handleproductsubmitform = (event) => {
     event.preventDefault();
@@ -158,22 +154,19 @@ export default function Products() {
 
     console.log(dataas.payload);
 
-    setSelectedOption('');
-    setProductname('');
+    setSelectedOption("");
+    setProductname("");
     setProducthsn("");
-    setProductcode('');
-    setGst('');
+    setProductcode("");
+    setGst("");
     setProductDescription("");
     setValues("");
 
     formRef.current.reset();
-    
-
   };
 
   const handleitemsubmitform = (e) => {
     e.preventDefault();
-
 
     const itemdatas = dispatch(
       addItem({
@@ -190,7 +183,7 @@ export default function Products() {
     );
 
     console.log(itemdatas.payload);
-    
+
     setSelectedItem("");
     setUnit("");
     setSalePrice("");
@@ -201,19 +194,15 @@ export default function Products() {
     setGst("");
     setImages("");
     formRef.current.reset();
-   
   };
 
   function handleKeyPress(event, inputRef) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
       inputRef.current.focus();
       console.log(inputRef.current.value);
     }
-   
   }
-
- 
 
   const handledelete = (index) => {
     const updatedFormData = [...productformData];
@@ -221,9 +210,6 @@ export default function Products() {
     setProductFormData(updatedFormData);
     localStorage.setItem("productformData", JSON.stringify(updatedFormData));
   };
-
-
-
 
   const handledeleteitem = (index) => {
     const updateditemsData = [...itemformData];
@@ -252,14 +238,14 @@ export default function Products() {
     console.log(data);
   }, []);
 
-
-
   const handleItemChange = (event) => {
     setProduct(event.target.value);
     const selectedItem = event.target.value;
     setSelectedItem(selectedItem);
 
-    const selectedGst = products.find(item => item.productname === selectedItem).gst;
+    const selectedGst = products.find(
+      (item) => item.productname === selectedItem
+    ).gst;
     setGst(selectedGst);
     unitRef.current.focus();
   };
@@ -267,17 +253,16 @@ export default function Products() {
   const handleunit = (e) => {
     setUnit(e.target.value);
     salepriceRef.current.focus();
-  }
-
+  };
 
   return (
-    <div style={{ display: "flex"}}>
+    <div style={{ display: "flex" }}>
       <Sidebar />
 
       <div className="container-fluid pro-topcont">
         <div
           className="container-fluid pro-leftsection"
-          style={{transition: "2s ease" }}
+          style={{ transition: "2s ease" }}
         >
           <div className="container-fluid mt-5">
             <div
@@ -299,7 +284,7 @@ export default function Products() {
                         fontStyle: "normal",
                         fontWeight: "600",
                         fontSize: "15px",
-                        color:"rgb(70, 68, 68)",
+                        color: "rgb(70, 68, 68)",
                       }}
                     >
                       Total Products :{" "}
@@ -314,7 +299,7 @@ export default function Products() {
                         fontStyle: "normal",
                         fontWeight: "600",
                         fontSize: "15px",
-                        color:"rgb(70, 68, 68)",
+                        color: "rgb(70, 68, 68)",
                       }}
                     >
                       Total Items :{" "}
@@ -330,7 +315,7 @@ export default function Products() {
                     style={{ display: "flex", justifyContent: "end" }}
                   >
                     <button
-                      className="btn btn-sm  buttons"
+                      className="btn btn-sm btn-primary  buttons"
                       onClick={handlebtn}
                       style={{ marginTop: "9px" }}
                     >
@@ -343,7 +328,7 @@ export default function Products() {
                     style={{ display: "flex", justifyContent: "end" }}
                   >
                     <button
-                      className="btn btn-sm buttons"
+                      className="btn btn-sm btn-primary  buttons"
                       onClick={handleitembtn}
                       style={{ marginTop: "9px" }}
                     >
@@ -359,131 +344,137 @@ export default function Products() {
             className="container-fluid mt-5 table-responsive"
             style={{
               padding: "15px",
-              background: "#fff",
               borderRadius: "15px",
-              height: "75vh",
+              // height: "75vh",
               overflowY: "scroll",
             }}
           >
-            <table
-              className="table table-hover table-striped table-bordered mt-1 "
-              style={{
-                width: "100%",
-                display: producttable ? "inline-table" : "none",
-              }}
-            >
-              <thead>
-                <tr>
-                  <th scope="col">SN</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Product Category</th>
-                  <th scope="col">Product Name</th>
-                  <th scope="col">Product HSN</th>
-                  {/* <th scope="col">Product Code</th> */}
-                  <th scope="col">Gst %</th>
-                  {/* <th scope="col">Description</th> */}
-                  {/* <th scope="col">Keywords</th> */}
-                  <th scope="col">Rating</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
+            <div className="card main-card" style={{background: "#fff",height:"70vh"}}>
+              <div className="card-header" style={{ padding: "35px 30px" }}>
+                <h6 className="cb-font" style={{display: producttable ? "block" : "none"}}>Products</h6>
+                <h6 className="cb-font" style={{display: itemtable ? "block" : "none"}}>Items</h6>
+              </div>
+              <div className="card-body py-2 px-0">
+                <table
+                  className="table table-hover table-striped table-responsive mt-0 card-header"
+                  style={{
+                    width: "100%",
+                    display: producttable ? "inline-table" : "none",
+                  }}
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col">SN</th>
+                      {/* <th scope="col">Image</th> */}
+                      <th scope="col">Category</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">HSN</th>
+                      {/* <th scope="col">Product Code</th> */}
+                      <th scope="col">Gst %</th>
+                      {/* <th scope="col">Description</th> */}
+                      {/* <th scope="col">Keywords</th> */}
+                      <th scope="col">Rating</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
 
-              <tbody>
-                {products?.map((items, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>
+                  <tbody>
+                    {products?.map((items, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        {/* <td>
                       <img src={items.image} alt={items.productname} style={{maxWidth:"100px"}} />
-                    </td>
-                    <td>{items.productCategory}</td>
-                    <td>{items.productname}</td>
-                    <td>{items.producthsn}</td>
-                    {/* <td>{items.productcode}</td> */}
-                    <td>{items.gst}</td>
-                    {/* <td>{items.productdescription}</td> */}
-                    {/* <td>{items.values}</td> */}
-                    <td>5</td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-primary"
-                        style={{ height: "30px" }}
-                      >
-                        Edit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-danger"
-                        style={{ height: "30px" }}
-                        onClick={() => handledelete(index)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </td> */}
+                        <td>{items.productCategory}</td>
+                        <td>{items.productname}</td>
+                        <td>{items.producthsn}</td>
+                        {/* <td>{items.productcode}</td> */}
+                        <td>{items.gst}</td>
+                        {/* <td>{items.productdescription}</td> */}
+                        {/* <td>{items.values}</td> */}
+                        <td>5</td>
+                        <td>
+                          <button
+                            className="btn btn-sm btn-primary"
+                            style={{ height: "30px" }}
+                          >
+                            Edit
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-sm btn-danger"
+                            style={{ height: "30px" }}
+                            onClick={() => handledelete(index)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
 
-            <table
-              className="table table-bordered table-striped mt-1 "
-              style={{ display: itemtable ? "inline-table" : "none", width: "100%" }}
-            >
-              <thead>
-                <tr>
-                  <th scope="col">SN</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Unit</th>
-                  <th scope="col">Sale Price</th>
-                  <th scope="col">MRP Price</th>
-                  <th scope="col">Total Qty</th>
-                  <th scope="col">Available Qty</th>
-                  <th scope="col">Discount %</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
+                <table
+                  className="table table-bordered table-striped mt-1 "
+                  style={{
+                    display: itemtable ? "inline-table" : "none",
+                    width: "100%",
+                  }}
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col">SN</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Unit</th>
+                      <th scope="col">Sale Price</th>
+                      <th scope="col">MRP Price</th>
+                      <th scope="col">Total Qty</th>
+                      <th scope="col">Available Qty</th>
+                      <th scope="col">Discount %</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
 
-              <tbody>
-                {items?.map((itemdata, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{itemdata.product}</td>
-                    <td>{itemdata.unit}</td>
-                    <td>{itemdata.saleprice}</td>
-                    <td>{itemdata.mrpprice}</td>
-                    <td>{itemdata.totalqty}</td>
-                    <td>{itemdata.availableqty}</td>
-                    <td>{itemdata.discount}</td>
-                    
-                    <td>
-                      <button
-                        className="btn btn-sm btn-primary"
-                        style={{ height: "30px" }}
-                      >
-                        Edit
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-sm btn-danger"
-                        style={{ height: "30px" }}
-                        onClick={() => handledeleteitem(index)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                  <tbody>
+                    {items?.map((itemdata, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{itemdata.product}</td>
+                        <td>{itemdata.unit}</td>
+                        <td>{itemdata.saleprice}</td>
+                        <td>{itemdata.mrpprice}</td>
+                        <td>{itemdata.totalqty}</td>
+                        <td>{itemdata.availableqty}</td>
+                        <td>{itemdata.discount}</td>
+
+                        <td>
+                          <button
+                            className="btn btn-sm btn-primary"
+                            style={{ height: "30px" }}
+                          >
+                            Edit
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-sm btn-danger"
+                            style={{ height: "30px" }}
+                            onClick={() => handledeleteitem(index)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div
-          className="container-fluid pro-rightsection"
-          style={formstyle}
-        >
-         
+        <div className="container-fluid pro-rightsection" style={formstyle}>
           <form
             className="mt-5 p-4 shadow productform"
             style={{
@@ -491,11 +482,11 @@ export default function Products() {
               borderRadius: "20px",
               display: form ? "block" : "none",
               transition: "2s ease !important",
-              position:"relative"
+              position: "relative",
             }}
             ref={formRef}
           >
-             <MdCancel className="close-icon" onClick={handleformdisplay}/>
+            <MdCancel className="close-icon" onClick={handleformdisplay} />
             <p
               className="d-flex"
               style={{
@@ -511,9 +502,7 @@ export default function Products() {
             <div className="row mt-2">
               <div className="col">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Product Category
-                  </label>
+                  <label className="pro-label">Category</label>
                   <select
                     id="productcategory"
                     name="productcategory"
@@ -522,10 +511,11 @@ export default function Products() {
                     value={selectedOption}
                     onChange={handledata}
                     ref={productCategoryRef}
-                    style={{fontSize:"13px"}}
-                    
+                    style={{ fontSize: "13px" }}
                   >
-                    <option selected={true}><p>--Select Category--</p></option>
+                    <option selected={true}>
+                      <p>--Select Category--</p>
+                    </option>
                     {options.map((option) => (
                       <option
                         key={option.value}
@@ -542,9 +532,7 @@ export default function Products() {
 
               <div className="col">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Product Name
-                  </label>
+                  <label className="pro-label">Name</label>
                   <input
                     type="text"
                     className="form-control"
@@ -564,9 +552,7 @@ export default function Products() {
             <div class="row mt-3">
               <div className="col">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Product HSN
-                  </label>
+                  <label className="pro-label">HSN</label>
                   <input
                     type="text"
                     className="form-control"
@@ -577,15 +563,13 @@ export default function Products() {
                     style={{ fontSize: "13px" }}
                     onChange={(e) => setProducthsn(e.target.value)}
                     ref={producthsnRef}
-                    onKeyDown={(event) => handleKeyPress(event,productcodeRef)}
+                    onKeyDown={(event) => handleKeyPress(event, productcodeRef)}
                   />
                 </div>
               </div>
               <div className="col">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Product Code
-                  </label>
+                  <label className="pro-label">Product Code</label>
                   <input
                     type="text"
                     className="form-control"
@@ -605,9 +589,7 @@ export default function Products() {
             <div className="row mt-3">
               <div className="col">
                 <div className="form-group">
-                  <label className="pro-label">
-                    GST %
-                  </label>
+                  <label className="pro-label">GST %</label>
                   <input
                     type="number"
                     className="form-control"
@@ -619,16 +601,16 @@ export default function Products() {
                     title="GST"
                     value={gst}
                     ref={gstRef}
-                    onKeyDown={(event) => handleKeyPress(event, productdescriptionRef)}
+                    onKeyDown={(event) =>
+                      handleKeyPress(event, productdescriptionRef)
+                    }
                   />
                 </div>
               </div>
 
               <div className="col">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Product Description
-                  </label>
+                  <label className="pro-label">Product Description</label>
                   <input
                     type="text"
                     className="form-control"
@@ -649,9 +631,7 @@ export default function Products() {
             <div className="row mt-3">
               <div className="col-md-6 col-sm-6">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Keywords
-                  </label>
+                  <label className="pro-label">Keywords</label>
                   <input
                     type="text"
                     className="form-control"
@@ -663,7 +643,7 @@ export default function Products() {
                     title="Keyword"
                     onChange={handleInputChange}
                     ref={keywordRef}
-                    onKeyDown={(event) => handleKeyPress(event,btnRef)}
+                    onKeyDown={(event) => handleKeyPress(event, btnRef)}
                     value={text}
                   />
                 </div>
@@ -676,8 +656,7 @@ export default function Products() {
                   style={{ width: "100%" }}
                   onClick={handleAddClick}
                   ref={btnRef}
-                  onKeyDown={(event) => handleKeyPress(event,imageRef)}
-
+                  onKeyDown={(event) => handleKeyPress(event, imageRef)}
                 >
                   Add
                 </button>
@@ -685,9 +664,9 @@ export default function Products() {
             </div>
 
             <div className="row mt-3">
-              <div className="col-md-6 col-sm-6">
+              {/* <div className="col-md-6 col-sm-6">
                 <div className="form-group">
-                  <label style={{ fontSize: "14px", fontFamily: " verdana" }}>
+                  <label className="pro-label">
                     Product Image
                   </label>
                   <input
@@ -700,7 +679,7 @@ export default function Products() {
                     onKeyDown={(event) => handleKeyPress(event,valuesRef)}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className="col-md-6 col-sm-6 mt-4">
                 <input
@@ -709,7 +688,7 @@ export default function Products() {
                   className="form-control"
                   value={values}
                   ref={valuesRef}
-                  onKeyDown={(event) => handleKeyPress(event,submitbtn1Ref)}
+                  onKeyDown={(event) => handleKeyPress(event, submitbtn1Ref)}
                   readonly
                 />
               </div>
@@ -717,7 +696,7 @@ export default function Products() {
 
             <button
               type="submit"
-              className="btn buttons mt-4"
+              className="btn buttons mt-4 shadow-lg"
               style={{ width: "100%" }}
               ref={submitbtn1Ref}
               onKeyDown={handleproductsubmitform}
@@ -726,7 +705,7 @@ export default function Products() {
               Add
             </button>
           </form>
-       
+
           <form
             className="mt-5 p-4 shadow"
             style={{
@@ -736,7 +715,7 @@ export default function Products() {
             }}
             ref={formRef}
           >
-             <MdCancel className="close-icon1" onClick={handleformdisplay}/>
+            <MdCancel className="close-icon1" onClick={handleformdisplay} />
             <p
               className="d-flex"
               style={{
@@ -744,7 +723,7 @@ export default function Products() {
                 fontStyle: "normal",
                 fontWeight: "600",
                 fontSize: "18px",
-                color:"#111",
+                color: "#111",
               }}
             >
               ADD ITEM
@@ -753,19 +732,17 @@ export default function Products() {
             <div className="row mt-4">
               <div className="col-md-6 col-sm-6">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Select Product
-                  </label>
+                  <label className="pro-label">Product</label>
 
                   <select
-                  id="product"
-                  name="product"
-                  className="form-control"
-                  value={selectedItem}
-                  // onChange={(e) => setProduct(e.target.value)}
-                 onChange={handleItemChange}
-                 ref={productRef}
-                 style={{fontSize:"13px"}}
+                    id="product"
+                    name="product"
+                    className="form-control"
+                    value={selectedItem}
+                    // onChange={(e) => setProduct(e.target.value)}
+                    onChange={handleItemChange}
+                    ref={productRef}
+                    style={{ fontSize: "13px" }}
                   >
                     <option selected={true}>--Select Product--</option>
                     {products.map((option) => (
@@ -777,25 +754,22 @@ export default function Products() {
                         {option.productname}
                       </option>
                     ))}
-            
                   </select>
                 </div>
               </div>
               <div className="col-md-6 col-sm-6">
                 <div className="form-group d-grid">
-                  <label className="pro-label">
-                    Unit
-                  </label>
+                  <label className="pro-label">Unit</label>
 
                   <select
                     id="unit"
                     name="unit"
                     title="Unit Type"
                     className="form-control"
-                   // onChange={(e) => setUnit(e.target.value)}
-                   onChange ={handleunit}
+                    // onChange={(e) => setUnit(e.target.value)}
+                    onChange={handleunit}
                     ref={unitRef}
-                    style={{fontSize:"13px"}}
+                    style={{ fontSize: "13px", marginTop: "5px" }}
                   >
                     <option selected={true}>--Select unit--</option>
                     {unitoptions.map((option) => (
@@ -812,33 +786,23 @@ export default function Products() {
                 </div>
               </div>
 
-              <div className="col" style={{display:"none"}}>
-             
+              <div className="col" style={{ display: "none" }}>
                 <div className="form-group">
-                  <label className="pro-label">
-                    GST %
-                  </label>
+                  <label className="pro-label">GST %</label>
                   <input
                     type="number"
                     className="form-control"
                     value={gst}
                     readOnly
-                    
-
                   />
-    
                 </div>
-                 
               </div>
-
             </div>
 
             <div className="row mt-3">
               <div className="col-md-6 col-xl-6 col-sm-4">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Sale Price
-                  </label>
+                  <label className="pro-label">Sale Price</label>
                   <input
                     type="number"
                     className="form-control"
@@ -855,9 +819,7 @@ export default function Products() {
 
               <div className="col-md-6 col-sm-4">
                 <div className="form-group">
-                  <label className="pro-label">
-                    MRP Price
-                  </label>
+                  <label className="pro-label">MRP Price</label>
                   <input
                     type="number"
                     className="form-control"
@@ -874,9 +836,7 @@ export default function Products() {
 
               <div className="col-md-12 col-sm-4 mt-3">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Total Qty
-                  </label>
+                  <label className="pro-label">Total Qty</label>
                   <input
                     type="number"
                     className="form-control"
@@ -885,7 +845,9 @@ export default function Products() {
                     placeholder="Total Qty...."
                     onChange={(ev) => setTotalQty(Number(ev.target.value))}
                     ref={totalqtyRef}
-                    onKeyDown={(event) => handleKeyPress(event, availableqtyRef)}
+                    onKeyDown={(event) =>
+                      handleKeyPress(event, availableqtyRef)
+                    }
                     style={{ fontSize: "13px" }}
                   />
                 </div>
@@ -895,9 +857,7 @@ export default function Products() {
             <div className="row mt-3">
               <div className="col-md-6 col-sm-4">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Available Qty
-                  </label>
+                  <label className="pro-label">Available Qty</label>
                   <input
                     className="form-control"
                     id="available_Qty"
@@ -914,9 +874,7 @@ export default function Products() {
 
               <div className="col-md-6 col-sm-4">
                 <div className="form-group">
-                  <label className="pro-label">
-                    Discount %
-                  </label>
+                  <label className="pro-label">Discount %</label>
                   <input
                     type="number"
                     className="form-control"
@@ -930,7 +888,7 @@ export default function Products() {
                   />
                 </div>
               </div>
-              <div className="col-md-12 col-sm-6 mt-3">
+              {/* <div className="col-md-12 col-sm-6 mt-3">
                 <div className="form-group">
                   <label className="pro-label">
                     Product Images
@@ -946,7 +904,7 @@ export default function Products() {
        
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <button

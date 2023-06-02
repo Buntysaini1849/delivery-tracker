@@ -73,12 +73,10 @@ export default function Invoice() {
               <p
                 style={{
                   textAlign: "center",
-                  fontSize: "20px",
-                  fontWeight: "600",
-                  padding: "20px",
                 }}
+                className="table-label"
               >
-                Invoice
+                INVOICE
               </p>
             </div>
 
@@ -96,6 +94,7 @@ export default function Invoice() {
                 className="btn btn-md buttons"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModalCenter"
+                style={{fontSize:"0.8rem"}}
               >
                 Add Customer
               </button>
@@ -106,7 +105,7 @@ export default function Invoice() {
             className="container mt-5"
             style={{ display: "flex", justifyContent: "end" }}
           >
-            <button className="btn btn-md buttons" onClick={printDiv}>
+            <button className="btn btn-md buttons" onClick={printDiv} style={{fontSize:"0.9rem"}}>
               Print invoice
             </button>
           </div>
@@ -114,15 +113,14 @@ export default function Invoice() {
             className="container p-2 mt-3 topcontainer-invoice"
             style={{ border: "1px solid lightgrey" }}
           >
-            <div className="row d-flex invoicetop">
+            <div className="row d-flex invoicetop" style={{justifyContent:"center",alignItems:"center"}}>
               <div
-                className="col-md-4 col-sm-6 col-lg-4 d-flex mt-3"
+                className="col-md-6 col-sm-6 col-lg-4 d-flex mt-3"
                 style={{ height: "40px" }}
                 ref={invoiceRef}
               >
                 <label
-                  style={{ fontWeight: "600", fontSize: "1rem" }}
-                  className="mx-2"
+                  className="mx-2 mt-2 top-label"
                 >
                   Customer Name
                 </label>
@@ -137,12 +135,11 @@ export default function Invoice() {
               </div>
 
               <div
-                className="col-md-4 col-sm-6 col-lg-4 d-flex mt-3"
+                className="col-md-6 col-sm-6 col-lg-4 d-flex mt-3"
                 style={{ height: "40px" }}
               >
                 <label
-                  style={{ fontWeight: "600", fontSize: "1rem" }}
-                  className="mx-2"
+                  className="mx-2 mt-2 top-label"
                 >
                   Invoice Number
                 </label>
@@ -158,11 +155,11 @@ export default function Invoice() {
                 </label>
               </div>
               <div
-                className="col-md-3 col-sm-6 col-lg-3 d-flex mt-3"
+                className="col-md-6 col-sm-6 col-lg-4 d-flex mt-3"
                 style={{ height: "40px" }}
               >
                 <label
-                  style={{ fontWeight: "600", fontSize: "1rem" }}
+                  style={{ fontWeight: "600", fontSize: "0.9rem",color:"rgb(70, 68, 68)" }}
                   className="mx-2 mt-2"
                 >
                   Date

@@ -160,7 +160,7 @@ export default function Login() {
               <button
                 type="submit"
                 style={{ background: "rgb(108,100,251)" }}
-                className="btn login-btn mt-1"
+                className="btn login-btn mt-1 shadow-lg"
               >
                 Login
               </button>
