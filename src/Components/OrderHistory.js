@@ -138,10 +138,11 @@ function OrderHistory() {
               style={{ height: "400px" }}
             >
               <div
-                className="container d-flex"
+                className="container d-flex p-3"
                 style={{
                   justifyContent: "space-between",
                   alignItems: "center",
+                  background:"#fff",
                 }}
               >
                 <div className="fromdate-box d-flex">
@@ -201,7 +202,7 @@ function OrderHistory() {
                   />
                 </div>
               </div>
-              <div className="container-fluid mt-3 d-flex">
+              <div className="container-fluid mt-3 d-flex p-3" style={{background:"#fff"}}>
                 <div className="container p-0">
                   <select
                     value=""
@@ -224,8 +225,8 @@ function OrderHistory() {
                 </div>
               </div>
               <div
-                className="container-fluid mt-2"
-                style={{ overflow: "scroll", overflowX: "auto" }}
+                className="container-fluid mt-2 p-3"
+                style={{ overflow: "scroll", overflowX: "auto",background:"#fff" }}
               >
                 <table className="table table-striped table-bordered bg-light orderh-table mt-2">
                   <thead>
