@@ -73,8 +73,8 @@ export default function Products() {
   //Ref section ends
 
   const handleformdisplay = () => {
-    setItemForm(false);
-    setForm(false);
+    // setItemForm(false);
+    // setForm(false);
     setFormStyle({ right: "-600px" });
   };
 
@@ -349,8 +349,8 @@ export default function Products() {
               overflowY: "scroll",
             }}
           >
-            <div className="card main-card" style={{background: "#fff",height:"70vh"}}>
-              <div className="card-header" style={{ padding: "35px 30px" }}>
+            <div className="card main-card" style={{background: "#fff",height:"70vh",position:"relative"}}>
+              <div className="card-header card-header-p" style={{ padding: "20px 30px",border:"0px"}}>
                 <h6 className="cb-font" style={{display: producttable ? "block" : "none"}}>Products</h6>
                 <h6 className="cb-font" style={{display: itemtable ? "block" : "none"}}>Items</h6>
               </div>
@@ -360,6 +360,10 @@ export default function Products() {
                   style={{
                     width: "100%",
                     display: producttable ? "inline-table" : "none",
+                    marginTop:"-8px !important",
+                    borderRadius:"0px",
+                    color:"#888",
+                    
                   }}
                 >
                   <thead>

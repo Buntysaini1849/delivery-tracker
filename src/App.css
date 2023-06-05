@@ -84,9 +84,16 @@ body {
 }
 
 
+
+
 .cb-font{
-  font-size: 14px !important;
-  font-weight: 400 !important;
+  margin-bottom: 0;
+    color: #000;
+    font-size: 17px;
+    font-weight: 400;
+    display: inline-block;
+    margin-right: 10px;
+    line-height: 1.1;
 }
 
 .rounded-circle-img{
@@ -137,12 +144,24 @@ body {
 .table tr th {
   font-size: 15px;
   font-weight: 600;
-  color: rgb(70, 68, 68) !important;
 }
 
-.table tr td {
+
+.card-header-p{
+  background-color: #fff;
   color: #111;
 }
+
+.card .card-header h6:after {
+  content: "";
+  background-color: #04a9f5;
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 4px;
+  height: 20px;
+}
+
 
 .table-label{
   font-size: 17px !important;
