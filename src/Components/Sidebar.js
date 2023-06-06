@@ -130,31 +130,7 @@ export default function Sidebar() {
                  
                 </li>
                 </Link>
-                <Link to="/orders" className="list-link">
-                <li className="list-items mt-2" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
-                 
-                    <span
-                      className="icons"
-                      style={{ marginLeft: !bars ? "0px" : "0px" }}
-                    >
-                      <FaShoppingBasket style={{fontSize:"20px"}}/>
-                    </span>
-                    <span
-                      style={{
-                        display: !bars ? "none" : "block",
-                        lineHeight:"36px",
-                        fontSize: "0.910rem",
-                        width:"100px",
-                        marginTop:"3px",
-
-                      }}
-                    >
-                      Orders
-                    </span>
-                  
-                </li>
-                </Link>
-              
+     
             
       <Link to="/invoice" className="list-link">
                 <li className="list-items mt-2" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
