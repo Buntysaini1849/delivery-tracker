@@ -31,6 +31,7 @@ function OrderHistory() {
   ]);
 
   const [deliveryBoys, setDeliveryBoys] = useState(["Amit", "Kunal", "Naveen"]);
+  const [selectedDeliveryBoy, setSelectedDeliveryBoy] = useState("");
   const [selectedOrders, setSelectedOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalOrder, setModalOrder] = useState({});
@@ -65,8 +66,16 @@ function OrderHistory() {
     const newOrders = orders.map(
       (order) => updatedOrders.find((o) => o.orderNo === order.orderNo) || order
     );
+    console.log(`Assigning delivery boy: ${selectedDeliveryBoy}`);
     setOrders(newOrders);
     setSelectedOrders([]);
+    setSelectedDeliveryBoy("");
+  };
+
+  const handleDeliveryBoy = () => {
+    if (selectedOrders.length > 0 && selectedDeliveryBoy !== "") {
+      handleAssignDeliveryBoy(selectedDeliveryBoy);
+    }
   };
 
   const handleViewDetails = (order) => {
@@ -205,8 +214,8 @@ function OrderHistory() {
               <div className="container-fluid mt-3 d-flex p-3" style={{background:"#fff"}}>
                 <div className="container p-0">
                   <select
-                    value=""
-                    onChange={(e) => handleAssignDeliveryBoy(e.target.value)}
+                    value={selectedDeliveryBoy}
+                    onChange={(e) => setSelectedDeliveryBoy(e.target.value)}
                     className="form-control"
                   >
                     <option disabled value="">
@@ -221,7 +230,7 @@ function OrderHistory() {
                 </div>
 
                 <div className="container">
-                  <button className="btn buttons">Assign</button>
+                  <button className="btn buttons" onClick={handleDeliveryBoy}>Assign</button>
                 </div>
               </div>
               <div

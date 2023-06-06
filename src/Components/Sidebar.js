@@ -232,26 +232,8 @@ export default function Sidebar() {
                       Order history
                     </span>
                     </Link>
-                    <a
-                      className="menu-item"
-                      href="#"
-                      style={{
-                        fontSize: menu ? "0.91rem" : "0.800rem",
-                        padding: menu ? "3px" : "5px",
-                      }}
-                    >
-                      User
-                    </a>
-                    <a
-                      className="menu-item"
-                      href="#"
-                      style={{
-                        fontSize: menu ? "0.91rem" : "0.800rem",
-                        padding: menu ? "3px" : "5px",
-                      }}
-                    >
-                      Location
-                    </a>
+
+                    
                   </li>
                 )}
                 </Link>
