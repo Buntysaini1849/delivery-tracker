@@ -125,9 +125,7 @@ export default function Sidebar() {
                     >
                       Products
                     </span>
-               
-                   
-                 
+
                 </li>
                 </Link>
      

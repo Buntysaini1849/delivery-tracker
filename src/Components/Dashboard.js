@@ -3,6 +3,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { BsFullscreen, BsFullscreenExit } from "react-icons/bs";
 import { HiOutlineArrowUp } from "react-icons/hi";
 import Sidebar from "./Sidebar";
+import MapComponent from "./MapComponent";
 import Products from "./Products";
 import { useNavigate } from "react-router-dom";
 import avatars from "../images/avatars.jpeg";
@@ -86,24 +87,31 @@ export default function Dashboard() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <div className="container-fluid" style={{padding:"0px"}}>
+      <div className="container-fluid" style={{ padding: "0px" }}>
         <nav className="container-fluid signout-head p-1">
           <div className="dashbox p-1">
             {/* <h5 style={{fontWeight:"400",fontSize:"18px"}} className="logheadtab">Dashboard</h5> */}
             <button onClick={handleFullScreen} className="transparent-btn my-1">
-              {isFullScreen ? <BsFullscreenExit style={{color:"#fff",marginLeft:"20px"}}/> : <BsFullscreen style={{color:"#fff",marginLeft:"20px"}}/>}
+              {isFullScreen ? (
+                <BsFullscreenExit
+                  style={{ color: "#fff", marginLeft: "20px" }}
+                />
+              ) : (
+                <BsFullscreen style={{ color: "#fff", marginLeft: "20px" }} />
+              )}
             </button>
           </div>
 
-          <div className="box d-flex  mt-2" style={{ marginRight: "20px",color:"#fff" }}>
-            <p
-              style={{ fontWeight: "500", lineHeight: "30px" }}
-            >
+          <div
+            className="box d-flex  mt-2"
+            style={{ marginRight: "20px", color: "#fff" }}
+          >
+            <p style={{ fontWeight: "500", lineHeight: "30px" }}>
               Welcome : <span>Dinesh</span> !
             </p>
             <FaSignOutAlt
               className="Signout-icon"
-              style={{ marginTop: "3px", marginLeft: "10px",color:"#fff" }}
+              style={{ marginTop: "3px", marginLeft: "10px", color: "#fff" }}
               alt="signout"
               onClick={logout}
             />
@@ -114,7 +122,12 @@ export default function Dashboard() {
           <div className="row d-flex">
             <div className="col-12">
               <div className="page-header-dash mt-1">
-                <h5 className="page-header-title" style={{marginLeft:"10px"}}>Dashboard</h5>
+                <h5
+                  className="page-header-title"
+                  style={{ marginLeft: "10px" }}
+                >
+                  Dashboard
+                </h5>
               </div>
             </div>
           </div>
@@ -469,7 +482,6 @@ export default function Dashboard() {
                                 </div>
                               </td>
                             </tr>
-                            
                           </tbody>
                         </table>
                       </div>
@@ -477,13 +489,12 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="col-xl-4 col-md-6">
-                <div className="card main-card mt-4">
+                  <div className="card main-card mt-4">
                     <div
                       className="card-header"
                       style={{ padding: "35px 30px" }}
                     >
                       <h6 className="cb-font">Total Delivery Boys</h6>
-
                     </div>
                     <div className="card-body py-2 px-0">
                       <div className="table-responsive">
@@ -503,7 +514,6 @@ export default function Dashboard() {
                               <td>
                                 <h6 className="mt-2">9999999999</h6>
                               </td>
-                              
                             </tr>
                             <tr className="unread">
                               <td>
@@ -519,7 +529,6 @@ export default function Dashboard() {
                               <td>
                                 <h6 className="mt-2">9999999999</h6>
                               </td>
-                             
                             </tr>
                             <tr className="unread">
                               <td>
@@ -535,8 +544,6 @@ export default function Dashboard() {
                               <td>
                                 <h6 className="mt-2">9999999999</h6>
                               </td>
-                           
-                             
                             </tr>
                             <tr className="unread">
                               <td>
@@ -552,12 +559,29 @@ export default function Dashboard() {
                               <td>
                                 <h6 className="mt-2">9999999999</h6>
                               </td>
-                            
                             </tr>
-                            
                           </tbody>
                         </table>
                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xl-8 col-md-6">
+                  <div className="card main-card mt-4">
+                    <div
+                      className="card-header"
+                      style={{ padding: "35px 30px" }}
+                    >
+                      <h6 className="cb-font">Location</h6>
+                    </div>
+                    <div className="card-body py-2 px-0">
+                      <MapComponent
+                        isMarkerShown
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                        loadingElement={<div style={{ height: "100%" }} />}
+                        containerElement={<div style={{ height: "400px" }} />}
+                        mapElement={<div style={{ height: "100%" }} />}
+                      />
                     </div>
                   </div>
                 </div>

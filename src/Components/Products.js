@@ -270,9 +270,9 @@ export default function Products() {
               style={{
                 background: "#fff",
                 padding: "10px",
-                borderRadius: "15px",
                 width: "100%",
                 justifyContent: "space-between",
+                marginLeft:"0px",
               }}
             >
               <div className="col-md-6 col-sm-6">
@@ -341,26 +341,24 @@ export default function Products() {
           </div>
 
           <div
-            className="container-fluid mt-5 table-responsive"
+            className="container-fluid mt-3  table-responsive"
             style={{
               padding: "15px",
-              borderRadius: "15px",
               // height: "75vh",
               overflowY: "scroll",
             }}
           >
             <div className="card main-card" style={{background: "#fff",height:"70vh",position:"relative"}}>
-              <div className="card-header card-header-p" style={{ padding: "20px 30px",border:"0px"}}>
+              <div className="card-header card-header-p" style={{ padding: "20px 30px",border:"0px",background:"rgba(0, 0, 0, 0.03)"}}>
                 <h6 className="cb-font" style={{display: producttable ? "block" : "none"}}>Products</h6>
                 <h6 className="cb-font" style={{display: itemtable ? "block" : "none"}}>Items</h6>
               </div>
-              <div className="card-body py-2 px-0">
+              <div className="card-body py-0 px-0">
                 <table
                   className="table table-hover table-striped table-responsive mt-0 card-header"
                   style={{
                     width: "100%",
                     display: producttable ? "inline-table" : "none",
-                    marginTop:"-8px !important",
                     borderRadius:"0px",
                     color:"#888",
                     
