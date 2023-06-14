@@ -3,7 +3,6 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { BsFullscreen, BsFullscreenExit } from "react-icons/bs";
 import { HiOutlineArrowUp } from "react-icons/hi";
 import Sidebar from "./Sidebar";
-import MapComponent from "./MapComponent";
 import Products from "./Products";
 import { useNavigate } from "react-router-dom";
 import avatars from "../images/avatars.jpeg";
