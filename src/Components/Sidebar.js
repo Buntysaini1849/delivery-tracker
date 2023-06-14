@@ -11,6 +11,7 @@ import {
   MdOutlineBorderStyle,
   MdOutlineDashboard,
   MdOutlineInventory2,
+  MdImageAspectRatio,
 } from "react-icons/md";
 import { BsFillLayersFill } from "react-icons/bs";
 import { BiDockTop,BiHome} from "react-icons/bi";
@@ -124,6 +125,32 @@ export default function Sidebar() {
                       }}
                     >
                       Products
+                    </span>
+
+                </li>
+                </Link>
+
+
+
+                <Link to="/banner" className="list-link">
+                <li className="list-items mt-2" style={{display:"flex",justifyContent:"space-evenly",alignItems:"center"}}>
+             
+                 <span
+                      className="icons"
+                      style={{ marginLeft: !bars ? "0px" : "0px" }}
+                    >
+                      <MdImageAspectRatio style={{fontSize:"22px"}}/>
+                    </span>
+                    <span
+                      style={{
+                        display: !bars ? "none" : "block",
+                        lineHeight:"36px",
+                        fontSize: "0.910rem",
+                        marginTop:"3px",
+                        width:"100px",
+                      }}
+                    >
+                      Banners
                     </span>
 
                 </li>

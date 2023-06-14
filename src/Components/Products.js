@@ -266,7 +266,7 @@ export default function Products() {
         >
           <div className="container-fluid mt-5">
             <div
-              className="row d-flex"
+              className="row d-flex shadow-sm"
               style={{
                 background: "#fff",
                 padding: "10px",
@@ -349,19 +349,17 @@ export default function Products() {
             }}
           >
             <div className="card main-card" style={{background: "#fff",height:"70vh",position:"relative"}}>
-              <div className="card-header card-header-p" style={{ padding: "20px 30px",border:"0px",background:"rgba(0, 0, 0, 0.03)"}}>
+              <div className="card-header card-header-p" style={{ padding: "20px 30px",border:"0px",background:"#e4e4e4"}}>
                 <h6 className="cb-font" style={{display: producttable ? "block" : "none"}}>Products</h6>
                 <h6 className="cb-font" style={{display: itemtable ? "block" : "none"}}>Items</h6>
               </div>
               <div className="card-body py-0 px-0">
                 <table
-                  className="table table-hover table-striped table-responsive mt-0 card-header"
+                  className="table table-hover table-striped table-bordered table-responsive mt-0"
                   style={{
                     width: "100%",
                     display: producttable ? "inline-table" : "none",
-                    borderRadius:"0px",
-                    color:"#888",
-                    
+                    borderRadius:"0px",                    
                   }}
                 >
                   <thead>
@@ -418,7 +416,7 @@ export default function Products() {
                 </table>
 
                 <table
-                  className="table table-bordered table-striped mt-1 "
+                  className="table table-bordered table-responsive table-striped mt-1 "
                   style={{
                     display: itemtable ? "inline-table" : "none",
                     width: "100%",
@@ -481,7 +479,7 @@ export default function Products() {
             className="mt-5 p-4 shadow productform"
             style={{
               background: "#fff",
-              borderRadius: "20px",
+              borderRadius: "12px",
               display: form ? "block" : "none",
               transition: "2s ease !important",
               position: "relative",
@@ -514,6 +512,7 @@ export default function Products() {
                     onChange={handledata}
                     ref={productCategoryRef}
                     style={{ fontSize: "13px" }}
+                    
                   >
                     <option selected={true}>
                       <p>--Select Category--</p>
@@ -712,7 +711,7 @@ export default function Products() {
             className="mt-5 p-4 shadow"
             style={{
               background: "#fff",
-              borderRadius: "20px",
+              borderRadius: "12px",
               display: itemform ? "block" : "none",
             }}
             ref={formRef}
