@@ -1,22 +1,26 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Sidebar from "./Sidebar"; 
 import { addBanner } from '../state/actions/action';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { MdCancel } from "react-icons/md";
+import { BANNER_API } from './apiUrls';
+import axios from 'axios';
 
 const Banner = () => {
 const [form, setForm] = useState(false);
-const [bannerdata,setBannerData] = useState([]);
+const [data,setData] = useState([]);
 const [bannerformData, setBannerFormData] = useState([]);
 const [formstyle, setFormStyle] = useState({ right: "-600px" });
 const [code, setCode] = useState("");
 const [image, setImage] = useState(null);
 const [url, setUrl] = useState("");
 
+
+
 const dispatch = useDispatch();
 
-const  bannerdatas = useSelector((state) => state.banner.banners);
+// const  bannerdatas = useSelector((state) => state.banner.banners);
 
 
 const handleformdisplay = () => {
@@ -36,25 +40,100 @@ const handleformdisplay = () => {
         localStorage.setItem("bannerformData", JSON.stringify(updatedFormData));
       };
 
-      const handlebannersubmit = (e) => {
-        e.preventDefault();
-        const banneritems = dispatch(
-          addBanner({
-            code,
-            image,
-            url,
+      // const handlebannersubmit = (e) => {
+      //   e.preventDefault();
+      //   // const banneritems = dispatch(
+      //   //   addBanner({
+      //   //     code,
+      //   //     image,
+      //   //     url,
      
-          })
-        );
+      //   //   })
+      //   // );
     
-        console.log(banneritems.payload);
+      //   // console.log(banneritems.payload);
 
-        setCode("");
-        setImage(null);
-        setUrl("");
+        
+      //   fetch('http://herbal.techiecy.com/banner/view/', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({ code, image,url }),
+      //   })
+      //     .then((response) => response.json())
+      //     .then((data) => {
+      //       console.log('Banner data updated successfully:', data);
+      //       // Perform any additional actions, such as updating state or displaying a success message
+      //     })
+      //     .catch((error) => {
+      //       console.error('Error updating banner:', error);
+      //       // Handle error, such as displaying an error message
+      //     });
+
     
+
+      //   setCode("");
+      //   setImage(null);
+      //   setUrl("");
+    
+      // };
+
+
+      const handlebannersubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const response = await fetch('http://herbal.techiecy.com/banner/view/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(code,image,url, ),
+          });
+    
+          if (!response.ok) {
+            throw new Error('Failed to submit form data');
+          }else{
+            console.log(response);
+          }
+    
+          const responseData = await response.json();
+          setData([...data, responseData]);
+    
+          // Clear form data
+          setCode("");
+          setUrl("");
+          setImage(null);
+        } catch (error) {
+          console.error('Error:', error);
+        }
       };
 
+
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const apiUrl = BANNER_API;
+            const response = await fetch(apiUrl,{type:"view"});
+    
+            if (!response.ok) {
+              throw new Error("Request failed with status " + response.status);
+            }
+    
+            const jsonData = await response.json();
+            setData(jsonData);
+          } catch (error) {
+            console.error("error");
+          }
+        };
+    
+        fetchData();
+      }, []);
+     
+      
+      
+       
 
       const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -65,8 +144,9 @@ const handleformdisplay = () => {
   return (
     <div style={{display:"flex"}}>
         <Sidebar />
-
+        
         <div className="container-fluid pro-topcont">
+       
         <div
           className="container-fluid pro-leftsection"
           style={{ transition: "2s ease" }}
@@ -113,6 +193,8 @@ const handleformdisplay = () => {
             </div>
           </div>
 
+
+       
           <div
             className="container-fluid mt-3  table-responsive"
             style={{
@@ -147,21 +229,21 @@ const handleformdisplay = () => {
                   </thead>
 
                   <tbody>
-                    {bannerdatas?.map((items, index) => (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
+                    {data?.map((banner) => (
+                      <tr key={banner.id}>
+                        <td>{banner.id + 1}</td>
                         {/* <td>
                       <img src={items.image} alt={items.productname} style={{maxWidth:"100px"}} />
                     </td> */}
                     <td>
-                    {items.image && (
-                         <img src={URL.createObjectURL(items.image)} alt="Banner"  className='img-fluid' width={80} height={100}/>
+                    {banner.img && (
+                         <img src={URL.createObjectURL(banner.img)} alt="Banner"  className='img-fluid' width={80} height={100}/>
                     )}
                     </td>
                    
                        
-                        <td>{items.code}</td>
-                        <td>{items.url}</td>
+                        <td>{banner.id}</td>
+                        <td>{banner.redirect}</td>
                        
                         <td>
                           <button
@@ -175,7 +257,7 @@ const handleformdisplay = () => {
                           <button
                             className="btn btn-sm btn-danger"
                             style={{ height: "30px" }}
-                            onClick={() => handledelete(index)}
+                            onClick={() => handledelete(banner.id)}
                           >
                             Delete
                           </button>
@@ -187,10 +269,13 @@ const handleformdisplay = () => {
               </div>
             </div>
           </div>
+         
         </div>
+       
 
         <div className="container-fluid pro-rightsection mt-5" style={formstyle}>
           <form
+          
             className="mt-5 p-4 shadow productform"
             style={{
               background: "#fff",
@@ -241,7 +326,6 @@ const handleformdisplay = () => {
                     className="form-control"
                     accept="image/*"
                     onChange={handleImageChange}
-                   
                   />
                 </div>
               </div>
@@ -272,12 +356,14 @@ const handleformdisplay = () => {
               className="btn buttons mt-4 shadow-lg"
               style={{ width: "100%" }}
               onClick={handlebannersubmit}
+    
             >
               Add
             </button>
           </form>
         </div>
       </div>
+       
       
     </div>
   )

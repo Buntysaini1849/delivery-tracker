@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
+import { CiMenuFries } from "react-icons/ci";
 import {
-  FaBars,
   FaShoppingBasket,
   FaFileInvoice,
   FaCog,
@@ -69,7 +69,7 @@ export default function Sidebar() {
           style={{ justifyContent: !bars ? "center" : "space-between",display:"flex"}}
         >
            <h3 className="sidebar-head" style={{display:!bars?"none":"block",transition: !bars? "none":"opacity 0.3s 0.2s !important"}}>Delivery Tracker</h3>
-          <FaBars className="bars" onClick={handleTrigger} />
+          <CiMenuFries className="bars" onClick={handleTrigger} />
          
         </div>
 
