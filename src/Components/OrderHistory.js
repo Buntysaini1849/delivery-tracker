@@ -144,7 +144,7 @@ function OrderHistory() {
           <div className="card-body py-2 px-0">
             <div
               className="container mt-2 p-3 card-header"
-              style={{ height: "400px" }}
+              style={{ height: "400px",background:"#f4f7fa" }}
             >
               <div
                 className="container d-flex p-3"
