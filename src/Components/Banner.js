@@ -256,6 +256,7 @@ const Banner = () => {
                                 alt="Image"
                                 width={100}
                                 height={100}
+                                className="img-fluid"
                               />
                             </td>
 
