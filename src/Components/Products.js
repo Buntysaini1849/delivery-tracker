@@ -4,8 +4,16 @@ import { addProduct, addItem } from ".././state/actions/action";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { MdCancel } from "react-icons/md";
+import { PRODUCTLIST_API, CATEGORYLIST_API, UNITLIST_API } from "./apiUrls";
 
 export default function Products() {
+
+  const [productData,setProductData] = useState([]);
+  
+  const [options,setOptions] = useState([]);
+
+  const [unitOptions,setUnitOptions] = useState([])
+
   const [form, setForm] = useState(false);
   const [itemform, setItemForm] = useState(false);
   const [producttable, setProductTable] = useState(true);
@@ -41,7 +49,7 @@ export default function Products() {
   const [formstyle, setFormStyle] = useState({ right: "-600px" });
 
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
+  // const products = useSelector((state) => state.product.products);
   const items = useSelector((state) => state.item.items);
 
   //Ref section start
@@ -108,18 +116,18 @@ export default function Products() {
     setText("");
   };
 
-  const options = [
-    { value: "Electronics", label: "Electronics", name: "Electronics" },
-    { value: "Grocery", label: "Grocery", name: "Grocery" },
-    { value: "HomeItems", label: "Home Items", name: "HomeItems" },
-  ];
+  // const options = [
+  //   { value: "Electronics", label: "Electronics", name: "Electronics" },
+  //   { value: "Grocery", label: "Grocery", name: "Grocery" },
+  //   { value: "HomeItems", label: "Home Items", name: "HomeItems" },
+  // ];
 
-  const unitoptions = [
-    { value: "Pcs", label: "Pcs", name: "Pcs" },
-    { value: "Kg", label: "Kg", name: "Kg" },
-    { value: "Kgs", label: "Kgs", name: "Kgs" },
-    { value: "LItre", label: "Litre", name: "Litre" },
-  ];
+  // const unitoptions = [
+  //   { value: "Pcs", label: "Pcs", name: "Pcs" },
+  //   { value: "Kg", label: "Kg", name: "Kg" },
+  //   { value: "Kgs", label: "Kgs", name: "Kgs" },
+  //   { value: "LItre", label: "Litre", name: "Litre" },
+  // ];
 
   const handledata = (e) => {
     const selectedOption = e.target.value;
@@ -138,63 +146,187 @@ export default function Products() {
     }
   };
 
-  const handleproductsubmitform = (event) => {
-    event.preventDefault();
-    const dataas = dispatch(
-      addProduct({
-        productCategory,
-        productname,
-        producthsn,
-        productcode,
-        gst,
-        productdescription,
-        values,
-      })
-    );
 
-    console.log(dataas.payload);
+  // product fetch api start ***************
 
-    setSelectedOption("");
-    setProductname("");
-    setProducthsn("");
-    setProductcode("");
-    setGst("");
-    setProductDescription("");
-    setValues("");
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(PRODUCTLIST_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "view" }),
+      });
+      const responseData = await response.json();
 
-    formRef.current.reset();
-  };
+      if (
+        responseData &&
+        responseData.data &&
+        Array.isArray(responseData.data) &&
+        responseData.data.length > 0
+      ) {
+        for (let i = 0; i < responseData.data.length; i++) {
+          console.log(responseData.data);
+          setProductData(responseData.data);
+          console.log(productData,'this is product data');
+        }
+      } else {
+        console.error("Error: Invalid data structure");
+      }
+    }
+    fetchData();
+  }, [PRODUCTLIST_API, setProductData]);
 
-  const handleitemsubmitform = (e) => {
-    e.preventDefault();
 
-    const itemdatas = dispatch(
-      addItem({
-        product,
-        unit,
-        saleprice,
-        mrpprice,
-        totalqty,
-        availableqty,
-        discount,
-        gst,
-        images,
-      })
-    );
+  // product fetch api end ******************
 
-    console.log(itemdatas.payload);
 
-    setSelectedItem("");
-    setUnit("");
-    setSalePrice("");
-    setMrpPrice("");
-    setTotalQty("");
-    setAvailableQty("");
-    setDiscount("");
-    setGst("");
-    setImages("");
-    formRef.current.reset();
-  };
+
+
+
+  // caterogy fetch api start ***********
+
+
+  useEffect(() => {
+    async function fetchCategoryData() {
+      const response = await fetch(CATEGORYLIST_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "view" }),
+      });
+      const responseData = await response.json();
+
+      if (
+        responseData &&
+        responseData.data &&
+        Array.isArray(responseData.data) &&
+        responseData.data.length > 0
+      ) {
+        for (let i = 0; i < responseData.data.length; i++) {
+          console.log(responseData.data);
+          setOptions(responseData.data);
+          console.log(productData,'this is category data');
+        }
+      } else {
+        console.error("Error: Invalid data structure");
+      }
+    }
+    fetchCategoryData();
+  }, [CATEGORYLIST_API, setOptions]);
+
+
+  //category fetch api end ****************
+
+
+
+
+  //unit fetch api start ****************
+
+
+  useEffect(() => {
+    async function fetchUnitData() {
+      const response = await fetch(UNITLIST_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "view" }),
+      });
+      const responseData = await response.json();
+
+      if (
+        responseData &&
+        responseData.data &&
+        Array.isArray(responseData.data) &&
+        responseData.data.length > 0
+      ) {
+        for (let i = 0; i < responseData.data.length; i++) {
+          console.log(responseData.data);
+          setUnitOptions(responseData.data);
+          console.log(unitOptions,'this is unit data');
+        }
+      } else {
+        console.error("Error: Invalid data structure");
+      }
+    }
+    fetchUnitData();
+  }, [UNITLIST_API, setUnitOptions]);
+
+
+
+
+
+
+
+
+
+
+
+  //unit
+
+
+
+
+
+
+
+
+  // const handleproductsubmitform = (event) => {
+  //   event.preventDefault();
+  //   const dataas = dispatch(
+  //     addProduct({
+  //       productCategory,
+  //       productname,
+  //       producthsn,
+  //       productcode,
+  //       gst,
+  //       productdescription,
+  //       values,
+  //     })
+  //   );
+
+  //   console.log(dataas.payload);
+
+  //   setSelectedOption("");
+  //   setProductname("");
+  //   setProducthsn("");
+  //   setProductcode("");
+  //   setGst("");
+  //   setProductDescription("");
+  //   setValues("");
+
+  //   formRef.current.reset();
+  // };
+
+  
+
+  // const handleitemsubmitform = (e) => {
+  //   e.preventDefault();
+
+  //   const itemdatas = dispatch(
+  //     addItem({
+  //       product,
+  //       unit,
+  //       saleprice,
+  //       mrpprice,
+  //       totalqty,
+  //       availableqty,
+  //       discount,
+  //       gst,
+  //       images,
+  //     })
+  //   );
+
+  //   console.log(itemdatas.payload);
+
+  //   setSelectedItem("");
+  //   setUnit("");
+  //   setSalePrice("");
+  //   setMrpPrice("");
+  //   setTotalQty("");
+  //   setAvailableQty("");
+  //   setDiscount("");
+  //   setGst("");
+  //   setImages("");
+  //   formRef.current.reset();
+  // };
 
   function handleKeyPress(event, inputRef) {
     if (event.key === "Enter") {
@@ -229,21 +361,21 @@ export default function Products() {
     setCards(true);
   };
 
-  useEffect(() => {
-    fetch("http://ecommerce.techiecy.com/inventory/products/", {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((data) => setData(data.data));
-    console.log(data);
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://ecommerce.techiecy.com/inventory/products/", {
+  //     method: "POST",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data.data));
+  //   console.log(data);
+  // }, []);
 
   const handleItemChange = (event) => {
     setProduct(event.target.value);
     const selectedItem = event.target.value;
     setSelectedItem(selectedItem);
 
-    const selectedGst = products.find(
+    const selectedGst = productData.find(
       (item) => item.productname === selectedItem
     ).gst;
     setGst(selectedGst);
@@ -354,6 +486,7 @@ export default function Products() {
                 <h6 className="cb-font" style={{display: itemtable ? "block" : "none"}}>Items</h6>
               </div>
               <div className="card-body py-0 px-0">
+              {productData ? (
                 <table
                   className="table table-hover table-striped table-bordered table-responsive mt-0"
                   style={{
@@ -369,7 +502,7 @@ export default function Products() {
                       <th scope="col">Category</th>
                       <th scope="col">Name</th>
                       <th scope="col">HSN</th>
-                      {/* <th scope="col">Product Code</th> */}
+                      <th scope="col">Product Code</th>
                       <th scope="col">Gst %</th>
                       {/* <th scope="col">Description</th> */}
                       {/* <th scope="col">Keywords</th> */}
@@ -379,16 +512,16 @@ export default function Products() {
                   </thead>
 
                   <tbody>
-                    {products?.map((items, index) => (
+                  {Array.isArray(productData) &&  productData.map((items,index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         {/* <td>
                       <img src={items.image} alt={items.productname} style={{maxWidth:"100px"}} />
                     </td> */}
-                        <td>{items.productCategory}</td>
-                        <td>{items.productname}</td>
-                        <td>{items.producthsn}</td>
-                        {/* <td>{items.productcode}</td> */}
+                        <td>{items.category}</td>
+                        <td>{items.name}</td>
+                        <td>{items.hsn}</td>
+                        <td>{items.code}</td>
                         <td>{items.gst}</td>
                         {/* <td>{items.productdescription}</td> */}
                         {/* <td>{items.values}</td> */}
@@ -414,6 +547,9 @@ export default function Products() {
                     ))}
                   </tbody>
                 </table>
+              ) : (
+                <p>No data available.</p>
+              )}
 
                 <table
                   className="table table-bordered table-responsive table-striped mt-1 "
@@ -519,12 +655,12 @@ export default function Products() {
                     </option>
                     {options.map((option) => (
                       <option
-                        key={option.value}
-                        value={option.value}
+                        key={option.id}
+                        value={option.name}
                         name={option.name}
                         style={{ fontSize: "12px" }}
                       >
-                        {option.label}
+                        {option.name}
                       </option>
                     ))}
                   </select>
@@ -700,8 +836,8 @@ export default function Products() {
               className="btn buttons mt-4 shadow-lg"
               style={{ width: "100%" }}
               ref={submitbtn1Ref}
-              onKeyDown={handleproductsubmitform}
-              onClick={handleproductsubmitform}
+              // onKeyDown={handleproductsubmitform}
+              // onClick={handleproductsubmitform}
             >
               Add
             </button>
@@ -746,7 +882,7 @@ export default function Products() {
                     style={{ fontSize: "13px" }}
                   >
                     <option selected={true}>--Select Product--</option>
-                    {products.map((option) => (
+                    {productData.map((option) => (
                       <option
                         key={option.productname}
                         value={option.productname}
@@ -773,14 +909,14 @@ export default function Products() {
                     style={{ fontSize: "13px", marginTop: "5px" }}
                   >
                     <option selected={true}>--Select unit--</option>
-                    {unitoptions.map((option) => (
+                    {Array.isArray(unitOptions) &&  unitOptions.map((option) => (
                       <option
-                        key={option.value}
-                        value={option.value}
+                        key={option.id}
+                        value={option.name}
                         name={option.name}
                         style={{ fontSize: "12px" }}
                       >
-                        {option.label}
+                        {option.name}
                       </option>
                     ))}
                   </select>
@@ -913,8 +1049,8 @@ export default function Products() {
               className="btn buttons mt-4"
               style={{ width: "100%" }}
               ref={submitbtn2Ref}
-              onClick={handleitemsubmitform}
-              onKeyDown={handleitemsubmitform}
+              // onClick={handleitemsubmitform}
+              // onKeyDown={handleitemsubmitform}
             >
               Add
             </button>
