@@ -3,7 +3,8 @@ import Sidebar from "./Sidebar";
 import TableRow from "./Tablerow";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import {BsPrinter} from "react-icons/bs";
+ 
 export default function Invoice() {
   const [totalamount, setTotalAmount] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null);

@@ -3,26 +3,37 @@ import Sidebar from "./Sidebar";
 import { addBanner } from "../state/actions/action";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { MdCancel } from "react-icons/md";
+import {
+  MdCancel,
+  MdOutlineEditCalendar,
+  MdOutlineDelete,
+} from "react-icons/md";
 import { BANNER_API } from "./apiUrls";
 import axios from "axios";
+import { redirect } from "react-router-dom";
 
 const Banner = () => {
   const [form, setForm] = useState(false);
   const [data, setData] = useState([]);
   const [bannerformData, setBannerFormData] = useState([]);
-  const [formstyle, setFormStyle] = useState({ right: "-600px" });
-  const [code, setCode] = useState("");
+  const [formstyle, setFormStyle] = useState({ right: "-100%" });
+  const [name, setName] = useState("");
   const [image, setImage] = useState(null);
-  const [url, setUrl] = useState("");
+  const [redirect, setRedirect] = useState("");
 
   const dispatch = useDispatch();
 
   // const  bannerdatas = useSelector((state) => state.banner.banners);
 
   const handleformdisplay = () => {
-    setFormStyle({ right: "-600px" });
+
+    setFormStyle({ right: "-100%"});
+
+    setTimeout(() => {
+      setFormStyle({ right: "-100%"});
+    }, 1000); 
   };
+
 
   const handlebtn = () => {
     setForm(true);
@@ -36,71 +47,20 @@ const Banner = () => {
     localStorage.setItem("bannerformData", JSON.stringify(updatedFormData));
   };
 
-  // const handlebannersubmit = (e) => {
-  //   e.preventDefault();
-  //   // const banneritems = dispatch(
-  //   //   addBanner({
-  //   //     code,
-  //   //     image,
-  //   //     url,
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
 
-  //   //   })
-  //   // );
+    reader.onloadend = () => {
+      // Read the image file as a Data URL
+      const base64String = reader.result;
+      setImage(base64String);
+    };
 
-  //   // console.log(banneritems.payload);
-
-  //   fetch('http://herbal.techiecy.com/banner/view/', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ code, image,url }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log('Banner data updated successfully:', data);
-  //       // Perform any additional actions, such as updating state or displaying a success message
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error updating banner:', error);
-  //       // Handle error, such as displaying an error message
-  //     });
-
-  //   setCode("");
-  //   setImage(null);
-  //   setUrl("");
-
-  // };
-
-  // const handlebannersubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const response = await fetch('http://herbal.techiecy.com/banner/view/', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(code,image,url, ),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to submit form data');
-  //     }else{
-  //       console.log(response);
-  //     }
-
-  //     const responseData = await response.json();
-  //     setBannerData([...bannerData, responseData]);
-
-  //     // Clear form data
-  //     setCode("");
-  //     setUrl("");
-  //     setImage(null);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -128,10 +88,51 @@ const Banner = () => {
     fetchData();
   }, [BANNER_API, setData]);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+  //  post banner data start *********
+
+  const handleBannerSubmit = async (e) => {
+    e.preventDefault();
+
+    // get image, name, and redirect values from form elements
+    const image = document.getElementById("image").value;
+    const name = document.getElementById("name").value;
+    const redirect = document.getElementById("redirect").value;
+
+    const formData = {
+      image: image,
+      name: name,
+      redirect: redirect,
+      type: "add",
+    };
+
+    try {
+      const response = await fetch(BANNER_API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to submit form data. ${response.status}`);
+      } else {
+        const responseData = await response.json();
+        setData((prevData) => [...prevData, responseData]);
+
+        console.log(responseData);
+
+        // Clear form data
+        setName("");
+        setRedirect("");
+        setImage(null);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
+
+  // post banner data end **********
 
   return (
     <div style={{ display: "flex" }}>
@@ -226,7 +227,7 @@ const Banner = () => {
                         <th scope="col" style={{ width: "17%" }}>
                           Image
                         </th>
-                        <th scope="col">Code</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Url</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -235,8 +236,8 @@ const Banner = () => {
                     <tbody>
                       {Array.isArray(data) &&
                         data.map((item) => (
-                          <tr key={item.id+1}>
-                            <td>{item.id}</td>
+                          <tr key={item.id + 1}>
+                            <td>{item.name}</td>
                             {/* <td>
                       <img src={items.image} alt={items.productname} style={{maxWidth:"100px"}} />
                     </td> */}
@@ -264,21 +265,14 @@ const Banner = () => {
                             <td>{item.redirect}</td>
 
                             <td>
-                              <button
-                                className="btn btn-sm btn-primary"
-                                style={{ height: "30px" }}
-                              >
-                                Edit
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                className="btn btn-sm btn-danger"
-                                style={{ height: "30px" }}
+                              <div className="d-flex" style={{justifyContent:"space-between"}}>
+                              <MdOutlineEditCalendar className="md-edit-btn" />
+
+                              <MdOutlineDelete
+                                className="md-del-btn"
                                 onClick={() => handledelete(item.id)}
-                              >
-                                Delete
-                              </button>
+                              />
+                              </div>
                             </td>
                           </tr>
                         ))}
@@ -322,16 +316,16 @@ const Banner = () => {
             <div className="row mt-2">
               <div className="col">
                 <div className="form-group">
-                  <label className="pro-label">Code</label>
+                  <label className="pro-label">Name</label>
                   <input
                     type="text"
                     className="form-control"
-                    id="bannercode"
-                    name="bannercode"
-                    placeholder="Enter code...."
+                    id="name"
+                    name="name"
+                    placeholder="Enter banner name...."
                     style={{ fontSize: "13px" }}
-                    onChange={(e) => setCode(e.target.value)}
-                    value={code}
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
                   />
                 </div>
               </div>
@@ -342,8 +336,10 @@ const Banner = () => {
                   <input
                     type="file"
                     className="form-control"
+                    name="image"
+                    id="image"
                     accept="image/*"
-                    onChange={handleImageChange}
+                    onChange={handleImageUpload}
                   />
                 </div>
               </div>
@@ -355,9 +351,11 @@ const Banner = () => {
                   <label className="pro-label">Url</label>
                   <input
                     type="url"
+                    name="redirect"
+                    id="redirect"
                     className="form-control"
-                    onChange={(e) => setUrl(e.target.value)}
-                    value={url}
+                    onChange={(e) => setRedirect(e.target.value)}
+                    value={redirect}
                   />
                 </div>
               </div>
@@ -367,7 +365,7 @@ const Banner = () => {
               type="submit"
               className="btn buttons mt-4 shadow-lg"
               style={{ width: "100%" }}
-              // onClick={handlebannersubmit}
+              onClick={handleBannerSubmit}
             >
               Add
             </button>

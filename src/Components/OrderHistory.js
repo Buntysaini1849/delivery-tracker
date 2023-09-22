@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Sidebar from "./Sidebar";
+import { ORDER_LIST } from "./apiUrls";
+import { useSelector } from "react-redux";
 
 function OrderHistory() {
   const [orders, setOrders] = useState([
@@ -29,7 +31,7 @@ function OrderHistory() {
       selected: false,
     },
   ]);
-
+  const [orderData, setOrderData] = useState([]);
   const [deliveryBoys, setDeliveryBoys] = useState(["Amit", "Kunal", "Naveen"]);
   const [selectedDeliveryBoy, setSelectedDeliveryBoy] = useState("");
   const [selectedOrders, setSelectedOrders] = useState([]);
@@ -38,6 +40,31 @@ function OrderHistory() {
   const [searchTerm, setSearchTerm] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  const auth = useSelector((state) => state.loginauth.authToken);
+
+
+  useEffect(() => {
+    async function fetchOrderList() {
+      try {
+        const response = await fetch(ORDER_LIST, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: auth },
+          body: JSON.stringify({"type":"view"}),
+        });
+        const responseData = await response.json();
+        // console.log(auth);
+
+        setOrderData(responseData.data);
+
+        console.log(orderData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchOrderList();
+  }, []);
 
   function handleDateChange(date) {
     setStartDate(date);

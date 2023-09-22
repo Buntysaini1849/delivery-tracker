@@ -3,16 +3,19 @@ import Sidebar from "./Sidebar";
 import { addProduct, addItem } from ".././state/actions/action";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { MdCancel } from "react-icons/md";
+import {
+  MdCancel,
+  MdOutlineEditCalendar,
+  MdOutlineDelete,
+} from "react-icons/md";
 import { PRODUCTLIST_API, CATEGORYLIST_API, UNITLIST_API } from "./apiUrls";
 
 export default function Products() {
+  const [productData, setProductData] = useState([]);
 
-  const [productData,setProductData] = useState([]);
-  
-  const [options,setOptions] = useState([]);
+  const [options, setOptions] = useState([]);
 
-  const [unitOptions,setUnitOptions] = useState([])
+  const [unitOptions, setUnitOptions] = useState([]);
 
   const [form, setForm] = useState(false);
   const [itemform, setItemForm] = useState(false);
@@ -46,7 +49,7 @@ export default function Products() {
   const [gst, setGst] = useState("");
   const [selectedItem, setSelectedItem] = useState("");
   // const [gstvalue, setGstValue] = useState('');
-  const [formstyle, setFormStyle] = useState({ right: "-600px" });
+  const [formstyle, setFormStyle] = useState({ right: "-100%" });
 
   const dispatch = useDispatch();
   // const products = useSelector((state) => state.product.products);
@@ -81,9 +84,13 @@ export default function Products() {
   //Ref section ends
 
   const handleformdisplay = () => {
-    // setItemForm(false);
-    // setForm(false);
-    setFormStyle({ right: "-600px" });
+    // Slide the form back to -600px first
+    setFormStyle({ right: "-100%"});
+
+    // After a brief delay (you can adjust the delay as needed), set display to 'none'
+    setTimeout(() => {
+      setFormStyle({ right: "-100%"});
+    }, 800); // Adjust the delay as needed (500ms in this example)
   };
 
   const handlebtn = () => {
@@ -146,7 +153,6 @@ export default function Products() {
     }
   };
 
-
   // product fetch api start ***************
 
   useEffect(() => {
@@ -167,7 +173,7 @@ export default function Products() {
         for (let i = 0; i < responseData.data.length; i++) {
           console.log(responseData.data);
           setProductData(responseData.data);
-          console.log(productData,'this is product data');
+          console.log(productData, "this is product data");
         }
       } else {
         console.error("Error: Invalid data structure");
@@ -176,15 +182,9 @@ export default function Products() {
     fetchData();
   }, [PRODUCTLIST_API, setProductData]);
 
-
   // product fetch api end ******************
 
-
-
-
-
   // caterogy fetch api start ***********
-
 
   useEffect(() => {
     async function fetchCategoryData() {
@@ -204,7 +204,7 @@ export default function Products() {
         for (let i = 0; i < responseData.data.length; i++) {
           console.log(responseData.data);
           setOptions(responseData.data);
-          console.log(productData,'this is category data');
+          console.log(productData, "this is category data");
         }
       } else {
         console.error("Error: Invalid data structure");
@@ -213,14 +213,9 @@ export default function Products() {
     fetchCategoryData();
   }, [CATEGORYLIST_API, setOptions]);
 
-
   //category fetch api end ****************
 
-
-
-
   //unit fetch api start ****************
-
 
   useEffect(() => {
     async function fetchUnitData() {
@@ -240,7 +235,7 @@ export default function Products() {
         for (let i = 0; i < responseData.data.length; i++) {
           console.log(responseData.data);
           setUnitOptions(responseData.data);
-          console.log(unitOptions,'this is unit data');
+          console.log(unitOptions, "this is unit data");
         }
       } else {
         console.error("Error: Invalid data structure");
@@ -249,24 +244,7 @@ export default function Products() {
     fetchUnitData();
   }, [UNITLIST_API, setUnitOptions]);
 
-
-
-
-
-
-
-
-
-
-
   //unit
-
-
-
-
-
-
-
 
   // const handleproductsubmitform = (event) => {
   //   event.preventDefault();
@@ -294,8 +272,6 @@ export default function Products() {
 
   //   formRef.current.reset();
   // };
-
-  
 
   // const handleitemsubmitform = (e) => {
   //   e.preventDefault();
@@ -404,7 +380,7 @@ export default function Products() {
                 padding: "10px",
                 width: "100%",
                 justifyContent: "space-between",
-                marginLeft:"0px",
+                marginLeft: "0px",
               }}
             >
               <div className="col-md-6 col-sm-6">
@@ -480,76 +456,94 @@ export default function Products() {
               overflowY: "scroll",
             }}
           >
-            <div className="card main-card" style={{background: "#fff",height:"70vh",position:"relative"}}>
-              <div className="card-header card-header-p" style={{ padding: "20px 30px",border:"0px",background:"#e4e4e4"}}>
-                <h6 className="cb-font" style={{display: producttable ? "block" : "none"}}>Products</h6>
-                <h6 className="cb-font" style={{display: itemtable ? "block" : "none"}}>Items</h6>
+            <div
+              className="card main-card"
+              style={{
+                background: "#fff",
+                height: "70vh",
+                position: "relative",
+              }}
+            >
+              <div
+                className="card-header card-header-p"
+                style={{
+                  padding: "20px 30px",
+                  border: "0px",
+                  background: "#e4e4e4",
+                }}
+              >
+                <h6
+                  className="cb-font"
+                  style={{ display: producttable ? "block" : "none" }}
+                >
+                  Products
+                </h6>
+                <h6
+                  className="cb-font"
+                  style={{ display: itemtable ? "block" : "none" }}
+                >
+                  Items
+                </h6>
               </div>
               <div className="card-body py-0 px-0">
-              {productData ? (
-                <table
-                  className="table table-hover table-striped table-bordered table-responsive mt-0"
-                  style={{
-                    width: "100%",
-                    display: producttable ? "inline-table" : "none",
-                    borderRadius:"0px",                    
-                  }}
-                >
-                  <thead>
-                    <tr>
-                      <th scope="col">SN</th>
-                      {/* <th scope="col">Image</th> */}
-                      <th scope="col">Category</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">HSN</th>
-                      <th scope="col">Product Code</th>
-                      <th scope="col">Gst %</th>
-                      {/* <th scope="col">Description</th> */}
-                      {/* <th scope="col">Keywords</th> */}
-                      <th scope="col">Rating</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
+                {productData ? (
+                  <table
+                    className="table table-hover table-striped table-bordered table-responsive mt-0"
+                    style={{
+                      width: "100%",
+                      display: producttable ? "inline-table" : "none",
+                      borderRadius: "0px",
+                    }}
+                  >
+                    <thead>
+                      <tr>
+                        <th scope="col">SN</th>
+                        {/* <th scope="col">Image</th> */}
+                        <th scope="col">Category</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">HSN</th>
+                        <th scope="col">Product Code</th>
+                        <th scope="col">Gst %</th>
+                        {/* <th scope="col">Description</th> */}
+                        {/* <th scope="col">Keywords</th> */}
+                        <th scope="col">Rating</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
 
-                  <tbody>
-                  {Array.isArray(productData) &&  productData.map((items,index) => (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        {/* <td>
+                    <tbody>
+                      {Array.isArray(productData) &&
+                        productData.map((items, index) => (
+                          <tr key={index}>
+                            <td>{index + 1}</td>
+                            {/* <td>
                       <img src={items.image} alt={items.productname} style={{maxWidth:"100px"}} />
                     </td> */}
-                        <td>{items.category}</td>
-                        <td>{items.name}</td>
-                        <td>{items.hsn}</td>
-                        <td>{items.code}</td>
-                        <td>{items.gst}</td>
-                        {/* <td>{items.productdescription}</td> */}
-                        {/* <td>{items.values}</td> */}
-                        <td>5</td>
-                        <td>
-                          <button
-                            className="btn btn-sm btn-primary"
-                            style={{ height: "30px" }}
-                          >
-                            Edit
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-sm btn-danger"
-                            style={{ height: "30px" }}
-                            onClick={() => handledelete(index)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p>No data available.</p>
-              )}
+                            <td>{items.category}</td>
+                            <td>{items.name}</td>
+                            <td>{items.hsn}</td>
+                            <td>{items.code}</td>
+                            <td>{items.gst}</td>
+                            {/* <td>{items.productdescription}</td> */}
+                            {/* <td>{items.values}</td> */}
+                            <td>5</td>
+                            <td>
+                              <div className="d-flex" style={{justifyContent:"space-evenly"}}>
+                              <MdOutlineEditCalendar className="md-edit-btn" />
+
+                              <MdOutlineDelete
+                                className="md-del-btn"
+                                onClick={() => handledelete(index)}
+                              />
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p>No data available.</p>
+                )}
 
                 <table
                   className="table table-bordered table-responsive table-striped mt-1 "
@@ -585,22 +579,15 @@ export default function Products() {
                         <td>{itemdata.discount}</td>
 
                         <td>
-                          <button
-                            className="btn btn-sm btn-primary"
-                            style={{ height: "30px" }}
-                          >
-                            Edit
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-sm btn-danger"
-                            style={{ height: "30px" }}
-                            onClick={() => handledeleteitem(index)}
-                          >
-                            Delete
-                          </button>
-                        </td>
+                              <div className="d-flex" style={{justifyContent:"space-evenly"}}>
+                              <MdOutlineEditCalendar className="md-edit-btn" />
+
+                              <MdOutlineDelete
+                                className="md-del-btn"
+                                onClick={() => handledeleteitem(index)}
+                              />
+                              </div>
+                            </td>
                       </tr>
                     ))}
                   </tbody>
@@ -648,7 +635,6 @@ export default function Products() {
                     onChange={handledata}
                     ref={productCategoryRef}
                     style={{ fontSize: "13px" }}
-                    
                   >
                     <option selected={true}>
                       <p>--Select Category--</p>
@@ -909,16 +895,17 @@ export default function Products() {
                     style={{ fontSize: "13px", marginTop: "5px" }}
                   >
                     <option selected={true}>--Select unit--</option>
-                    {Array.isArray(unitOptions) &&  unitOptions.map((option) => (
-                      <option
-                        key={option.id}
-                        value={option.name}
-                        name={option.name}
-                        style={{ fontSize: "12px" }}
-                      >
-                        {option.name}
-                      </option>
-                    ))}
+                    {Array.isArray(unitOptions) &&
+                      unitOptions.map((option) => (
+                        <option
+                          key={option.id}
+                          value={option.name}
+                          name={option.name}
+                          style={{ fontSize: "12px" }}
+                        >
+                          {option.name}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>

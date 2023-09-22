@@ -916,6 +916,17 @@ td.total-amount-input {
   .rowadd-btn{
     display: none !important;
   }
+}
 
 
+.md-edit-btn {
+  font-size: 19px;
+  color: #4e30ff;
+  cursor: pointer;
+}
+
+.md-del-btn {
+  font-size: 21px;
+  color: #ff0a0a;
+  cursor: pointer;
 }

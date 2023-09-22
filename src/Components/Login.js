@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 import { BiKey } from "react-icons/bi";
 import axios from 'axios';
+import { LOGIN_API } from "./apiUrls";
+
+import { useDispatch } from 'react-redux';
+import { SET_AUTH_TOKEN, setAuthToken } from "../state/actions/action";
+
+import Cookies from "js-cookie";
+
 
 export default function Login() {
-  const userDetails = {
-    username:"admin",
-    email:"admin",
-    password:"admin"
-   };
+  const dispatch = useDispatch();
 
   const inputRef = useRef();
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [messageerror, setMessageError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [showinput, SetShowinput] = useState(false);
@@ -23,6 +23,8 @@ export default function Login() {
   const [shownewinput, SetShownewinput] = useState(false);
   const [disabledotp, setDisabledotp] = useState(true);
   const [error, setError] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const showhidediv = (e) => {
     e.preventDefault();
@@ -54,52 +56,104 @@ export default function Login() {
 
 
   
-  function handleSubmit(event) {
-    event.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+//   function handleSubmit(event) {
+//     event.preventDefault();
+//     const username = document.getElementById("username").value;
+//     const password = document.getElementById("password").value;
 
-    // Input Validation
-    if (!username || !password) {
-        console.log("Please enter both  username and password.");
-        return;
-    }
+//     // Input Validation
+//     if (!username || !password) {
+//         console.log("Please enter both  username and password.");
+//         return;
+//     }
 
-    // Authentication Check
-    if (username === userDetails.username && password === userDetails.password) {
-        console.log("Login successful!");
-        navigate("/dashboard");
+//     // Authentication Check
+//     if (username === formData.username && password === formData.password) {
+//         console.log("Login successful!");
+//         navigate("/dashboard");
+//     } else {
+//         console.log("Login failed. Please check your credentials and try again.");
+//         setError("Login failed. Please try again");
+//     }
+// }
+  
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  if (name === 'username') {
+    setUsername(value);
+  } else if (name === 'password') {
+    setPassword(value);
+  }
+};
+
+const loginData = {
+  username: username,
+  password: password,
+};
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   try {
+//     const response = await fetch(LOGIN_API, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(loginData),
+//     });
+
+//     if (response.ok) {
+//       const responseData = await response.json();
+//       const auth = responseData.auth_token;
+//       // dispatch({ type: SET_AUTH_TOKEN, payload: authToken });
+//       console.log('Login successful, Auth Token:', responseData);
+//       Cookies.set("token", auth, { expires: 1});
+//       navigate("/dashboard");
+//     } else {
+//       setMessageError("Invalid credentials");
+//     }
+//   } catch (errorMessage) {
+//     setError(errorMessage || 'Invalid username or password.');
+//   }
+// };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    // Make API call to get the authToken
+    const response = await fetch(LOGIN_API, {
+      method: "POST",
+      body: JSON.stringify(loginData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      const auth = data.auth_token;
+      console.log("Auth token:", auth);
+      Cookies.set("token", auth, { expires: 1 });
+
+      dispatch({ type: SET_AUTH_TOKEN, payload: auth });
+      navigate("/dashboard");
+      setUsername("");
+      setPassword("");
+  
+    } else if (response.status === 401) {
+      // Status code 401 indicates unauthorized access (invalid username or password)
+      console.log("Invalid username or password");
     } else {
-        console.log("Login failed. Please check your credentials and try again.");
-        setError("Login failed. Please try again");
+      // Handle other error cases here
+      console.log("Login failed with status:", response.status);
     }
-}
-  // const handleSubmit = async event => {
-  //   event.preventDefault();
-  
-  //   try {
-  //     const response = await fetch('http://ecommerce.techiecy.com/auth/login/', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({ username, password })
-  //     });
-  
-  //     const data = await response.json();
-  //     console.log(data);
-  
-  //     if (data.success) {
-  //       navigate("/dashboard");
-  //     } else {
-  //       setError("Invalid login credentials");
-  //     }
-  
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     setError(error.message || 'An error occurred');
-  //   }
-  // };
-  
-  
+  } catch (error) {
+    console.error("Login error:", error);
+  }
+};
+
+
 
   return (
     <div className="loginheader">
@@ -117,12 +171,11 @@ export default function Login() {
         <form
           className="login-form p-4 mt-2"
           style={{ width: "30%"}}
-          onSubmit={handleSubmit}
         >
           <div className="container">
-      <div class="alert alert-danger alert-dismissible fade show p-0" role="alert"  style={{display: error ? "block" : "none"}}>
+      <div className="alert alert-danger alert-dismissible fade show p-0" role="alert"  style={{display: error ? "block" : "none"}}>
           {error && <p className="mt-3" style={{padding:"2px"}}>{error}</p>} 
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
       </div>
           
@@ -133,10 +186,10 @@ export default function Login() {
               type="username"
               className="form-control login-input"
               id="username"
-              value={username}
               name="username"
               ref={inputRef}
-              onChange={(e) => setUsername(e.target.value)}
+              value={username}
+              onChange={handleChange}
               required={true}
             />
             <FaUserAlt className="usericon" />
@@ -147,9 +200,9 @@ export default function Login() {
               type="password"
               className="form-control login-input"
               id="password"
-              value={password}
               name="password"
-              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onChange={handleChange}
               required={true}
             />
             <BiKey className="keyicon" />
@@ -161,6 +214,7 @@ export default function Login() {
                 type="submit"
                 style={{ background: "rgb(108,100,251)" }}
                 className="btn login-btn mt-1 shadow-lg"
+                onClick={handleSubmit}
               >
                 Login
               </button>
